@@ -105,14 +105,12 @@
             android:layout_width="match_parent"
             android:layout_height="80dp"
             android:hint="Username"
-            app:errorEnabled="true"
-            app:startIconDrawable="@drawable/ic_baseline_lock_24"
-            >
+            app:errorEnabled="true">
 
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/user"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
+                android:layout_height="wrap_content"
                 android:hint="Username" />
         </com.google.android.material.textfield.TextInputLayout>
 
@@ -122,9 +120,7 @@
             android:layout_width="match_parent"
             android:layout_height="80dp"
             android:hint="Password"
-            app:errorEnabled="true"
-            app:startIconDrawable="@drawable/ic_baseline_person_24"
-            >
+            app:errorEnabled="true">
 
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/pass"

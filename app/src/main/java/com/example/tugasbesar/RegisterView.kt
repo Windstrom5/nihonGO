@@ -23,6 +23,7 @@ class RegisterView : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_register_view)
+        getSupportActionBar()?.hide();
         setTitle("Register Page")
         setRegister()
         btnRegister = findViewById(R.id.regisButton)
@@ -59,7 +60,7 @@ class RegisterView : AppCompatActivity() {
                 return@OnClickListener
             }else{
                 val intent = Intent(this,MainActivity::class.java)
-               val mBundle = Bundle()
+                val mBundle = Bundle()
                 mBundle.putString("username",userRegister.getEditText()?.getText().toString())
                 mBundle.putString("password",passRegister.getEditText()?.getText().toString())
                 intent.putExtra("register",mBundle)
@@ -67,10 +68,10 @@ class RegisterView : AppCompatActivity() {
             }
         })
 
-         btnlogin.setOnClickListener(){
-             val intent = Intent(this,MainActivity::class.java)
-             startActivity(intent)
-         }
+        btnlogin.setOnClickListener(){
+            val intent = Intent(this,MainActivity::class.java)
+            startActivity(intent)
+        }
     }
     fun setRegister(){
         register = findViewById(R.id.loginText)
