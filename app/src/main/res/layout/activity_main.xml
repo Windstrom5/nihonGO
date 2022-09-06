@@ -123,7 +123,9 @@
             android:layout_height="80dp"
             android:hint="Password"
             app:errorEnabled="true"
-            app:startIconDrawable="@drawable/ic_baseline_person_24">
+            app:startIconDrawable="@drawable/ic_baseline_person_24"
+            //test
+        >
 
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/pass"
