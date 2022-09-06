@@ -8,6 +8,7 @@
     tools:context=".home">
 
     <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/rv_menu"
         android:layout_width="106dp"
         android:layout_height="200dp"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -15,16 +16,22 @@
         app:layout_constraintHorizontal_bias="0.052"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.969" />
+        app:layout_constraintVertical_bias="0.0" />
 
-    <WebView
-        android:id="@+id/yt"
-        android:layout_width="312dp"
-        android:layout_height="347dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.494"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.205" />
+    <LinearLayout
+        android:id="@+id/layoutBotNav"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintTop_toBottomOf="@id/rv_menu"
+        tools:layout_editor_absoluteX="16dp">
+
+        <com.google.android.material.bottomnavigation.BottomNavigationView
+            android:id="@+id/homeBotNav"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+
+
+    </LinearLayout>
+
 </androidx.constraintlayout.widget.ConstraintLayout>
