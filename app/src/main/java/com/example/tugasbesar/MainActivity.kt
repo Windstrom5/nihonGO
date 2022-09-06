@@ -45,8 +45,8 @@ class MainActivity : AppCompatActivity() {
                 passwordInput.setError("Username tidak boleh Kosong")
                 checkLogin = false
             }
-            getBundle()
-            if (user == vuser&&pass == vpassword && !checkBundle){
+//            getBundle()
+            if (user == "admin"&&pass == "1234"){
                 checkLogin=true
             }else{
                 passwordInput.setError("Password Salah")
@@ -80,13 +80,13 @@ class MainActivity : AppCompatActivity() {
 
     }
 
-    fun getBundle(){
-        mbunlde = intent.getBundleExtra("register")!!
-        if(mbunlde == null){
-
-        }else{
-            vuser = mbunlde.getString("username")!!
-            vpassword = mbunlde.getString("password")!!
-        }
-    }
+//    fun getBundle(){
+//        mbunlde = intent.getBundleExtra("register")!!
+//        if(mbunlde == null){
+//
+//        }else{
+//            vuser = mbunlde.getString("username")!!
+//            vpassword = mbunlde.getString("password")!!
+//        }
+//    }
 }

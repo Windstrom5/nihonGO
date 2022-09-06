@@ -19,6 +19,7 @@ class RegisterView : AppCompatActivity() {
     private lateinit var userRegister : TextInputLayout
     private lateinit var passRegister : TextInputLayout
     private lateinit var confirmRegister : TextInputLayout
+    private lateinit var
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -59,10 +60,10 @@ class RegisterView : AppCompatActivity() {
                 return@OnClickListener
             }else{
                 val intent = Intent(this,MainActivity::class.java)
-                val mBundle = Bundle()
-                mBundle.putString("username",userRegister.getEditText()?.getText().toString())
-                mBundle.putString("password",passRegister.getEditText()?.getText().toString())
-                intent.putExtra("register",mBundle)
+//                val mBundle = Bundle()
+//                mBundle.putString("username",userRegister.getEditText()?.getText().toString())
+//                mBundle.putString("password",passRegister.getEditText()?.getText().toString())
+//                intent.putExtra("register",mBundle)
                 startActivity(intent)
             }
         })
