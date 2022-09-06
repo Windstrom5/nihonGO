@@ -103,11 +103,12 @@
             android:id="@+id/userInput"
             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
             android:layout_width="match_parent"
-            android:layout_height="66dp"
+            android:layout_height="80dp"
             android:hint="Username"
             app:errorEnabled="true">
 
             <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/user"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:hint="Username" />
@@ -117,11 +118,12 @@
             android:id="@+id/passInput"
             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
             android:layout_width="match_parent"
-            android:layout_height="66dp"
+            android:layout_height="80dp"
             android:hint="Password"
             app:errorEnabled="true">
 
             <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/pass"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:hint="Password"
