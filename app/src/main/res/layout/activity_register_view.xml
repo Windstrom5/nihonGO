@@ -7,19 +7,16 @@
     android:background="@drawable/background"
     tools:context=".RegisterView">
 
-    <TextView
-        android:id="@+id/textView"
-        android:layout_width="185dp"
-        android:layout_height="51dp"
-        android:fontFamily="sans-serif-black"
-        android:text="Welcome To Japan"
-        android:textSize="20dp"
+    <ImageView
+        android:id="@+id/imageView2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="508dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.544"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.07999998" />
+        app:srcCompat="@drawable/logo2" />
 
     <LinearLayout
         android:id="@+id/LinearLayout"
