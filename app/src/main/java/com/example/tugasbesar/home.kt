@@ -39,7 +39,7 @@ class home : AppCompatActivity() {
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         if (item.itemId == R.id.menulogout) {
             val builder: AlertDialog.Builder = AlertDialog.Builder(this@home)
-            builder.setMessage("Wanna Logout Ma Nibba?")
+            builder.setMessage("Wanna Logout? OwO")
                 .setNegativeButton("No", object : DialogInterface.OnClickListener {
                     override fun onClick(dialogInterface: DialogInterface, i: Int) {
 
