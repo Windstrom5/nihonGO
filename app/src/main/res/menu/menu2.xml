@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/menuWisata"
+        android:icon="@drawable/ic_wisatalogo"
+        android:title="Wisata"/>
+    <item
+        android:id="@+id/menuKuliner"
+        android:icon="@drawable/ic_baseline_fastfood_24"
+        android:title="Kuliner"/>
+    <item
+        android:id="@+id/menuEvent"
+        android:icon="@drawable/ic_baseline_car_24"
+        android:title="Event"/>
+    <item
+        android:id="@+id/menuAkomodasi"
+        android:icon="@drawable/ic_hotels_logo_41814__1_"
+        android:title="Akomodasi"/>
+</menu>

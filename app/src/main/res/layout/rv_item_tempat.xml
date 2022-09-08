@@ -7,11 +7,11 @@
     android:padding="20dp">
 
     <TextView
-        android:id="@+id/tv_namaTempat"
+        android:id="@+id/tv_rating"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginStart="14dp"
-        android:text="Nama Tempat Wisata"
+        android:text="Rating"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"/>
 
@@ -20,23 +20,18 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="Alamat Tempat Wisata"
-        app:layout_constraintBottom_toTopOf="@id/tv_namaTempat"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.054"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.761"/>
-
+        app:layout_constraintBottom_toTopOf="@id/tv_rating"/>
+    
     <TextView
-        android:id="@+id/tv_rating"
+        android:id="@+id/tv_namaTempat"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Rating"
+        android:text="Nama Tempat Wisata"
         app:layout_constraintBottom_toTopOf="@id/tv_alamat"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.054"
+        app:layout_constraintHorizontal_bias="0.4"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.761"/>
+        app:layout_constraintVertical_bias="1.0" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

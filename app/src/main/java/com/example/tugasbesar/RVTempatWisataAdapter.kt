@@ -5,10 +5,9 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
-import com.example.tugasbesar.entity.tempatWisata
+import com.example.tugasbesar.entity.tempatWisataTokyo
 
-class RVTempatWisataAdapter(private val data : Array<tempatWisata>) : RecyclerView.Adapter<RVTempatWisataAdapter.viewHolder>() {
-
+class RVTempatWisataAdapter(private val data : Array<tempatWisataTokyo>) : RecyclerView.Adapter<RVTempatWisataAdapter.viewHolder>() {
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): viewHolder {
         val itemView = LayoutInflater.from(parent.context).inflate(R.layout.rv_item_tempat, parent, false)
         return viewHolder(itemView)
