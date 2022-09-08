@@ -5,9 +5,12 @@ import android.graphics.Color
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
+import android.widget.AutoCompleteTextView
 import android.widget.Button
 import android.widget.TextView
+import com.google.android.material.textfield.TextInputEditText
 import com.google.android.material.textfield.TextInputLayout
+import java.lang.NullPointerException
 
 class MainActivity : AppCompatActivity() {
     private lateinit var register : TextView
@@ -16,19 +19,22 @@ class MainActivity : AppCompatActivity() {
     private lateinit var btnLogin : Button
     private lateinit var usernameInput : TextInputLayout
     private lateinit var passwordInput : TextInputLayout
+    private lateinit var usernameView : TextInputEditText
     lateinit var mbunlde : Bundle
     lateinit var vuser : String
-    lateinit var vstatus : String
     lateinit var vpassword : String
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+        getSupportActionBar()?.hide();
         setTitle("User Login")
         setRegister()
         usernameInput = findViewById(R.id.userInput)
         passwordInput = findViewById(R.id.passInput)
         btnLogin = findViewById<Button>(R.id.loginButton)
+        getBundle()
+        setText()
         btnLogin.setOnClickListener(View.OnClickListener{
             var checkLogin = false
             var checkBundle = false
@@ -37,20 +43,22 @@ class MainActivity : AppCompatActivity() {
             if(user.isEmpty()){
                 usernameInput.setError("Username tidak boleh Kosong")
                 checkLogin = false
+                return@OnClickListener
             }else if(pass.isEmpty()){
                 passwordInput.setError("Username tidak boleh Kosong")
                 checkLogin = false
+                return@OnClickListener
             }else if(user.isEmpty()&&pass.isEmpty()){
                 usernameInput.setError("Username tidak boleh Kosong")
                 passwordInput.setError("Username tidak boleh Kosong")
                 checkLogin = false
+                return@OnClickListener
             }
-            getBundle()
-
-            if (user == "admin"&&pass == "1234"){
+            if (user == vuser&&pass == vpassword){
                 checkLogin=true
             }else{
                 passwordInput.setError("Password Salah")
+                return@OnClickListener
             }
 
             if(!checkLogin) {
@@ -82,12 +90,23 @@ class MainActivity : AppCompatActivity() {
     }
 
     fun getBundle(){
-        mbunlde = intent.getBundleExtra("register")!!
-        if(mbunlde == null){
+        try{
+            mbunlde = intent?.getBundleExtra("register")!!
+            if(mbunlde != null){
+                vuser = mbunlde.getString("username")!!
+                vpassword = mbunlde.getString("password")!!
+            }else{
 
-        }else{
-            vuser = mbunlde.getString("username")!!
-            vpassword = mbunlde.getString("password")!!
+            }
+        }catch (e: NullPointerException){
+            vuser = ""
+
         }
+
+    }
+
+    fun setText(){
+        usernameView = findViewById(R.id.user)
+        usernameView.setText(vuser,TextView.BufferType.EDITABLE)
     }
 }
