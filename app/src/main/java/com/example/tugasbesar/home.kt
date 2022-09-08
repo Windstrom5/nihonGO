@@ -7,11 +7,35 @@ import android.view.Menu
 import android.view.MenuInflater
 import android.view.MenuItem
 import androidx.appcompat.app.AlertDialog
+import androidx.fragment.app.Fragment
+import com.google.android.material.bottomnavigation.BottomNavigationView
 
 class home : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_home)
+        val bottNav : BottomNavigationView = findViewById(R.id.botNav)
+
+        bottNav.setOnItemSelectedListener { item ->
+            when(item.itemId){
+                R.id.menuHome -> {
+                    changeFragment(FragmentTempatWisata())
+                    true
+                }
+
+                else -> false
+            }
+        }
+    }
+
+    fun changeFragment (fragment : Fragment){
+        if(fragment != null){
+            getSupportFragmentManager()
+                .beginTransaction()
+                .replace(R.id.botNav, fragment)
+                .commit()
+
+        }
     }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {

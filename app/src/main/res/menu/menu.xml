@@ -2,18 +2,22 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
     <item
         android:id="@+id/menuHome"
+        android:enabled="true"
         android:icon="@drawable/ic_home_24"
         android:title="@string/home"/>
     <item
         android:id="@+id/menuProfile"
+        android:enabled="true"
         android:icon="@drawable/ic_user_24"
         android:title="Profile"/>
     <item
         android:id="@+id/menuSettings"
+        android:enabled="true"
         android:icon="@drawable/ic_settings_24"
         android:title="Settings"/>
     <item
         android:id="@+id/menulogout"
-        android:icon="@drawable/ic_settings_24"
+        android:enabled="true"
+        android:icon="@drawable/ic_exit_24"
         android:title="Log Out"/>
 </menu>
