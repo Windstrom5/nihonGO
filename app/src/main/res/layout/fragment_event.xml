@@ -3,12 +3,12 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".FragmentTempatWisata">
+    tools:context=".FragmentEvent">
 
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/rv_kuliner"
+        android:id="@+id/rv_event"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:listitem="@layout/rv_item_kuliner"/>
+        tools:listitem="@layout/rv_item_event"/>
 
 </FrameLayout>

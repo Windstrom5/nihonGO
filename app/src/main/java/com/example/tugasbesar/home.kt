@@ -32,6 +32,9 @@ class home : AppCompatActivity() {
                 }R.id.menuKuliner->{
                     changeFragment(FragmentKuliner())
                     true
+                }R.id.menuEvent->{
+                    changeFragment(FragmentEvent())
+                    true
                 }else -> false
             }
         }
