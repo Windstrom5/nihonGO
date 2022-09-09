@@ -26,6 +26,12 @@ class home : AppCompatActivity() {
                 R.id.menuWisata -> {
                     changeFragment(FragmentTempatWisata())
                     true
+                }R.id.menuAkomodasi-> {
+                    changeFragment(FragmentAkomodasi())
+                    true
+                }R.id.menuKuliner->{
+                    changeFragment(FragmentKuliner())
+                    true
                 }else -> false
             }
         }
