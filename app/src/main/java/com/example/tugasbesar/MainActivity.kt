@@ -20,6 +20,7 @@ class MainActivity : AppCompatActivity() {
     private lateinit var usernameInput : TextInputLayout
     private lateinit var passwordInput : TextInputLayout
     private lateinit var usernameView : TextInputEditText
+    private lateinit var passwordView : TextInputEditText
     lateinit var mbunlde : Bundle
     lateinit var vuser : String
     lateinit var vpassword : String
@@ -99,11 +100,14 @@ class MainActivity : AppCompatActivity() {
             }
         }catch (e: NullPointerException){
             vuser = ""
+            vpassword = ""
         }
     }
 
     fun setText(){
         usernameView = findViewById(R.id.user)
         usernameView.setText(vuser,TextView.BufferType.EDITABLE)
+        passwordView = findViewById(R.id.pass)
+        passwordView.setText(vpassword,TextView.BufferType.EDITABLE)
     }
 }
