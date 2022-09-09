@@ -12,13 +12,23 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.FragmentTransaction
 import com.example.tugasbesar.entity.kota
+import com.google.android.material.bottomnavigation.BottomNavigationView
 
 class home : AppCompatActivity() {
-    private lateinit var kotatext: Fragment
+    private lateinit var botNav : BottomNavigationView
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_home)
         changeFragment(FragmentTempatWisata())
+        botNav = findViewById(R.id.botNav)
+        botNav.setOnNavigationItemSelectedListener {
+            when (it.itemId) {
+                R.id.menuWisata -> {
+                    changeFragment(FragmentTempatWisata())
+                    true
+                }else -> false
+            }
+        }
     }
 
     fun changeFragment(fragment: Fragment?) {
