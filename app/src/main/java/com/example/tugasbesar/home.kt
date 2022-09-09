@@ -25,6 +25,7 @@ class home : AppCompatActivity() {
             when (it.itemId) {
                 R.id.menuWisata -> {
                     changeFragment(FragmentTempatWisata())
+                    //kntl
                     true
                 }else -> false
             }
