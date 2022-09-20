@@ -11,6 +11,7 @@ import android.widget.TextView
 import com.google.android.material.textfield.TextInputEditText
 import com.google.android.material.textfield.TextInputLayout
 import java.lang.NullPointerException
+import android.widget.Toast
 
 class MainActivity : AppCompatActivity() {
     private lateinit var register : TextView
