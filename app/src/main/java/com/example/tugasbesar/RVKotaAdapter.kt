@@ -3,6 +3,7 @@ package com.example.tugasbesar
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.example.tugasbesar.entity.kota
@@ -16,7 +17,7 @@ class RVKotaAdapter(private val data : Array<kota>) : RecyclerView.Adapter<RVKot
 
     override fun onBindViewHolder(holder: viewHolder, position: Int) {
         val currentItem = data[position]
-        holder.tvName.text = currentItem.nama
+        holder.tvName.id = currentItem.nama
     }
 
     override fun getItemCount(): Int {
@@ -24,6 +25,6 @@ class RVKotaAdapter(private val data : Array<kota>) : RecyclerView.Adapter<RVKot
     }
 
     class viewHolder(itemView: View) : RecyclerView.ViewHolder(itemView){
-        val tvName : TextView = itemView.findViewById(R.id.tv_namaKota)
+        val tvName : ImageView = itemView.findViewById(R.id.item_image)
     }
 }
