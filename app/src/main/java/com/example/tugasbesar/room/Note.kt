@@ -1,0 +1,15 @@
+package com.example.gdroom_d_10858.room
+
+import androidx.room.Entity
+import androidx.room.PrimaryKey
+
+@Entity
+data class Note (
+    @PrimaryKey(autoGenerate = true)
+    val id: Int,
+    val username: String,
+    val password: String,
+    val email:String,
+    val noTelp:String,
+    val tanggallahir:String
+)
