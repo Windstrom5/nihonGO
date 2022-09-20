@@ -17,7 +17,7 @@ class RVKotaAdapter(private val data : Array<kota>) : RecyclerView.Adapter<RVKot
 
     override fun onBindViewHolder(holder: viewHolder, position: Int) {
         val currentItem = data[position]
-        holder.tvName.id = currentItem.nama
+//        holder.tvName.id = currentItem.nama
     }
 
     override fun getItemCount(): Int {
