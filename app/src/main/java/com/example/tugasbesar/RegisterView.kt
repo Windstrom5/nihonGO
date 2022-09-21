@@ -1,41 +1,71 @@
 package com.example.tugasbesar
 
+import android.app.DatePickerDialog
 import android.content.Intent
 import android.graphics.Color
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import android.widget.Button
+import android.widget.DatePicker
 import android.widget.TextView
-import androidx.core.view.isEmpty
-import androidx.core.view.isNotEmpty
+import com.example.tugasbesar.databinding.ActivityRegisterViewBinding
+import com.example.tugasbesar.room.User
+import com.example.tugasbesar.room.UserDB
 import com.google.android.material.textfield.TextInputEditText
 import com.google.android.material.textfield.TextInputLayout
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
+import java.text.SimpleDateFormat
+import java.util.*
 
-class RegisterView : AppCompatActivity() {
+class RegisterView : AppCompatActivity() , DatePickerDialog.OnDateSetListener{
     private lateinit var register : TextView
     private lateinit var btnRegister : Button
     private lateinit var btnlogin : TextView
     private lateinit var userRegister : TextInputLayout
     private lateinit var passRegister : TextInputLayout
+    private lateinit var emailRegister : TextInputLayout
+    private lateinit var teleponRegister : TextInputLayout
+    private lateinit var tanggalRegister : TextInputLayout
     private lateinit var confirmRegister : TextInputLayout
+    private lateinit var tglView : TextInputEditText
+    private val calender = Calendar.getInstance()
+    private val formatter = SimpleDateFormat("dd, MMM, yyyy",Locale.US)
+    val db by lazy { UserDB(this) }
 
+    private lateinit var binding : ActivityRegisterViewBinding
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_register_view)
+//        setContentView(R.layout.activity_main)
+
+        binding = ActivityRegisterViewBinding.inflate(layoutInflater)
+        setContentView(binding.root)
         getSupportActionBar()?.hide();
         setTitle("Register Page")
         setRegister()
-        btnRegister = findViewById(R.id.regisButton)
-        btnlogin = findViewById(R.id.loginText)
-        userRegister = findViewById(R.id.userRegis)
-        passRegister =  findViewById(R.id.passwordRegis)
-        confirmRegister = findViewById(R.id.confirmRegis)
-        btnRegister.setOnClickListener(View.OnClickListener {
+        btnRegister = binding.regisButton
+        btnlogin = binding.loginText
+        userRegister = binding.userRegis
+        passRegister =  binding.passwordRegis
+        confirmRegister = binding.confirmRegis
+        emailRegister = binding.emailRegis
+        tanggalRegister = binding.tglRegis
+        tglView = binding.tgl
+        tglView.setOnClickListener{
+            DatePickerDialog(this,this,calender.get(Calendar.YEAR),calender.get(Calendar.MONTH),calender.get(Calendar.DAY_OF_MONTH)).show()
+        }
+        teleponRegister = binding.noRegis
+        binding.regisButton.setOnClickListener(View.OnClickListener {
             var checkLogin = false
             val pass : String = passRegister.getEditText()?.getText().toString()
             val confirmpass : String = confirmRegister.getEditText()?.getText().toString()
             val user : String = userRegister.getEditText()?.getText().toString()
+            val email : String = emailRegister.getEditText()?.getText().toString()
+            val tgl : String = tanggalRegister.getEditText()?.getText().toString()
+            val tlp :String = teleponRegister.getEditText()?.getText().toString()
             if(user.isEmpty()){
                 userRegister.setError("Username tidak boleh Kosong")
                 checkLogin = false
@@ -50,6 +80,15 @@ class RegisterView : AppCompatActivity() {
                 passRegister.setError("Password tidak boleh Kosong")
                 confirmRegister.setError("Password Tidak Sama")
                 checkLogin = false
+            }else if(email.isEmpty()){
+                emailRegister.setError("Email tidak boleh Kosong")
+                checkLogin = false
+            }else if(tlp.isEmpty()) {
+                teleponRegister.setError("Nomor Telepon tidak boleh Kosong")
+                checkLogin = false
+            }else if(tgl.isEmpty()){
+                tanggalRegister.setError("Tanggal Lahir tidak boleh Kosong")
+                checkLogin = false
             }
             if (pass == confirmpass && user.isNotEmpty() && pass.isNotEmpty() && confirmpass.isNotEmpty()){
                 checkLogin=true
@@ -59,10 +98,21 @@ class RegisterView : AppCompatActivity() {
             if(!checkLogin) {
                 return@OnClickListener
             }else{
+                CoroutineScope(Dispatchers.IO).launch {
+                    db.noteDao().addNote(
+                        User(0,userRegister.getEditText()?.getText().toString(),
+                            passRegister.getEditText()?.getText().toString(),emailRegister.getEditText()?.getText().toString(),
+                            teleponRegister.getEditText()?.getText().toString(),tanggalRegister.getEditText()?.getText().toString())
+                    )
+                    finish()
+                }
                 val intent = Intent(this,MainActivity::class.java)
                 val mBundle = Bundle()
                 mBundle.putString("username",userRegister.getEditText()?.getText().toString())
                 mBundle.putString("password",passRegister.getEditText()?.getText().toString())
+                mBundle.putString("email",emailRegister.getEditText()?.getText().toString())
+                mBundle.putString("notelp",teleponRegister.getEditText()?.getText().toString())
+                mBundle.putString("tanggallahir",tanggalRegister.getEditText()?.getText().toString())
                 intent.putExtra("register",mBundle)
                 startActivity(intent)
             }
@@ -73,8 +123,20 @@ class RegisterView : AppCompatActivity() {
             startActivity(intent)
         }
     }
+
     fun setRegister(){
-        register = findViewById(R.id.loginText)
+        register = binding.loginText
         register.setTextColor(Color.parseColor("#001eff"))
+    }
+
+    override fun onDateSet(view: DatePicker?, year:Int, month:Int , dayofMonth : Int) {
+        Log.e("Calender","$year -- $month -- $dayofMonth")
+        calender.set(year, month, dayofMonth)
+        displayFormattedDate(calender.timeInMillis)
+    }
+
+    private fun displayFormattedDate(timestamp: Long){
+        findViewById<TextInputEditText>(R.id.tgl).setText(formatter.format(timestamp))
+        Log.i("Formatting",timestamp.toString())
     }
 }

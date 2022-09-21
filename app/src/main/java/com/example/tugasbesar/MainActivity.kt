@@ -1,17 +1,19 @@
 package com.example.tugasbesar
 
+import android.content.Context
 import android.content.Intent
+import android.content.SharedPreferences
 import android.graphics.Color
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
-import android.widget.AutoCompleteTextView
 import android.widget.Button
+import android.widget.EditText
 import android.widget.TextView
+import android.widget.Toast
+import com.example.tugasbesar.room.UserDB
 import com.google.android.material.textfield.TextInputEditText
 import com.google.android.material.textfield.TextInputLayout
-import java.lang.NullPointerException
-import android.widget.Toast
 
 class MainActivity : AppCompatActivity() {
     private lateinit var register : TextView
@@ -20,11 +22,18 @@ class MainActivity : AppCompatActivity() {
     private lateinit var btnLogin : Button
     private lateinit var usernameInput : TextInputLayout
     private lateinit var passwordInput : TextInputLayout
+    private val myPreference = "myPref"
+    private val user = "userKey"
+    private val pass = "passwordKey"
+    var etUsername : TextInputEditText? = null
+    var etPassword : TextInputEditText? = null
     private lateinit var usernameView : TextInputEditText
     private lateinit var passwordView : TextInputEditText
     lateinit var mbunlde : Bundle
     lateinit var vuser : String
     lateinit var vpassword : String
+    var sharedPreferences: SharedPreferences? = null
+    val db by lazy { UserDB(this) }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -37,6 +46,16 @@ class MainActivity : AppCompatActivity() {
         btnLogin = findViewById<Button>(R.id.loginButton)
         getBundle()
         setText()
+        etUsername = findViewById(R.id.user)
+        etPassword = findViewById(R.id.pass)
+        sharedPreferences = getSharedPreferences(myPreference,
+            Context.MODE_PRIVATE)
+        if (sharedPreferences!!.contains(user)) {
+            etUsername?.setText(sharedPreferences!!.getString(user, ""))
+        }
+        if (sharedPreferences!!.contains(pass)) {
+            etPassword?.setText(sharedPreferences!!.getString(pass, ""))
+        }
         btnLogin.setOnClickListener(View.OnClickListener{
             var checkLogin = false
             var checkBundle = false
@@ -66,7 +85,7 @@ class MainActivity : AppCompatActivity() {
             if(!checkLogin) {
                 return@OnClickListener
             }else{
-                val intent = Intent(this,home::class.java)
+                val intent = Intent(this,Tokyo::class.java)
                 startActivity(intent)
             }
         })
@@ -78,9 +97,14 @@ class MainActivity : AppCompatActivity() {
         }
         btnGuest = findViewById(R.id.textguest)
         btnGuest.setOnClickListener(){
-            val intent = Intent(this,home::class.java)
+            val intent = Intent(this,kota::class.java)
             startActivity(intent)
         }
+    }
+
+    fun getData(){
+
+
     }
 
     fun setRegister(){
@@ -88,6 +112,7 @@ class MainActivity : AppCompatActivity() {
         register.setTextColor(Color.parseColor("#001eff"))
         btnGuest = findViewById(R.id.textguest)
         btnGuest.setTextColor(Color.parseColor("#001eff"))
+
     }
 
     fun getBundle(){
@@ -103,6 +128,7 @@ class MainActivity : AppCompatActivity() {
             vuser = ""
             vpassword = ""
         }
+
     }
 
     fun setText(){
@@ -111,4 +137,36 @@ class MainActivity : AppCompatActivity() {
         passwordView = findViewById(R.id.pass)
         passwordView.setText(vpassword,TextView.BufferType.EDITABLE)
     }
+
+    fun readData(view: View) {
+        usernameView = findViewById(R.id.user)
+        passwordView = findViewById(R.id.pass)
+        var strUser: String =
+            etUsername?.text.toString().trim()
+        var strPass: String =
+            etPassword?.text.toString().trim()
+        strUser = sharedPreferences!!.getString(user, "")!!
+        strPass = sharedPreferences!!.getString(pass, "")!!
+        sharedPreferences = getSharedPreferences(myPreference,
+            Context.MODE_PRIVATE)
+        if (sharedPreferences!!.contains(user)) {
+            usernameView.setText(strUser,TextView.BufferType.EDITABLE)
+        }
+        if (sharedPreferences!!.contains(pass)) {
+            usernameView.setText(strPass,TextView.BufferType.EDITABLE)
+        }
+        Toast.makeText(baseContext, "Data retrieved",
+            Toast.LENGTH_SHORT).show()
+    }
+
+//    fun loadData() {
+//        CoroutineScope(Dispatchers.IO).launch {
+//            val notes = db.noteDao().getNotes()
+//            vuser = notes.get(username)
+////            Log.d("MainActivity","dbResponse: $notes")
+////            withContext(Dispatchers.Main){
+////                noteAdapter.setData( notes )
+////            }
+//        }
+//    }
 }

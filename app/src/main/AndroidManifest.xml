@@ -3,6 +3,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     package="com.example.tugasbesar">
 
+    <uses-permission android:name="android.permission.INTERNET" />
+
     <application
         android:allowBackup="true"
         android:dataExtractionRules="@xml/data_extraction_rules"
@@ -18,13 +20,21 @@
             android:name=".SplashScreen"
             android:exported="true"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar">
-        <intent-filter>
-            <action android:name="android.intent.action.MAIN" />
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
 
-            <category android:name="android.intent.category.LAUNCHER" />
-        </intent-filter>
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
         </activity>
-        //CCGXDGDFX
+        <activity
+            android:name=".kota"
+            android:exported="false" />
+        <activity
+            android:name=".Tokyo"
+            android:exported="false" />
+        <!--        <activity-->
+        <!--            android:name=".FragmentProfile"-->
+        <!--            android:exported="false" />-->
         <activity
             android:name=".home"
             android:exported="false" />

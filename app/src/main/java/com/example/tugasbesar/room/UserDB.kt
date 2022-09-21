@@ -1,4 +1,4 @@
-package com.example.gdroom_d_10858.room
+package com.example.tugasbesar.room
 
 import android.content.Context
 import androidx.room.Database
@@ -6,13 +6,13 @@ import androidx.room.Room
 import androidx.room.RoomDatabase
 
 @Database(
-    entities = [Note::class],
+    entities = [User::class],
     version = 1
 )
-abstract class NoteDB: RoomDatabase() {
-    abstract fun noteDao() : NoteDao
+abstract class UserDB: RoomDatabase() {
+    abstract fun noteDao() : UserDao
     companion object {
-        @Volatile private var instance : NoteDB? = null
+        @Volatile private var instance : UserDB? = null
         private val LOCK = Any()
         operator fun invoke(context: Context) = instance ?:
         synchronized(LOCK){
@@ -23,7 +23,7 @@ abstract class NoteDB: RoomDatabase() {
         private fun buildDatabase(context: Context) =
             Room.databaseBuilder(
                 context.applicationContext,
-                NoteDB::class.java,
+                UserDB::class.java,
                 "note12345.db"
             ).build()
     }

@@ -1,10 +1,10 @@
-package com.example.gdroom_d_10858.room
+package com.example.tugasbesar.room
 
 import androidx.room.Entity
 import androidx.room.PrimaryKey
 
 @Entity
-data class Note (
+data class User (
     @PrimaryKey(autoGenerate = true)
     val id: Int,
     val username: String,
