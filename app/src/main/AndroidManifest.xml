@@ -36,9 +36,6 @@
         <!--            android:name=".FragmentProfile"-->
         <!--            android:exported="false" />-->
         <activity
-            android:name=".home"
-            android:exported="false" />
-        <activity
             android:name=".RegisterView"
             android:exported="false" />
         <activity
