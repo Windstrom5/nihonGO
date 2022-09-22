@@ -1,4 +1,4 @@
-package com.example.tugasbesar
+package com.example.tugasbesar.fragment
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment
@@ -7,26 +7,28 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.example.tugasbesar.entity.tempatWisataTokyo
+import com.example.tugasbesar.R
+import com.example.tugasbesar.RV.RVKulinerAdapter
+import com.example.tugasbesar.entity.kulinerTokyo
 
-class FragmentTempatWisata : Fragment() {
 
+class FragmentKuliner : Fragment() {
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_tempat_wisata, container, false)
+        return inflater.inflate(R.layout.fragment_kuliner, container, false)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         val layoutManager = LinearLayoutManager(context)
-        val adapter : RVTempatWisataAdapter = RVTempatWisataAdapter(tempatWisataTokyo.listOftempatWisata)
-        val rvTempatWisataAdapter : RecyclerView = view.findViewById(R.id.rv_tempatWisata)
-        rvTempatWisataAdapter.layoutManager = layoutManager
-        rvTempatWisataAdapter.setHasFixedSize(true)
-        rvTempatWisataAdapter.adapter = adapter
+        val adapter : RVKulinerAdapter = RVKulinerAdapter(kulinerTokyo.listOfkuliner)
+        val rvKulinerAdapter : RecyclerView = view.findViewById(R.id.rv_kuliner)
+        rvKulinerAdapter.layoutManager = layoutManager
+        rvKulinerAdapter.setHasFixedSize(true)
+        rvKulinerAdapter.adapter = adapter
     }
 
     companion object {

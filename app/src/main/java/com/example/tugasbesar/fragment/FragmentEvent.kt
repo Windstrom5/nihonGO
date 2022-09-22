@@ -1,4 +1,4 @@
-package com.example.tugasbesar
+package com.example.tugasbesar.fragment
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment
@@ -7,10 +7,9 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.example.tugasbesar.entity.akomodasiTokyo
+import com.example.tugasbesar.R
+import com.example.tugasbesar.RV.RVEventAdapter
 import com.example.tugasbesar.entity.eventTokyo
-import com.example.tugasbesar.entity.kulinerTokyo
-import com.example.tugasbesar.entity.tempatWisataTokyo
 
 
 class FragmentEvent : Fragment() {

@@ -1,18 +1,17 @@
-package com.example.tugasbesar
+package com.example.tugasbesar.RV
 
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
+import com.example.tugasbesar.R
 import com.example.tugasbesar.entity.akomodasiTokyo
-import com.example.tugasbesar.entity.kulinerTokyo
-import com.example.tugasbesar.entity.tempatWisataTokyo
 
-class RVKulinerAdapter(private val data : Array<kulinerTokyo>) : RecyclerView.Adapter<RVKulinerAdapter.viewHolder>() {
+class RVAkomodasiAdapter(private val data : Array<akomodasiTokyo>) : RecyclerView.Adapter<RVAkomodasiAdapter.viewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): viewHolder {
-        val itemView = LayoutInflater.from(parent.context).inflate(R.layout.rv_item_kuliner, parent, false)
+        val itemView = LayoutInflater.from(parent.context).inflate(R.layout.rv_item_akomodasi, parent, false)
         return viewHolder(itemView)
     }
 

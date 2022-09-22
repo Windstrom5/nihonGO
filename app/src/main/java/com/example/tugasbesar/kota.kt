@@ -2,8 +2,8 @@ package com.example.tugasbesar
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import com.example.tugasbesar.RV.RVKotaAdapter
 import com.example.tugasbesar.databinding.ActivityKotaBinding
-import com.example.tugasbesar.databinding.ActivityMainBinding
 import com.example.tugasbesar.entity.kota
 
 class kota : AppCompatActivity() {

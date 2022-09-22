@@ -1,3 +1,3 @@
-package com.example.tugasbesar
+package com.example.tugasbesar.task
 
 data class TaskKota (val nama : Int)

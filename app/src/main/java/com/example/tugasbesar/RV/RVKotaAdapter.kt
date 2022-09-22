@@ -1,9 +1,10 @@
-package com.example.tugasbesar
+package com.example.tugasbesar.RV
 
 import android.content.Intent
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
+import com.example.tugasbesar.Tokyo
 import com.example.tugasbesar.databinding.RvItemKotaBinding
 import com.example.tugasbesar.entity.kota
 

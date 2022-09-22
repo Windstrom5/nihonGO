@@ -3,7 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".fragmentKota">
+    tools:context=".fragment.fragmentKota">
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rv_kota"

@@ -4,6 +4,7 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.example.tugasbesar.databinding.RvItemKotaBinding
+import com.example.tugasbesar.task.TaskKota
 
 class MainAdapterKota (val taskList: List<TaskKota>):RecyclerView.Adapter<MainAdapterKota.MainViewHolder>(){
     inner class MainViewHolder (val itemBinding: RvItemKotaBinding)

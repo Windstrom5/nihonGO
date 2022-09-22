@@ -8,6 +8,10 @@ import android.view.MenuInflater
 import android.view.MenuItem
 import androidx.appcompat.app.AlertDialog
 import androidx.fragment.app.Fragment
+import com.example.tugasbesar.fragment.FragmentAkomodasi
+import com.example.tugasbesar.fragment.FragmentEvent
+import com.example.tugasbesar.fragment.FragmentKuliner
+import com.example.tugasbesar.fragment.FragmentTempatWisata
 import com.google.android.material.bottomnavigation.BottomNavigationView
 
 class Tokyo : AppCompatActivity() {
