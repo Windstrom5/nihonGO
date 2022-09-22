@@ -4,8 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".fragmentProfile">
-
+    android:background="@drawable/background"
+    tools:context=".FragmentProfile">
 
     <LinearLayout
         android:id="@+id/LinearLayout"
@@ -19,36 +19,45 @@
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/profileView"
-        app:layout_constraintVertical_bias="0.367">
+        app:layout_constraintVertical_bias="0.16000003">
 
         <TextView
             android:id="@+id/usernameView"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginBottom="30dp"
             android:gravity="center"
+            android:textSize="20dp"
             android:text="Username" />
+
         <TextView
             android:id="@+id/emailView"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:gravity="center"
+            android:layout_marginBottom="30dp"
+            android:textSize="20dp"
             android:text="Email"
-            app:layout_constraintTop_toBottomOf="@+id/usernameView"/>
+            app:layout_constraintTop_toBottomOf="@+id/usernameView" />
 
         <TextView
             android:id="@+id/tglView"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:gravity="center"
+            android:layout_marginBottom="30dp"
+            android:textSize="20dp"
             android:text="Tanggal Lahir"
-            app:layout_constraintTop_toBottomOf="@+id/usernameView"/>
+            app:layout_constraintTop_toBottomOf="@+id/usernameView" />
+
         <TextView
             android:id="@+id/tlpView"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:gravity="center"
+            android:textSize="20dp"
             android:text="Nomor Telepon"
-            app:layout_constraintTop_toBottomOf="@+id/tglView"/>
+            app:layout_constraintTop_toBottomOf="@+id/tglView" />
     </LinearLayout>
 
     <ImageView
@@ -62,16 +71,21 @@
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.306"  />
+        app:layout_constraintVertical_bias="0.306" />
 
     <TextView
         android:id="@+id/textView"
         android:layout_width="192dp"
         android:layout_height="42dp"
+        android:fontFamily="@font/hacked"
         android:gravity="center"
         android:text="User Profile"
         android:textSize="32dp"
-        android:fontFamily="@font/hacked"
-        tools:layout_editor_absoluteX="109dp"
-        tools:layout_editor_absoluteY="94dp" />
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.552"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.127" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>
