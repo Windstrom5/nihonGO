@@ -1,10 +1,11 @@
-package com.example.tugasbesar
+package com.example.tugasbesar.RV
 
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
+import com.example.tugasbesar.R
 import com.example.tugasbesar.entity.tempatWisataTokyo
 
 class RVTempatWisataAdapter(private val data : Array<tempatWisataTokyo>) : RecyclerView.Adapter<RVTempatWisataAdapter.viewHolder>() {

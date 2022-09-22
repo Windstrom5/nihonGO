@@ -1,6 +1,6 @@
-package com.example.tugasbesar
+package com.example.tugasbesar.taskList
 
-import com.example.tugasbesar.entity.tempatWisataTokyo
+import com.example.tugasbesar.task.TaskTempatWisata
 
 object TaskListWisata {
     val taskListWisata = listOf<TaskTempatWisata>(
