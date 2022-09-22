@@ -1,10 +1,8 @@
 package com.example.tugasbesar
 
+import android.content.Intent
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
-import android.widget.ImageView
-import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.example.tugasbesar.databinding.RvItemKotaBinding
 import com.example.tugasbesar.entity.kota
@@ -27,8 +25,9 @@ class RVKotaAdapter(private val data: Array<kota>) : RecyclerView.Adapter<RVKota
         holder.itemView.setOnClickListener(){
             val id = task.id
             if(id == "Tokyo"){
-//                val intent = Intent(RVKotaAdapter,Tokyo::class.java)
-//                intent.putExtra("Tokyo",task.nama)
+                val intent = Intent(holder.itemView.context, Tokyo::class.java)
+                intent.putExtra("your_extra", "your_class_value")
+                holder.itemView.context.startActivity(intent)
             }
         }
     }
@@ -37,3 +36,4 @@ class RVKotaAdapter(private val data: Array<kota>) : RecyclerView.Adapter<RVKota
         return data.size
     }
 }
+
