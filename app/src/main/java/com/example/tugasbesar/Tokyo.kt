@@ -1,6 +1,7 @@
 package com.example.tugasbesar
 
 import android.content.DialogInterface
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.Menu
@@ -8,10 +9,7 @@ import android.view.MenuInflater
 import android.view.MenuItem
 import androidx.appcompat.app.AlertDialog
 import androidx.fragment.app.Fragment
-import com.example.tugasbesar.fragment.FragmentAkomodasi
-import com.example.tugasbesar.fragment.FragmentEvent
-import com.example.tugasbesar.fragment.FragmentKuliner
-import com.example.tugasbesar.fragment.FragmentTempatWisata
+import com.example.tugasbesar.fragment.*
 import com.google.android.material.bottomnavigation.BottomNavigationView
 
 class Tokyo : AppCompatActivity() {
@@ -67,13 +65,17 @@ class Tokyo : AppCompatActivity() {
                 .setPositiveButton("YES", object : DialogInterface.OnClickListener {
                     override fun onClick(dialogInterface: DialogInterface, i: Int) {
                         finishAndRemoveTask()
+
                     }
                 })
                 .show()
         }
-//        else if(item.itemId == R.id.menuKota) {
-////            changeFragment(fragmentKota())
-//        }
+        else if(item.itemId == R.id.menuKota) {
+            val intent = Intent(this, kota::class.java)
+            startActivity(intent)
+        }else if(item.itemId == R.id.menuProfile){
+            changeFragment(FragmentProfile())
+        }
         return super.onOptionsItemSelected(item)
     }
 }

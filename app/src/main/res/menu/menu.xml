@@ -5,11 +5,11 @@
         android:icon="@drawable/ic_home_24"
         android:title="List Kota"/>
 
-<!--    <item-->
-<!--        android:id="@+id/menuProfile"-->
-<!--        android:enabled="true"-->
-<!--        android:icon="@drawable/ic_user_24"-->
-<!--        android:title="Profile"/>-->
+    <item
+        android:id="@+id/menuProfile"
+        android:enabled="true"
+        android:icon="@drawable/ic_user_24"
+        android:title="Profile"/>
 <!--    <item-->
 <!--        android:id="@+id/menuSettings"-->
 <!--        android:enabled="true"-->
