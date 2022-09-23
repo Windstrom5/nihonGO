@@ -6,23 +6,26 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageView
+import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.example.tugasbesar.room.User
 import com.example.tugasbesar.R
 import kotlinx.android.synthetic.main.activity_profile.view.*
 
-class MainAdapterProfile (private val notes: ArrayList<User>, private val listener: OnAdapterListener) : RecyclerView.Adapter<MainAdapterProfile.NoteViewHolder>() {
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): NoteViewHolder {
-        return NoteViewHolder(
+class MainAdapterProfile (private val notes: ArrayList<User>, private val listener: OnAdapterListener) : RecyclerView.Adapter<MainAdapterProfile.viewHolder>() {
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): viewHolder {
+        return viewHolder(
             LayoutInflater.from(parent.context).inflate(R.layout.activity_profile,parent, false)
         )
     }
-    override fun onBindViewHolder(holder: NoteViewHolder, position: Int) {
+
+    override fun onBindViewHolder(holder: viewHolder, position: Int) {
         val note = notes[position]
-        holder.view.usernameView.text = note.username
-        holder.view.emailView.text = note.email
-        holder.view.tglView.text = note.tanggallahir
-        holder.view.tlpView.text = note.noTelp
+        holder.userText.text = note.username
+        holder.emailText.text = note.email
+        holder.tglText.text = note.tanggallahir
+        holder.tlpText.text = note.noTelp
 //        holder.view.text_title.setOnClickListener{
 //            listener.onClick(note)
 //        }
@@ -33,9 +36,10 @@ class MainAdapterProfile (private val notes: ArrayList<User>, private val listen
 //            listener.onDelete(note)
 //        }
     }
+
     override fun getItemCount() = notes.size
-    inner class NoteViewHolder( val view: View) :
-        RecyclerView.ViewHolder(view)
+//    inner class NoteViewHolder( val view: View) :
+//        RecyclerView.ViewHolder(view)
     @SuppressLint("NotifyDataSetChanged")
     fun setData(list: List<User>){
         notes.clear()
@@ -47,4 +51,13 @@ class MainAdapterProfile (private val notes: ArrayList<User>, private val listen
         fun onUpdate(note: User)
         fun onDelete(note: User)
     }
+
+    class viewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
+        val userText: TextView = itemView.findViewById(R.id.usernameView)
+        val emailText: TextView = itemView.findViewById(R.id.emailView)
+        val tglText: TextView = itemView.findViewById(R.id.tglView)
+        val tlpText: TextView = itemView.findViewById(R.id.tlpView)
+    }
+
+
 }
