@@ -55,20 +55,23 @@ class Tokyo : AppCompatActivity() {
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         if (item.itemId == R.id.menulogout) {
-            val builder: AlertDialog.Builder = AlertDialog.Builder(this@Tokyo)
-            builder.setMessage("Wanna Logout Ma Nibba?")
+            val builder: AlertDialog.Builder = AlertDialog.Builder(this)
+            builder.setMessage("Wanna Logout Ma Brudda?")
                 .setNegativeButton("No", object : DialogInterface.OnClickListener {
                     override fun onClick(dialogInterface: DialogInterface, i: Int) {
 
                     }
                 })
-                .setPositiveButton("YES", object : DialogInterface.OnClickListener {
-                    override fun onClick(dialogInterface: DialogInterface, i: Int) {
-                        finishAndRemoveTask()
-
-                    }
-                })
-                .show()
+                .setPositiveButton("YES"){ dialog, which ->
+//                    override fun onClick(dialogInterface: DialogInterface, i: Int) {
+//                        finishAndRemoveTask()
+                    val intent = Intent(this, MainActivity::class.java)
+                    startActivity(intent)
+                    finish()
+//                    }
+                }
+            val dialog: AlertDialog = builder.create()
+            dialog.show()
         }
         else if(item.itemId == R.id.menuKota) {
             val intent = Intent(this, kota::class.java)
