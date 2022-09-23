@@ -1,31 +1,28 @@
 package com.example.tugasbesar
 
-
 import android.annotation.SuppressLint
+import androidx.appcompat.app.AppCompatActivity
+import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.example.tugasbesar.room.User
+import com.example.tugasbesar.R
 import kotlinx.android.synthetic.main.activity_profile.view.*
 
-
-
-
-class MainAdapterProfile (private val Users: ArrayList<User>, private val listener: OnAdapterListener) : RecyclerView.Adapter<MainAdapterProfile.NoteViewHolder>(){
+class MainAdapterProfile (private val notes: ArrayList<User>, private val listener: OnAdapterListener) : RecyclerView.Adapter<MainAdapterProfile.NoteViewHolder>() {
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): NoteViewHolder {
         return NoteViewHolder(
             LayoutInflater.from(parent.context).inflate(R.layout.activity_profile,parent, false)
         )
     }
-
     override fun onBindViewHolder(holder: NoteViewHolder, position: Int) {
-        val user = Users[position]
-        holder.view.usernameView.text = user.username
-        holder.view.emailView.text = user.email
-        holder.view.tglView.text = user.tanggallahir
-        holder.view.tlpView.text = user.noTelp
-
+        val note = notes[position]
+        holder.view.usernameView.text = note.username
+        holder.view.emailView.text = note.email
+        holder.view.tglView.text = note.tanggallahir
+        holder.view.tlpView.text = note.noTelp
 //        holder.view.text_title.setOnClickListener{
 //            listener.onClick(note)
 //        }
@@ -36,21 +33,18 @@ class MainAdapterProfile (private val Users: ArrayList<User>, private val listen
 //            listener.onDelete(note)
 //        }
     }
-
-    override fun getItemCount() = Users.size
-
-    inner class NoteViewHolder( val view: View) : RecyclerView.ViewHolder(view)
-
+    override fun getItemCount() = notes.size
+    inner class NoteViewHolder( val view: View) :
+        RecyclerView.ViewHolder(view)
     @SuppressLint("NotifyDataSetChanged")
     fun setData(list: List<User>){
-        Users.clear()
-        Users.addAll(list)
+        notes.clear()
+        notes.addAll(list)
         notifyDataSetChanged()
     }
-
     interface OnAdapterListener {
-        fun onClick(user: User)
-        fun onUpdate(user: User)
-        fun onDelete(user: User)
+        fun onClick(note: User)
+        fun onUpdate(note: User)
+        fun onDelete(note: User)
     }
 }

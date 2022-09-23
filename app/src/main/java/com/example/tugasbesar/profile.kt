@@ -19,12 +19,12 @@ import kotlinx.coroutines.withContext
 
 class profile : AppCompatActivity() {
     val db by lazy { UserDB(this) }
-    lateinit var Users: MainAdapterProfile
+    lateinit var userAdapter: MainAdapterProfile
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-        loadData()
+        onStart()
 //        setupRecyclerView()
     }
 
@@ -78,7 +78,7 @@ class profile : AppCompatActivity() {
             val notes = db.noteDao().getNotes()
             Log.d("MainActivity","dbResponse: $notes")
             withContext(Dispatchers.Main){
-                Users.setData( notes )
+                userAdapter.setData( notes )
             }
         }
     }
