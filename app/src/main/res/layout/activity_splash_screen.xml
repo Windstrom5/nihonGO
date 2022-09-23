@@ -9,8 +9,6 @@
     tools:context=".SplashScreen"
     >
 
-    Imageview img;
-
     <ImageView
         android:id="@+id/imageView4"
         android:layout_width="117dp"
