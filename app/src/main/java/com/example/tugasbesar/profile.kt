@@ -10,6 +10,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.appcompat.app.AlertDialog
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.example.tugasbesar.room.Constant
 import com.example.tugasbesar.room.User
 import com.example.tugasbesar.room.UserDB
 import kotlinx.android.synthetic.main.activity_profile.*
@@ -27,6 +28,7 @@ class profile : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_profile)
         getBundle()
+        setupListener()
         onStart()
         setupRecyclerView()
     }
@@ -35,11 +37,11 @@ class profile : AppCompatActivity() {
         userAdapter = MainAdapterProfile(arrayListOf(), object : MainAdapterProfile.OnAdapterListener{
             override fun onClick(note: User) {
                 //Toast.makeText(applicationContext, note.title, Toast.LENGTH_SHORT).show()
-//                intentEdit(note.id, Constant.TYPE_READ)
+//               intentEdit(note.id, Constant.TYPE_READ)
             }
 
             override fun onUpdate(note: User) {
-//                intentEdit(note.id, Constant.TYPE_UPDATE)
+                intentEdit(note.id, Constant.TYPE_UPDATE)
             }
 
             override fun onDelete(note: User) {
@@ -100,18 +102,16 @@ class profile : AppCompatActivity() {
 
     }
 
+//
+    fun setupListener() {
+        button_update.setOnClickListener{
+            intentEdit(0,Constant.TYPE_CREATE)
+        }
+    }
 
-
-
-//    fun setupListener() {
-//        button_create.setOnClickListener{
-//            intentEdit(0,Constant.TYPE_CREATE)
-//        }
-//    }
-
-//    fun intentEdit(noteId : Int, intentType: Int){
-//        startActivity(
-//            Intent(applicationContext, EditActivity::class.java).putExtra("intent_id", noteId).putExtra("intent_type", intentType)
-//        )
-//    }
+    fun intentEdit(noteId : Int, intentType: Int){
+        startActivity(
+            Intent(applicationContext, EditActivity::class.java).putExtra("intent_id", noteId).putExtra("intent_type", intentType)
+        )
+    }
 }
