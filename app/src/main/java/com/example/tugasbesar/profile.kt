@@ -12,6 +12,7 @@ import androidx.appcompat.app.AlertDialog
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.tugasbesar.room.User
 import com.example.tugasbesar.room.UserDB
+import kotlinx.android.synthetic.main.activity_profile.*
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -26,8 +27,7 @@ class profile : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_profile)
         getBundle()
-//        onStart(vuser)
-
+        onStart()
         setupRecyclerView()
     }
 
@@ -46,7 +46,10 @@ class profile : AppCompatActivity() {
                 deleteDialog(note)
             }
         })
-        loadData(vuser)
+        list_note.apply {
+            layoutManager = LinearLayoutManager(applicationContext)
+            adapter = userAdapter
+        }
     }
 
     private fun deleteDialog(user: User){
@@ -70,7 +73,7 @@ class profile : AppCompatActivity() {
 
     override fun onStart() {
         super.onStart()
-//        loadData(vuser)
+        loadData(vuser)
     }
 
     fun loadData(vuser : String) {
