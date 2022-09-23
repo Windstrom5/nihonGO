@@ -7,7 +7,9 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.example.tugasbesar.room.User
-import kotlinx.android.synthetic.main.fragment_profil.view.*
+import kotlinx.android.synthetic.main.activity_profile.view.*
+
+
 
 
 class MainAdapterProfile (private val Users: ArrayList<User>, private val listener: OnAdapterListener) : RecyclerView.Adapter<MainAdapterProfile.NoteViewHolder>(){
