@@ -80,7 +80,7 @@ class Tokyo : AppCompatActivity() {
             val intent = Intent(this, profile::class.java)
             val mBundle = Bundle()
             mBundle.putString("username",vuser)
-            intent.putExtra("login",mBundle)
+            intent.putExtra("profile",mBundle)
             startActivity(intent)
         }
         return super.onOptionsItemSelected(item)
@@ -88,7 +88,7 @@ class Tokyo : AppCompatActivity() {
 
     fun getBundle(){
         try{
-            mbunlde = intent?.getBundleExtra("register")!!
+            mbunlde = intent?.getBundleExtra("login")!!
             if(mbunlde != null){
                 vuser = mbunlde.getString("username")!!
             }else{

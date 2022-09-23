@@ -26,31 +26,28 @@ class profile : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_profile)
         getBundle()
-        loadData(vuser)
 //        onStart(vuser)
-//        setupRecyclerView()
+
+        setupRecyclerView()
     }
 
-//    private fun setupRecyclerView() {
-//        Users = NoteAdapter(arrayListOf(), object : NoteAdapter.OnAdapterListener{
-//            override fun onClick(note: Note) {
-//                //Toast.makeText(applicationContext, note.title, Toast.LENGTH_SHORT).show()
+    private fun setupRecyclerView() {
+        userAdapter = MainAdapterProfile(arrayListOf(), object : MainAdapterProfile.OnAdapterListener{
+            override fun onClick(note: User) {
+                //Toast.makeText(applicationContext, note.title, Toast.LENGTH_SHORT).show()
 //                intentEdit(note.id, Constant.TYPE_READ)
-//            }
-//
-//            override fun onUpdate(note: Note) {
+            }
+
+            override fun onUpdate(note: User) {
 //                intentEdit(note.id, Constant.TYPE_UPDATE)
-//            }
-//
-//            override fun onDelete(note: Note) {
-//                deleteDialog(note)
-//            }
-//        })
-//        list_note.apply {
-//            layoutManager = LinearLayoutManager(applicationContext)
-//            adapter = noteAdapter
-//        }
-//    }
+            }
+
+            override fun onDelete(note: User) {
+                deleteDialog(note)
+            }
+        })
+        loadData(vuser)
+    }
 
     private fun deleteDialog(user: User){
         val alertDialog = AlertDialog.Builder(this)
@@ -81,14 +78,14 @@ class profile : AppCompatActivity() {
             val notes = db.noteDao().getUser(vuser)
             Log.d("MainActivity","dbResponse: $notes")
             withContext(Dispatchers.Main){
-                userAdapter.setData( notes )
+                userAdapter.setData(notes)
             }
         }
     }
 
     fun getBundle(){
         try{
-            mbunlde = intent?.getBundleExtra("register")!!
+            mbunlde = intent?.getBundleExtra("profile")!!
             if(mbunlde != null){
                 vuser = mbunlde.getString("username")!!
             }else{

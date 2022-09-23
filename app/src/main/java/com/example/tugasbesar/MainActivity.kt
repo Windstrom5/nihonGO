@@ -87,7 +87,7 @@ class MainActivity : AppCompatActivity() {
             }else{
                 val intent = Intent(this,Tokyo::class.java)
                 val mBundle = Bundle()
-                mBundle.putString("username",vuser)
+                mBundle.putString("username",usernameInput.getEditText()?.getText().toString())
                 intent.putExtra("login",mBundle)
                 startActivity(intent)
             }
