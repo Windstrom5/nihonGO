@@ -74,7 +74,8 @@ class Tokyo : AppCompatActivity() {
             val intent = Intent(this, kota::class.java)
             startActivity(intent)
         }else if(item.itemId == R.id.menuProfile){
-            changeFragment(FragmentProfile())
+            val intent = Intent(this, profile::class.java)
+            startActivity(intent)
         }
         return super.onOptionsItemSelected(item)
     }

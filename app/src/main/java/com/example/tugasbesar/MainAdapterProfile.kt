@@ -13,7 +13,7 @@ import kotlinx.android.synthetic.main.fragment_profil.view.*
 class MainAdapterProfile (private val Users: ArrayList<User>, private val listener: OnAdapterListener) : RecyclerView.Adapter<MainAdapterProfile.NoteViewHolder>(){
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): NoteViewHolder {
         return NoteViewHolder(
-            LayoutInflater.from(parent.context).inflate(R.layout.fragment_profil,parent, false)
+            LayoutInflater.from(parent.context).inflate(R.layout.activity_profile,parent, false)
         )
     }
 

@@ -17,6 +17,9 @@
         android:theme="@style/Theme.TugasBesar"
         tools:targetApi="31">
         <activity
+            android:name=".profile"
+            android:exported="false" />
+        <activity
             android:name=".SplashScreen"
             android:exported="true"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar">
@@ -31,10 +34,9 @@
             android:exported="false" />
         <activity
             android:name=".Tokyo"
-            android:exported="false" />
-        <!--        <activity-->
-        <!--            android:name=".FragmentProfile"-->
-        <!--            android:exported="false" />-->
+            android:exported="false" /> <!-- <activity -->
+        <!-- android:name=".FragmentProfile" -->
+        <!-- android:exported="false" /> -->
         <activity
             android:name=".RegisterView"
             android:exported="false" />
