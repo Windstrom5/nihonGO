@@ -14,7 +14,6 @@ class kota : AppCompatActivity() {
         setContentView(binding?.root)
         val adapter = RVKotaAdapter(kota.listofnamaKota)
         binding?.rvKota?.adapter = adapter
-
     }
     override fun onDestroy() {
         super.onDestroy()

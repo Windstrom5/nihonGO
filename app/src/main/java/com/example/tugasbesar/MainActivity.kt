@@ -86,6 +86,9 @@ class MainActivity : AppCompatActivity() {
                 return@OnClickListener
             }else{
                 val intent = Intent(this,Tokyo::class.java)
+                val mBundle = Bundle()
+                mBundle.putString("username",vuser)
+                intent.putExtra("login",mBundle)
                 startActivity(intent)
             }
         })
@@ -97,7 +100,7 @@ class MainActivity : AppCompatActivity() {
         }
         btnGuest = findViewById(R.id.textguest)
         btnGuest.setOnClickListener(){
-            val intent = Intent(this,kota::class.java)
+            val intent = Intent(this,Tokyo::class.java)
             startActivity(intent)
         }
     }
@@ -128,7 +131,6 @@ class MainActivity : AppCompatActivity() {
             vuser = ""
             vpassword = ""
         }
-
     }
 
     fun setText(){

@@ -20,11 +20,14 @@ import kotlinx.coroutines.withContext
 class profile : AppCompatActivity() {
     val db by lazy { UserDB(this) }
     lateinit var userAdapter: MainAdapterProfile
-
+    lateinit var mbunlde : Bundle
+    lateinit var vuser : String
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main)
-        onStart()
+        setContentView(R.layout.activity_profile)
+        getBundle()
+        loadData(vuser)
+//        onStart(vuser)
 //        setupRecyclerView()
     }
 
@@ -61,7 +64,7 @@ class profile : AppCompatActivity() {
                     dialogInterface, i -> dialogInterface.dismiss()
                 CoroutineScope(Dispatchers.IO).launch {
                     db.noteDao().deleteNote(user)
-                    loadData()
+                    loadData(vuser)
                 }
             })
         }
@@ -70,17 +73,31 @@ class profile : AppCompatActivity() {
 
     override fun onStart() {
         super.onStart()
-        loadData()
+//        loadData(vuser)
     }
 
-    fun loadData() {
+    fun loadData(vuser : String) {
         CoroutineScope(Dispatchers.IO).launch  {
-            val notes = db.noteDao().getNotes()
+            val notes = db.noteDao().getUser(vuser)
             Log.d("MainActivity","dbResponse: $notes")
             withContext(Dispatchers.Main){
                 userAdapter.setData( notes )
             }
         }
+    }
+
+    fun getBundle(){
+        try{
+            mbunlde = intent?.getBundleExtra("register")!!
+            if(mbunlde != null){
+                vuser = mbunlde.getString("username")!!
+            }else{
+
+            }
+        }catch (e: NullPointerException){
+            vuser = ""
+        }
+
     }
 
 

@@ -14,6 +14,8 @@ import com.google.android.material.bottomnavigation.BottomNavigationView
 
 class Tokyo : AppCompatActivity() {
     private lateinit var botNav : BottomNavigationView
+    lateinit var vuser : String
+    lateinit var mbunlde : Bundle
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_tokyo)
@@ -55,31 +57,46 @@ class Tokyo : AppCompatActivity() {
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         if (item.itemId == R.id.menulogout) {
-            val builder: AlertDialog.Builder = AlertDialog.Builder(this)
-            builder.setMessage("Wanna Logout Ma Brudda?")
+            val builder: AlertDialog.Builder = AlertDialog.Builder(this@Tokyo)
+            builder.setMessage("Wanna Logout Ma Nibba?")
                 .setNegativeButton("No", object : DialogInterface.OnClickListener {
                     override fun onClick(dialogInterface: DialogInterface, i: Int) {
 
                     }
                 })
-                .setPositiveButton("YES"){ dialog, which ->
-//                    override fun onClick(dialogInterface: DialogInterface, i: Int) {
-//                        finishAndRemoveTask()
-                    val intent = Intent(this, MainActivity::class.java)
-                    startActivity(intent)
-                    finish()
-//                    }
-                }
-            val dialog: AlertDialog = builder.create()
-            dialog.show()
+                .setPositiveButton("YES", object : DialogInterface.OnClickListener {
+                    override fun onClick(dialogInterface: DialogInterface, i: Int) {
+                        finishAndRemoveTask()
+
+                    }
+                })
+                .show()
         }
         else if(item.itemId == R.id.menuKota) {
             val intent = Intent(this, kota::class.java)
             startActivity(intent)
         }else if(item.itemId == R.id.menuProfile){
+            getBundle()
             val intent = Intent(this, profile::class.java)
+            val mBundle = Bundle()
+            mBundle.putString("username",vuser)
+            intent.putExtra("login",mBundle)
             startActivity(intent)
         }
         return super.onOptionsItemSelected(item)
+    }
+
+    fun getBundle(){
+        try{
+            mbunlde = intent?.getBundleExtra("register")!!
+            if(mbunlde != null){
+                vuser = mbunlde.getString("username")!!
+            }else{
+
+            }
+        }catch (e: NullPointerException){
+            vuser = ""
+        }
+
     }
 }

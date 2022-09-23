@@ -13,3 +13,5 @@ data class User (
     val noTelp:String,
     val tanggallahir:String
 )
+
+
