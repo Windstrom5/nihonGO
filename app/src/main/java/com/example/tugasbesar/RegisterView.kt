@@ -1,8 +1,14 @@
 package com.example.tugasbesar
 
 import android.app.DatePickerDialog
+import android.app.Notification
+import android.app.NotificationChannel
+import android.app.NotificationManager
+import android.content.Context
 import android.content.Intent
+import android.graphics.BitmapFactory
 import android.graphics.Color
+import android.os.Build
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
@@ -10,6 +16,8 @@ import android.view.View
 import android.widget.Button
 import android.widget.DatePicker
 import android.widget.TextView
+import androidx.core.app.NotificationCompat
+import androidx.core.app.NotificationManagerCompat
 import com.example.tugasbesar.databinding.ActivityRegisterViewBinding
 import com.example.tugasbesar.room.User
 import com.example.tugasbesar.room.UserDB
@@ -33,6 +41,8 @@ class RegisterView : AppCompatActivity() , DatePickerDialog.OnDateSetListener{
     private lateinit var confirmRegister : TextInputLayout
     private lateinit var tglView : TextInputEditText
     private val calender = Calendar.getInstance()
+    private val CHANNEL_ID_1 = "channel_notification_01"
+    private val notificationId1 = 101
     private val formatter = SimpleDateFormat("dd, MMM, yyyy",Locale.US)
     val db by lazy { UserDB(this) }
 
@@ -43,6 +53,7 @@ class RegisterView : AppCompatActivity() , DatePickerDialog.OnDateSetListener{
 
         binding = ActivityRegisterViewBinding.inflate(layoutInflater)
         setContentView(binding.root)
+        createNotificationChannel()
         getSupportActionBar()?.hide();
         setTitle("Register Page")
         setRegister()
@@ -106,6 +117,7 @@ class RegisterView : AppCompatActivity() , DatePickerDialog.OnDateSetListener{
                     )
                     finish()
                 }
+                sendNotification1()
                 val intent = Intent(this,MainActivity::class.java)
                 val mBundle = Bundle()
                 mBundle.putString("username",userRegister.getEditText()?.getText().toString())
@@ -138,5 +150,35 @@ class RegisterView : AppCompatActivity() , DatePickerDialog.OnDateSetListener{
     private fun displayFormattedDate(timestamp: Long){
         findViewById<TextInputEditText>(R.id.tgl).setText(formatter.format(timestamp))
         Log.i("Formatting",timestamp.toString())
+    }
+
+    private fun createNotificationChannel(){
+        if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.O){
+            val name = "Notification Title"
+            val descriptionText = "Notification Description"
+
+            val channel1 = NotificationChannel(CHANNEL_ID_1, name, NotificationManager.IMPORTANCE_DEFAULT).apply {
+                description = descriptionText
+            }
+            val notificationManager: NotificationManager =
+                getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
+            notificationManager.createNotificationChannel(channel1)
+        }
+    }
+
+    private fun sendNotification1(){
+
+        val builder = NotificationCompat.Builder(this, CHANNEL_ID_1)
+            .setSmallIcon(R.drawable.message_arigatou)
+            .setContentTitle(binding?.username?.text.toString())
+            .setContentText(binding?.password?.text.toString())
+            .setContentText("Have Been Registered")
+            .setPriority(NotificationCompat.PRIORITY_LOW)
+            .setStyle(NotificationCompat.BigPictureStyle()
+                .bigPicture(BitmapFactory.decodeResource(resources,R.drawable.message_arigatou)))
+
+        with(NotificationManagerCompat.from(this)){
+            notify(notificationId1, builder.build())
+        }
     }
 }
