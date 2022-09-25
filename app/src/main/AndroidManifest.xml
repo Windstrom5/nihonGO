@@ -10,9 +10,9 @@
         android:dataExtractionRules="@xml/data_extraction_rules"
         android:fontFamily="@font/hacked"
         android:fullBackupContent="@xml/backup_rules"
-        android:icon="@mipmap/ic_launcher"
+        android:icon="@mipmap/wisatalogo"
         android:label="nihonGo"
-        android:roundIcon="@mipmap/ic_launcher_round"
+        android:roundIcon="@mipmap/wisatalogo_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.TugasBesar"
         tools:targetApi="31">
