@@ -170,8 +170,7 @@ class RegisterView : AppCompatActivity() , DatePickerDialog.OnDateSetListener{
 
         val builder = NotificationCompat.Builder(this, CHANNEL_ID_1)
             .setSmallIcon(R.drawable.message_arigatou)
-            .setContentTitle(binding?.username?.text.toString())
-            .setContentText(binding?.password?.text.toString())
+            .setContentTitle("User "+binding?.username?.text.toString())
             .setContentText("Have Been Registered")
             .setPriority(NotificationCompat.PRIORITY_LOW)
             .setStyle(NotificationCompat.BigPictureStyle()

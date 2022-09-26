@@ -85,7 +85,7 @@ class MainActivity : AppCompatActivity() {
             if(!checkLogin) {
                 return@OnClickListener
             }else{
-                val intent = Intent(this,Tokyo::class.java)
+                val intent = Intent(this,kota::class.java)
                 val mBundle = Bundle()
                 mBundle.putString("username",usernameInput.getEditText()?.getText().toString())
                 intent.putExtra("login",mBundle)
@@ -100,7 +100,7 @@ class MainActivity : AppCompatActivity() {
         }
         btnGuest = findViewById(R.id.textguest)
         btnGuest.setOnClickListener(){
-            val intent = Intent(this,Tokyo::class.java)
+            val intent = Intent(this,kota::class.java)
             startActivity(intent)
         }
     }

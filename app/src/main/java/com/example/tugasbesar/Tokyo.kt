@@ -88,7 +88,7 @@ class Tokyo : AppCompatActivity() {
 
     fun getBundle(){
         try{
-            mbunlde = intent?.getBundleExtra("login")!!
+            mbunlde = intent?.getBundleExtra("profile")!!
             if(mbunlde != null){
                 vuser = mbunlde.getString("username")!!
             }else{

@@ -1,6 +1,7 @@
 package com.example.tugasbesar.RV
 
 import android.content.Intent
+import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
@@ -9,6 +10,7 @@ import com.example.tugasbesar.databinding.RvItemKotaBinding
 import com.example.tugasbesar.entity.kota
 
 class RVKotaAdapter(private val data: Array<kota>) : RecyclerView.Adapter<RVKotaAdapter.MainViewHolder>() {
+    lateinit var vuser : String
     inner class MainViewHolder (val itemBinding: RvItemKotaBinding)
         :RecyclerView.ViewHolder(itemBinding.root){
         fun bindItem(task: kota){
@@ -27,7 +29,9 @@ class RVKotaAdapter(private val data: Array<kota>) : RecyclerView.Adapter<RVKota
             val id = task.id
             if(id == "Tokyo"){
                 val intent = Intent(holder.itemView.context, Tokyo::class.java)
-                intent.putExtra("your_extra", "your_class_value")
+                val mBundle = Bundle()
+                mBundle.putString("username",vuser)
+                intent.putExtra("profile",mBundle)
                 holder.itemView.context.startActivity(intent)
             }
         }
@@ -35,6 +39,10 @@ class RVKotaAdapter(private val data: Array<kota>) : RecyclerView.Adapter<RVKota
 
     override fun getItemCount(): Int {
         return data.size
+    }
+
+    fun getVariable(user : String){
+        vuser = user
     }
 }
 
