@@ -25,6 +25,8 @@ class Tokyo : AppCompatActivity() {
 
     private var binding: ActivityMainBinding? = null
     private val CHANNEL_ID_1 = "channel_notification_01"
+    private val CHANNEL_ID_2 = "channel_notification_02"
+    private val notificationId1 = 101
     private val notificationId2 = 102
 
     private lateinit var botNav : BottomNavigationView
@@ -37,7 +39,7 @@ class Tokyo : AppCompatActivity() {
         setContentView(R.layout.activity_tokyo)
 
         createNotificationChannel()
-        sendNotification2()
+        sendNotification1()
 
         changeFragment(FragmentTempatWisata())
         botNav = findViewById(R.id.botNav)
@@ -80,7 +82,7 @@ class Tokyo : AppCompatActivity() {
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         if (item.itemId == R.id.menulogout) {
             val builder: AlertDialog.Builder = AlertDialog.Builder(this@Tokyo)
-            builder.setMessage("Wanna Logout Ma Brudda?")
+            builder.setMessage("Wanna Logout Ma Nibba?")
                 .setNegativeButton("No", object : DialogInterface.OnClickListener {
                     override fun onClick(dialogInterface: DialogInterface, i: Int) {
 
@@ -136,29 +138,19 @@ class Tokyo : AppCompatActivity() {
         }
     }
 
-    private fun sendNotification2(){
+    private fun sendNotification1(){
         val intent : Intent = Intent(this, MainActivity::class.java).apply {
             flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
         }
         val pendingIntent: PendingIntent = PendingIntent.getActivity(this, 0, intent,0)
 
         val broadcastIntent : Intent = Intent(this, NotificationReceiver::class.java)
-        broadcastIntent.putExtra("toastMessage","Welcome",)
+        broadcastIntent.putExtra("toastMessage","welcome",)
         val actionIntent = PendingIntent.getBroadcast(this, 0, broadcastIntent, PendingIntent.FLAG_UPDATE_CURRENT)
 
         val builder = NotificationCompat.Builder(this, CHANNEL_ID_1)
             .setSmallIcon(R.drawable.logo)
             .setContentTitle("Recommended Place For You in TOKYO!!")
-            .setContentText("1. Tokyo SkyTree " +
-                            "2. Tokyo Disney Land" +
-                            "3. Tokyo Ginza" +
-                            "4. Marunouchi" +
-                            "5. Asakusa" +
-                            "6. Senso-ji" +
-                            "7. Roppongi Hills" +
-                            "8. Tokyo Tower" +
-                            "9. Tokyo Museums" +
-                            "10. Shibuya Crossings ")
             .setCategory(NotificationCompat.CATEGORY_MESSAGE)
             .setColor(Color.BLUE)
             .setAutoCancel(true)
@@ -166,9 +158,20 @@ class Tokyo : AppCompatActivity() {
             .setContentIntent(pendingIntent)
             .addAction(R.mipmap.ic_launcher, "Toast", actionIntent)
             .setPriority(NotificationCompat.PRIORITY_DEFAULT)
+            .setStyle(NotificationCompat.BigTextStyle()
+                .bigText("1. Tokyo SkyTree " +
+                        "2. Tokyo Disney Land" +
+                        "3. Tokyo Ginza" +
+                        "4. Marunouchi" +
+                        "5. Asakusa" +
+                        "6. Senso-ji" +
+                        "7. Roppongi Hills" +
+                        "8. Tokyo Tower" +
+                        "9. Tokyo Museums" +
+                        "10. Shibuya Crossings "))
 
         with(NotificationManagerCompat.from(this)){
-            notify(notificationId2, builder.build())
+            notify(notificationId1, builder.build())
         }
     }
 }
