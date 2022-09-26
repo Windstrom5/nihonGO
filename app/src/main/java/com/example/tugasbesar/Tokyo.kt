@@ -1,24 +1,46 @@
 package com.example.tugasbesar
 
+import android.app.NotificationChannel
+import android.app.NotificationManager
+import android.app.PendingIntent
+import android.content.Context
 import android.content.DialogInterface
 import android.content.Intent
+import android.graphics.Color
+import android.os.Build
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuInflater
 import android.view.MenuItem
 import androidx.appcompat.app.AlertDialog
+import androidx.core.app.NotificationCompat
+import androidx.core.app.NotificationManagerCompat
 import androidx.fragment.app.Fragment
+import com.example.tugasbesar.databinding.ActivityMainBinding
 import com.example.tugasbesar.fragment.*
 import com.google.android.material.bottomnavigation.BottomNavigationView
 
 class Tokyo : AppCompatActivity() {
+
+    private var binding: ActivityMainBinding? = null
+    private val CHANNEL_ID_1 = "channel_notification_01"
+    private val CHANNEL_ID_2 = "channel_notification_02"
+    private val notificationId1 = 101
+    private val notificationId2 = 102
+
     private lateinit var botNav : BottomNavigationView
     lateinit var vuser : String
     lateinit var mbunlde : Bundle
+
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_tokyo)
+
+        createNotificationChannel()
+        sendNotification1()
+
         changeFragment(FragmentTempatWisata())
         botNav = findViewById(R.id.botNav)
         botNav.setOnNavigationItemSelectedListener {
@@ -36,8 +58,10 @@ class Tokyo : AppCompatActivity() {
                 changeFragment(FragmentEvent())
                 true
             }else -> false
+
             }
         }
+
     }
 
     fun changeFragment(fragment: Fragment?) {
@@ -98,5 +122,54 @@ class Tokyo : AppCompatActivity() {
             vuser = ""
         }
 
+    }
+
+    private fun createNotificationChannel(){
+        if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.O){
+            val name = "Notification Title"
+            val descriptionText = "Notification Description"
+
+            val channel1 = NotificationChannel(CHANNEL_ID_1, name, NotificationManager.IMPORTANCE_DEFAULT).apply {
+                description = descriptionText
+            }
+            val notificationManager: NotificationManager =
+                getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
+            notificationManager.createNotificationChannel(channel1)
+        }
+    }
+
+    private fun sendNotification1(){
+        val intent : Intent = Intent(this, MainActivity::class.java).apply {
+            flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
+        }
+        val pendingIntent: PendingIntent = PendingIntent.getActivity(this, 0, intent,0)
+
+        val broadcastIntent : Intent = Intent(this, NotificationReceiver::class.java)
+        broadcastIntent.putExtra("toastMessage","welcome",)
+        val actionIntent = PendingIntent.getBroadcast(this, 0, broadcastIntent, PendingIntent.FLAG_UPDATE_CURRENT)
+
+        val builder = NotificationCompat.Builder(this, CHANNEL_ID_1)
+            .setContentTitle("Recommended Place For You in TOKYO!!")
+            .setContentText("1. Tokyo SkyTree " +
+                            "2. Tokyo Disney Land" +
+                            "3. Tokyo Ginza" +
+                            "4. Marunouchi" +
+                            "5. Asakusa" +
+                            "6. Senso-ji" +
+                            "7. Roppongi Hills" +
+                            "8. Tokyo Tower" +
+                            "9. Tokyo Museums" +
+                            "10. Shibuya Crossings ")
+            .setCategory(NotificationCompat.CATEGORY_MESSAGE)
+            .setColor(Color.BLUE)
+            .setAutoCancel(true)
+            .setOnlyAlertOnce(true)
+            .setContentIntent(pendingIntent)
+            .addAction(R.mipmap.ic_launcher, "Toast", actionIntent)
+            .setPriority(NotificationCompat.PRIORITY_DEFAULT)
+
+        with(NotificationManagerCompat.from(this)){
+            notify(notificationId1, builder.build())
+        }
     }
 }
