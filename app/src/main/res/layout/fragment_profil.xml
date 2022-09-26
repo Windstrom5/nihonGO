@@ -58,6 +58,7 @@
             android:text="Nomor Telepon"
             android:textSize="20dp"
             app:layout_constraintTop_toBottomOf="@+id/tglView" />
+
     </LinearLayout>
 
     <ImageView
@@ -94,15 +95,18 @@
         android:layout_height="349dp"
         app:layout_constraintBottom_toTopOf="@+id/LinearLayout"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.494"
+        app:layout_constraintHorizontal_bias="0.492"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView"
-        tools:src="@drawable/purplesmoke_frame" />
+        app:layout_constraintVertical_bias="0.517"
+        app:srcCompat="@drawable/logo5"
+        tools:src="@drawable/logo5" />
 
     <Button
         android:id="@+id/button_save"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
         android:text="SAVE"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"

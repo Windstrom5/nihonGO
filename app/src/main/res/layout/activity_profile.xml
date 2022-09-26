@@ -11,8 +11,8 @@
         android:id="@+id/list_note"
         android:layout_width="match_parent"
         android:layout_height="250dp"
-        android:layout_marginTop="12dp"
-        app:layout_constraintHorizontal_bias="1.0"
+        android:layout_marginTop="40dp"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/profileView" />
@@ -47,15 +47,16 @@
 
     <ImageView
         android:id="@+id/imageView3"
-        android:layout_width="200dp"
-        android:layout_height="200dp"
+        android:layout_width="236dp"
+        android:layout_height="220dp"
         app:layout_constraintBottom_toTopOf="@+id/list_note"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.497"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView"
         app:layout_constraintVertical_bias="0.846"
-        tools:src="@drawable/purplesmoke_frame" />
+        app:srcCompat="@drawable/logo5"
+        tools:src="@drawable/logo5" />
 
     <Button
         android:id="@+id/button_delete"
