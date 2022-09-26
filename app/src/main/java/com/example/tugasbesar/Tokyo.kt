@@ -159,16 +159,16 @@ class Tokyo : AppCompatActivity() {
             .addAction(R.mipmap.ic_launcher, "Toast", actionIntent)
             .setPriority(NotificationCompat.PRIORITY_DEFAULT)
             .setStyle(NotificationCompat.BigTextStyle()
-                .bigText("1. Tokyo SkyTree " +
-                        "2. Tokyo Disney Land" +
-                        "3. Tokyo Ginza" +
-                        "4. Marunouchi" +
-                        "5. Asakusa" +
-                        "6. Senso-ji" +
-                        "7. Roppongi Hills" +
-                        "8. Tokyo Tower" +
-                        "9. Tokyo Museums" +
-                        "10. Shibuya Crossings "))
+                .bigText("1. Tokyo SkyTree \n" +
+                        "2. Tokyo Disney Land \n" +
+                        "3. Tokyo Ginza \n" +
+                        "4. Marunouchi \n" +
+                        "5. Asakusa \n" +
+                        "6. Senso-ji \n" +
+                        "7. Roppongi Hills \n" +
+                        "8. Tokyo Tower \n" +
+                        "9. Tokyo Museums \n" +
+                        "10. Shibuya Crossings \n"))
 
         with(NotificationManagerCompat.from(this)){
             notify(notificationId1, builder.build())
