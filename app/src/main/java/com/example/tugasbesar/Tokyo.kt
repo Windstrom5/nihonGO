@@ -6,6 +6,7 @@ import android.app.PendingIntent
 import android.content.Context
 import android.content.DialogInterface
 import android.content.Intent
+import android.graphics.BitmapFactory
 import android.graphics.Color
 import android.os.Build
 import androidx.appcompat.app.AppCompatActivity
@@ -28,6 +29,8 @@ class Tokyo : AppCompatActivity() {
     private val CHANNEL_ID_2 = "channel_notification_02"
     private val notificationId1 = 101
     private val notificationId2 = 102
+    val GROUP_KEY_WORK_EMAIL = "com.example.WORK_EMAIL"
+    val SUMMARY_ID = 0
 
     private lateinit var botNav : BottomNavigationView
     lateinit var vuser : String
@@ -148,7 +151,7 @@ class Tokyo : AppCompatActivity() {
         broadcastIntent.putExtra("toastMessage","welcome",)
         val actionIntent = PendingIntent.getBroadcast(this, 0, broadcastIntent, PendingIntent.FLAG_UPDATE_CURRENT)
 
-        val builder = NotificationCompat.Builder(this, CHANNEL_ID_1)
+        val notif1 = NotificationCompat.Builder(this, CHANNEL_ID_1)
             .setSmallIcon(R.drawable.logo)
             .setContentTitle("Recommended Place For You in TOKYO!!")
             .setCategory(NotificationCompat.CATEGORY_MESSAGE)
@@ -170,8 +173,36 @@ class Tokyo : AppCompatActivity() {
                         "9. Tokyo Museums \n" +
                         "10. Shibuya Crossings \n"))
 
-        with(NotificationManagerCompat.from(this)){
-            notify(notificationId1, builder.build())
+            .setGroup(GROUP_KEY_WORK_EMAIL)
+            .build()
+
+        val notif2 = NotificationCompat.Builder(this, CHANNEL_ID_1)
+            .setSmallIcon(R.drawable.message_arigatou)
+            .setContentTitle("Welcome!!")
+            .setContentText("Explore the streets of Tokyo :)")
+            .setPriority(NotificationCompat.PRIORITY_LOW)
+            .setStyle(NotificationCompat.BigPictureStyle()
+                .bigPicture(BitmapFactory.decodeResource(resources,R.drawable.message_arigatou)))
+            .setGroup(GROUP_KEY_WORK_EMAIL)
+            .build()
+
+        val summaryNotif = NotificationCompat.Builder(this, CHANNEL_ID_1)
+            .setContentText("You have two message")
+            .setSmallIcon(R.drawable.message_arigatou)
+            .setStyle(NotificationCompat.InboxStyle()
+                .addLine("Recommended Place For You in TOKYO!!")
+                .addLine("Welcome!!")
+                .setBigContentTitle("2 new messages")
+                .setSummaryText("janedoe@example.com"))
+            .setGroup(GROUP_KEY_WORK_EMAIL)
+            .setGroupSummary(true)
+            .build()
+
+        NotificationManagerCompat.from(this).apply {
+            notify(notificationId1,notif1)
+            notify(notificationId2,notif2)
+            notify(SUMMARY_ID, summaryNotif)
         }
     }
+
 }
