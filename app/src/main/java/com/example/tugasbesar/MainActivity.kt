@@ -6,14 +6,21 @@ import android.content.SharedPreferences
 import android.graphics.Color
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import android.widget.Button
 import android.widget.EditText
 import android.widget.TextView
 import android.widget.Toast
+import com.example.tugasbesar.room.User
 import com.example.tugasbesar.room.UserDB
 import com.google.android.material.textfield.TextInputEditText
 import com.google.android.material.textfield.TextInputLayout
+import kotlinx.android.synthetic.main.activity_register_view.*
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 
 class MainActivity : AppCompatActivity() {
     private lateinit var register : TextView
@@ -31,6 +38,8 @@ class MainActivity : AppCompatActivity() {
     private lateinit var passwordView : TextInputEditText
     lateinit var mbunlde : Bundle
     lateinit var vuser : String
+    private var usernamedb :String = ""
+    private var passworddb :String = ""
     lateinit var vpassword : String
     var sharedPreferences: SharedPreferences? = null
     val db by lazy { UserDB(this) }
@@ -75,13 +84,28 @@ class MainActivity : AppCompatActivity() {
                 checkLogin = false
                 return@OnClickListener
             }
-            if (user == vuser&&pass == vpassword){
+            CoroutineScope(Dispatchers.IO).launch {
+                val Account: User? = db.noteDao().getAccount(user,pass)
+                if(Account!=null){
+                    Log.d("MainActivity","dbResponse: $Account")
+                    withContext(Dispatchers.Main){
+                        usernamedb =  Account.username
+                        passworddb = Account.password
+                    }
+                }else{
+                    usernamedb = ""
+                    passworddb = ""
+                }
+            }
+            if(usernamedb == "" && passworddb == ""){
+                usernameInput.setError("Akun Belum Terdaftar di Database")
+                return@OnClickListener
+            }else if (user == usernamedb&&pass == passworddb){
                 checkLogin=true
             }else{
                 passwordInput.setError("Password Salah")
                 return@OnClickListener
             }
-
             if(!checkLogin) {
                 return@OnClickListener
             }else{
@@ -103,11 +127,6 @@ class MainActivity : AppCompatActivity() {
             val intent = Intent(this,kota::class.java)
             startActivity(intent)
         }
-    }
-
-    fun getData(){
-
-
     }
 
     fun setRegister(){
@@ -161,14 +180,11 @@ class MainActivity : AppCompatActivity() {
             Toast.LENGTH_SHORT).show()
     }
 
-//    fun loadData() {
+//    fun loadData(usercheck:String,passcheck:String) {
 //        CoroutineScope(Dispatchers.IO).launch {
-//            val notes = db.noteDao().getNotes()
-//            vuser = notes.get(username)
-////            Log.d("MainActivity","dbResponse: $notes")
-////            withContext(Dispatchers.Main){
-////                noteAdapter.setData( notes )
-////            }
+//            val Account = db.noteDao().getAccount(usercheck,passcheck)
+//            usernamedb = Account.get(0).username
+//            passworddb = Account.get(0).password
 //        }
 //    }
 }
