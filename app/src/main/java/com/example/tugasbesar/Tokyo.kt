@@ -204,5 +204,4 @@ class Tokyo : AppCompatActivity() {
             notify(SUMMARY_ID, summaryNotif)
         }
     }
-
 }
