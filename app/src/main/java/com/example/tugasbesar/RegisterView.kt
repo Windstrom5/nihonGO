@@ -1,9 +1,6 @@
 package com.example.tugasbesar
 
-import android.app.DatePickerDialog
-import android.app.Notification
-import android.app.NotificationChannel
-import android.app.NotificationManager
+import android.app.*
 import android.content.Context
 import android.content.Intent
 import android.graphics.BitmapFactory
@@ -168,12 +165,18 @@ class RegisterView : AppCompatActivity() , DatePickerDialog.OnDateSetListener{
     }
 
     private fun sendNotification1(){
+        val broadcastIntent : Intent = Intent(this, NotificationReceiver::class.java)
+        broadcastIntent.putExtra("toastMessage","welcome",)
+        val actionIntent = PendingIntent.getBroadcast(this, 0, broadcastIntent, PendingIntent.FLAG_UPDATE_CURRENT)
+
 
         val builder = NotificationCompat.Builder(this, CHANNEL_ID_1)
             .setSmallIcon(R.drawable.message_arigatou)
             .setContentTitle("User "+binding?.username?.text.toString())
             .setContentText("Have Been Registered")
             .setPriority(NotificationCompat.PRIORITY_LOW)
+            .setColor(Color.BLUE)
+            .addAction(R.mipmap.ic_launcher, "Toast", actionIntent)
             .setGroup(GROUP_KEY_WORK_EMAIL)
             .setStyle(NotificationCompat.BigPictureStyle()
                 .bigPicture(BitmapFactory.decodeResource(resources,R.drawable.message_arigatou)))

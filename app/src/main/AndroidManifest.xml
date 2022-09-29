@@ -33,10 +33,13 @@
         </activity>
         <activity
             android:name=".kota"
-            android:exported="false" />
+            android:exported="false"
+            android:label="Select Region"
+            />
         <activity
             android:name=".Tokyo"
-            android:exported="false" /> <!-- <activity -->
+            android:exported="false"
+            /> <!-- <activity -->
         <!-- android:name=".FragmentProfile" -->
         <!-- android:exported="false" /> -->
         <activity
