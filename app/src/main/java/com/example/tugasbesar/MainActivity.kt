@@ -17,10 +17,8 @@ import com.example.tugasbesar.room.UserDB
 import com.google.android.material.textfield.TextInputEditText
 import com.google.android.material.textfield.TextInputLayout
 import kotlinx.android.synthetic.main.activity_register_view.*
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.launch
-import kotlinx.coroutines.withContext
+import kotlinx.coroutines.*
+import kotlinx.coroutines.async
 
 class MainActivity : AppCompatActivity() {
     private lateinit var register : TextView
@@ -38,8 +36,9 @@ class MainActivity : AppCompatActivity() {
     private lateinit var passwordView : TextInputEditText
     lateinit var mbunlde : Bundle
     lateinit var vuser : String
-    private var usernamedb :String = ""
-    private var passworddb :String = ""
+    lateinit var usernamedb :String
+    lateinit var account :User
+    lateinit var passworddb :String
     lateinit var vpassword : String
     var sharedPreferences: SharedPreferences? = null
     val db by lazy { UserDB(this) }
@@ -84,26 +83,44 @@ class MainActivity : AppCompatActivity() {
                 checkLogin = false
                 return@OnClickListener
             }
-            CoroutineScope(Dispatchers.IO).launch {
-                val Account: User? = db.noteDao().getAccount(user,pass)
-                if(Account!=null){
-                    Log.d("MainActivity","dbResponse: $Account")
-                    withContext(Dispatchers.Main){
-                        usernamedb =  Account.username
-                        passworddb = Account.password
+            runBlocking(){
+                val usernameDb = async {
+                    val Account: User? = db.noteDao().getAccount(user, pass)
+                    if (Account != null) {
+                        Account.username
+                    } else {
+                        null
                     }
-                }else{
-                    usernamedb = ""
-                    passworddb = ""
                 }
+                val passwordDb = async {
+                    val Account: User? = db.noteDao().getAccount(user, pass)
+                    Log.d("MainActivity","dbResponse: $Account")
+                    if (Account != null) {
+                        Account.password
+                    } else {
+                        null
+                    }
+                }
+                usernamedb = usernameDb.await().toString()
+                passworddb = passwordDb.await().toString()
             }
-            if(usernamedb == "" && passworddb == ""){
-                usernameInput.setError("Akun Belum Terdaftar di Database")
-                return@OnClickListener
-            }else if (user == usernamedb&&pass == passworddb){
+//            CoroutineScope(Dispatchers.IO).launch {
+//                val Account: User? = db.noteDao().getAccount(user,pass)
+//                if(Account!=null){
+//                    Log.d("MainActivity","dbResponse: $Account")
+//                    withContext(Dispatchers.Main){
+//                        usernamedb =  Account.username
+//                        passworddb = Account.password
+//                    }
+//                }else{
+//                    usernamedb = ""
+//                    passworddb = ""
+//                }
+//            }
+            if (user == usernamedb&&pass == passworddb){
                 checkLogin=true
             }else{
-                passwordInput.setError("Password Salah")
+                usernameInput.setError("Username Atau Password Salah")
                 return@OnClickListener
             }
             if(!checkLogin) {
@@ -178,6 +195,11 @@ class MainActivity : AppCompatActivity() {
         }
         Toast.makeText(baseContext, "Data retrieved",
             Toast.LENGTH_SHORT).show()
+    }
+
+    fun makeData(user: String,pass:String){
+        usernamedb = user
+        passworddb = pass
     }
 
 //    fun loadData(usercheck:String,passcheck:String) {
