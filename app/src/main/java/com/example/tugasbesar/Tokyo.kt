@@ -21,6 +21,7 @@ import androidx.fragment.app.Fragment
 import com.example.tugasbesar.databinding.ActivityMainBinding
 import com.example.tugasbesar.fragment.*
 import com.google.android.material.bottomnavigation.BottomNavigationView
+import io.grpc.internal.GrpcUtil
 
 class Tokyo : AppCompatActivity() {
 
@@ -28,8 +29,9 @@ class Tokyo : AppCompatActivity() {
     private val CHANNEL_ID_1 = "channel_notification_01"
     private val CHANNEL_ID_2 = "channel_notification_02"
     private val notificationId1 = 101
+    val GROUP = "com.example.tugasbesar"
     private val notificationId2 = 102
-    val GROUP_KEY_WORK_EMAIL = "com.example.WORK_EMAIL"
+    val GROUP_KEY_WORK_EMAIL = "com.android.example.tugasbesar"
     val SUMMARY_ID = 0
 
     private lateinit var botNav : BottomNavigationView
@@ -172,6 +174,8 @@ class Tokyo : AppCompatActivity() {
                         "8. Tokyo Tower \n" +
                         "9. Tokyo Museums \n" +
                         "10. Shibuya Crossings \n"))
+            .setGroup(GROUP)
+            .setGroupSummary(true)
 
             .setGroup(GROUP_KEY_WORK_EMAIL)
             .build()
@@ -192,8 +196,7 @@ class Tokyo : AppCompatActivity() {
             .setStyle(NotificationCompat.InboxStyle()
                 .addLine("Recommended Place For You in TOKYO!!")
                 .addLine("Welcome!!")
-                .setBigContentTitle("2 new messages")
-                .setSummaryText("janedoe@example.com"))
+                .setBigContentTitle("2 new messages"))
             .setGroup(GROUP_KEY_WORK_EMAIL)
             .setGroupSummary(true)
             .build()

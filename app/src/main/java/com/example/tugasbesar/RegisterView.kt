@@ -44,6 +44,7 @@ class RegisterView : AppCompatActivity() , DatePickerDialog.OnDateSetListener{
     private val CHANNEL_ID_1 = "channel_notification_01"
     private val notificationId1 = 101
     private val formatter = SimpleDateFormat("dd, MMM, yyyy",Locale.US)
+    val GROUP_KEY_WORK_EMAIL = "com.android.example.tugasbesar"
     val db by lazy { UserDB(this) }
 
     private lateinit var binding : ActivityRegisterViewBinding
@@ -173,6 +174,7 @@ class RegisterView : AppCompatActivity() , DatePickerDialog.OnDateSetListener{
             .setContentTitle("User "+binding?.username?.text.toString())
             .setContentText("Have Been Registered")
             .setPriority(NotificationCompat.PRIORITY_LOW)
+            .setGroup(GROUP_KEY_WORK_EMAIL)
             .setStyle(NotificationCompat.BigPictureStyle()
                 .bigPicture(BitmapFactory.decodeResource(resources,R.drawable.message_arigatou)))
 
