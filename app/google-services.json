@@ -1,33 +1,33 @@
 {
   "project_info": {
-    "project_number": "1031054171500",
-    "project_id": "tugasbesar-437e8",
-    "storage_bucket": "tugasbesar-437e8.appspot.com"
+    "project_number": "439143479912",
+    "project_id": "tugasbesar-a6e53",
+    "storage_bucket": "tugasbesar-a6e53.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:1031054171500:android:8e4d0e41f0b49911d1e749",
+        "mobilesdk_app_id": "1:439143479912:android:746ade04f2024c75dfd9dd",
         "android_client_info": {
           "package_name": "com.example.tugasbesar"
         }
       },
       "oauth_client": [
         {
-          "client_id": "1031054171500-snk66ah04fs7n888hldits9gcnsmsfl8.apps.googleusercontent.com",
+          "client_id": "439143479912-qduvidafut1o4eal8aoh598htdo555qr.apps.googleusercontent.com",
           "client_type": 3
         }
       ],
       "api_key": [
         {
-          "current_key": "AIzaSyBKFh5qSzFGSeSFfEvw74ilESCkyV-NHSg"
+          "current_key": "AIzaSyAHwWv8g-bwbGgCaBrSYqck_es0-viSb5U"
         }
       ],
       "services": {
         "appinvite_service": {
           "other_platform_oauth_client": [
             {
-              "client_id": "1031054171500-snk66ah04fs7n888hldits9gcnsmsfl8.apps.googleusercontent.com",
+              "client_id": "439143479912-qduvidafut1o4eal8aoh598htdo555qr.apps.googleusercontent.com",
               "client_type": 3
             }
           ]
