@@ -18,13 +18,15 @@ import androidx.appcompat.app.AlertDialog
 import androidx.core.app.NotificationCompat
 import androidx.core.app.NotificationManagerCompat
 import androidx.fragment.app.Fragment
+import com.example.tugasbesar.databinding.ActivityEditBinding
 import com.example.tugasbesar.databinding.ActivityMainBinding
+import com.example.tugasbesar.databinding.ActivityTokyoBinding
 import com.example.tugasbesar.fragment.*
 import com.google.android.material.bottomnavigation.BottomNavigationView
 
 class Tokyo : AppCompatActivity() {
 
-    private var binding: ActivityMainBinding? = null
+    //private var binding: ActivityMainBinding? = null
     private val CHANNEL_ID_1 = "channel_notification_01"
     private val CHANNEL_ID_2 = "channel_notification_02"
     private val notificationId1 = 101
@@ -37,16 +39,18 @@ class Tokyo : AppCompatActivity() {
     lateinit var vuser : String
     lateinit var mbunlde : Bundle
 
+    private lateinit var binding: ActivityTokyoBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_tokyo)
+        binding = ActivityTokyoBinding.inflate(layoutInflater)
+        setContentView(binding.root)
 
         createNotificationChannel()
         sendNotification1()
 
         changeFragment(FragmentTempatWisata())
-        botNav = findViewById(R.id.botNav)
+        botNav = binding.botNav
         botNav.setOnNavigationItemSelectedListener {
             when (it.itemId) {
                 R.id.menuWisata -> {
@@ -86,7 +90,7 @@ class Tokyo : AppCompatActivity() {
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         if (item.itemId == R.id.menulogout) {
             val builder: AlertDialog.Builder = AlertDialog.Builder(this@Tokyo)
-            builder.setMessage("Wanna Logout Ma Nibba?")
+            builder.setMessage("Want to log out?")
                 .setNegativeButton("No", object : DialogInterface.OnClickListener {
                     override fun onClick(dialogInterface: DialogInterface, i: Int) {
 

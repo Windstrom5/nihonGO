@@ -3,6 +3,7 @@ package com.example.tugasbesar
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
+import com.example.tugasbesar.databinding.ActivityEditBinding
 import com.example.tugasbesar.room.Constant
 import com.example.tugasbesar.room.User
 import com.example.tugasbesar.room.UserDB
@@ -12,11 +13,15 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
 class EditActivity : AppCompatActivity() {
+
+    private lateinit var binding: ActivityEditBinding
+
     val db by lazy { UserDB(this) }
     private var userid: Int = 0
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_edit)
+        binding = ActivityEditBinding.inflate(layoutInflater)
+        setContentView(binding.root)
         setupView()
         setupListener()
 //

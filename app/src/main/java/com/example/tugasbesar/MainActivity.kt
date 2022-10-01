@@ -12,6 +12,8 @@ import android.widget.Button
 import android.widget.EditText
 import android.widget.TextView
 import android.widget.Toast
+import com.example.tugasbesar.databinding.ActivityEditBinding
+import com.example.tugasbesar.databinding.ActivityMainBinding
 import com.example.tugasbesar.room.User
 import com.example.tugasbesar.room.UserDB
 import com.google.android.material.textfield.TextInputEditText
@@ -43,19 +45,24 @@ class MainActivity : AppCompatActivity() {
     var sharedPreferences: SharedPreferences? = null
     val db by lazy { UserDB(this) }
 
+    private lateinit var binding: ActivityMainBinding
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main)
+
+        binding = ActivityMainBinding.inflate(layoutInflater)
+
+        setContentView(binding.root)
         getSupportActionBar()?.hide();
         setTitle("User Login")
         setRegister()
-        usernameInput = findViewById(R.id.userInput)
-        passwordInput = findViewById(R.id.passInput)
-        btnLogin = findViewById<Button>(R.id.loginButton)
+        usernameInput = binding.userInput
+        passwordInput = binding.passInput
+        btnLogin = binding.loginButton
         getBundle()
         setText()
-        etUsername = findViewById(R.id.user)
-        etPassword = findViewById(R.id.pass)
+        etUsername = binding.user
+        etPassword = binding.pass
         sharedPreferences = getSharedPreferences(myPreference,
             Context.MODE_PRIVATE)
         if (sharedPreferences!!.contains(user)) {
@@ -147,9 +154,9 @@ class MainActivity : AppCompatActivity() {
     }
 
     fun setRegister(){
-        register = findViewById(R.id.registerText)
+        register = binding.registerText
         register.setTextColor(Color.parseColor("#001eff"))
-        btnGuest = findViewById(R.id.textguest)
+        btnGuest = binding.textguest
         btnGuest.setTextColor(Color.parseColor("#001eff"))
 
     }
@@ -170,15 +177,15 @@ class MainActivity : AppCompatActivity() {
     }
 
     fun setText(){
-        usernameView = findViewById(R.id.user)
+        usernameView = binding.user
         usernameView.setText(vuser,TextView.BufferType.EDITABLE)
-        passwordView = findViewById(R.id.pass)
+        passwordView = binding.pass
         passwordView.setText(vpassword,TextView.BufferType.EDITABLE)
     }
 
     fun readData(view: View) {
-        usernameView = findViewById(R.id.user)
-        passwordView = findViewById(R.id.pass)
+        usernameView = binding.user
+        passwordView = binding.pass
         var strUser: String =
             etUsername?.text.toString().trim()
         var strPass: String =
