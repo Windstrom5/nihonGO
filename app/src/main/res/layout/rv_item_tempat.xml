@@ -21,7 +21,7 @@
         android:layout_height="wrap_content"
         android:text="Alamat Tempat Wisata"
         app:layout_constraintBottom_toTopOf="@id/tv_rating"/>
-    
+
     <TextView
         android:id="@+id/tv_namaTempat"
         android:layout_width="match_parent"

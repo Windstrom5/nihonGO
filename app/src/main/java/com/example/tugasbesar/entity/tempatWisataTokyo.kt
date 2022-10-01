@@ -9,6 +9,8 @@ class tempatWisataTokyo(var name : String, var alamat : String, var rating : Dou
             tempatWisataTokyo("Tokyo Skytree"," 1 Chome-1-2 Oshiage, Sumida City, Tokyo",5.0),
             tempatWisataTokyo("Tsukiji Outer Market","4 Chome-16-2 Tsukiji, Chuo-ku, Tokyo",4.7),
             tempatWisataTokyo("Meiji Shrine","1-1 Yoyogikamizonocho, Shibuya City, Tokyo",4.3),
+            tempatWisataTokyo("Imperial Palace","1-1 Chiyoda, Chiyoda City, Tokyo",4.3),
+            tempatWisataTokyo("Imperial Palace","1-1 Chiyoda, Chiyoda City, Tokyo",4.3),
             tempatWisataTokyo("Imperial Palace","1-1 Chiyoda, Chiyoda City, Tokyo",4.3)
         )
     }
