@@ -6,7 +6,7 @@ import com.example.tugasbesar.RV.RVKotaAdapter
 import com.example.tugasbesar.databinding.ActivityKotaBinding
 import com.example.tugasbesar.entity.kota
 
-class kota : AppCompatActivity() {
+    class kota : AppCompatActivity() {
     var binding : ActivityKotaBinding? = null
     lateinit var vuser : String
     lateinit var mbunlde : Bundle

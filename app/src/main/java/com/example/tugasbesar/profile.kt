@@ -10,6 +10,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.appcompat.app.AlertDialog
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.example.tugasbesar.databinding.ActivityProfileBinding
 import com.example.tugasbesar.room.Constant
 import com.example.tugasbesar.room.User
 import com.example.tugasbesar.room.UserDB
@@ -24,9 +25,11 @@ class profile : AppCompatActivity() {
     lateinit var userAdapter: MainAdapterProfile
     lateinit var mbunlde : Bundle
     lateinit var vuser : String
+    lateinit var binding: ActivityProfileBinding
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_profile)
+        binding = ActivityProfileBinding.inflate(layoutInflater)
+        setContentView(binding.root)
         getBundle()
         setupListener()
         onStart()
