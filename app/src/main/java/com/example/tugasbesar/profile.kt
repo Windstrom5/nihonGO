@@ -17,10 +17,7 @@ import com.example.tugasbesar.room.UserDB
 import kotlinx.android.synthetic.main.activity_edit.*
 import kotlinx.android.synthetic.main.activity_profile.*
 import kotlinx.android.synthetic.main.activity_profile.button_update
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.launch
-import kotlinx.coroutines.withContext
+import kotlinx.coroutines.*
 
 class profile : AppCompatActivity() {
     val db by lazy { UserDB(this) }
@@ -28,12 +25,19 @@ class profile : AppCompatActivity() {
     lateinit var mbunlde : Bundle
     lateinit var vuser : String
     lateinit var vpass : String
+    lateinit var passworddb :String
+    lateinit var usernamedb :String
+    lateinit var emaildb :String
+    lateinit var telpdb :String
+    lateinit var tgldb :String
+    lateinit var userid: String
     lateinit var binding: ActivityProfileBinding
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityProfileBinding.inflate(layoutInflater)
         setContentView(binding.root)
         getBundle()
+        autofill(vuser ,vpass)
         onStart()
         setupRecyclerView()
         button_update.setOnClickListener(){
@@ -42,6 +46,19 @@ class profile : AppCompatActivity() {
             mBundle.putString("username",vuser)
             mBundle.putString("password",vpass)
             intent.putExtra("profile",mBundle)
+            startActivity(intent)
+        }
+
+        button_delete.setOnClickListener {
+            CoroutineScope(Dispatchers.IO).launch {
+                db.noteDao().deleteNote(
+                    User(userid.toInt(), usernamedb,
+                        passworddb,emaildb,telpdb,
+                        tgldb)
+                )
+                finish()
+            }
+            val intent = Intent(this,MainActivity::class.java)
             startActivity(intent)
         }
     }
@@ -58,7 +75,7 @@ class profile : AppCompatActivity() {
             }
 
             override fun onDelete(note: User) {
-                deleteDialog(note)
+//                deleteDialog(note)
             }
         })
         list_note.apply {
@@ -116,6 +133,71 @@ class profile : AppCompatActivity() {
         }
 
     }
+
+    private fun autofill(user : String ,pass : String){
+        runBlocking(){
+            var idDb = async {
+                val Account: User? = db.noteDao().getAccount(user, pass)
+                if (Account != null) {
+                    Account.id
+                } else {
+                    null
+                }
+            }
+            val usernameDb = async {
+                val Account: User? = db.noteDao().getAccount(user, pass)
+                if (Account != null) {
+                    Account.username
+                } else {
+                    null
+                }
+            }
+            val passwordDb = async {
+                val Account: User? = db.noteDao().getAccount(user, pass)
+                Log.d("MainActivity","dbResponse: $Account")
+                if (Account != null) {
+                    Account.password
+                } else {
+                    null
+                }
+            }
+            val emailDb = async {
+                val Account: User? = db.noteDao().getAccount(user, pass)
+                Log.d("MainActivity","dbResponse: $Account")
+                if (Account != null) {
+                    Account.email
+                } else {
+                    null
+                }
+            }
+            val phoneDb = async {
+                val Account: User? = db.noteDao().getAccount(user, pass)
+                Log.d("MainActivity","dbResponse: $Account")
+                if (Account != null) {
+                    Account.noTelp
+                } else {
+                    null
+                }
+            }
+            val tanggalDb = async {
+                val Account: User? = db.noteDao().getAccount(user, pass)
+                Log.d("MainActivity","dbResponse: $Account")
+                if (Account != null) {
+                    Account.tanggallahir
+                } else {
+                    null
+                }
+            }
+            userid = idDb.await().toString()
+            usernamedb = usernameDb.await().toString()
+            passworddb = passwordDb.await().toString()
+            emaildb = emailDb.await().toString()
+            telpdb = phoneDb.await().toString()
+            tgldb = tanggalDb.await().toString()
+        }
+    }
+
+
 
 //
 //    fun setupListener() {

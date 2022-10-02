@@ -69,7 +69,7 @@ class EditActivity : AppCompatActivity(), DatePickerDialog.OnDateSetListener {
             startActivity(intent)
         }
 
-        button_cancle.setOnClickListener {
+        button_cancel.setOnClickListener {
             val intent = Intent(this,profile::class.java)
             val mBundle = Bundle()
             mBundle.putString("username",usernameEdit.getText().toString())
