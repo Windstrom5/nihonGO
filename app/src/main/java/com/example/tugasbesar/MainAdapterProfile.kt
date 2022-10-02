@@ -32,9 +32,9 @@ class MainAdapterProfile (private val notes: ArrayList<User>, private val listen
 //        holder.view.icon_edit.setOnClickListener {
 //            listener.onUpdate(note)
 //        }
-//        holder.view.icon_delete.setOnClickListener {
-//            listener.onDelete(note)
-//        }
+        holder.view.button_delete.setOnClickListener {
+            listener.onDelete(note)
+        }
     }
     override fun getItemCount() = notes.size
     inner class NoteViewHolder( val view: View) :
