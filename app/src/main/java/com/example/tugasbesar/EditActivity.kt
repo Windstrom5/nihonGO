@@ -26,7 +26,6 @@ class EditActivity : AppCompatActivity(), DatePickerDialog.OnDateSetListener {
     private lateinit var emailEdit : EditText
     private lateinit var phoneEdit : EditText
     private lateinit var tanggalEdit : EditText
-    private lateinit var tglView : EditText
     lateinit var vuser : String
     lateinit var vpass : String
     lateinit var passworddb :String
@@ -56,9 +55,9 @@ class EditActivity : AppCompatActivity(), DatePickerDialog.OnDateSetListener {
         button_update.setOnClickListener {
             CoroutineScope(Dispatchers.IO).launch {
                 db.noteDao().updateNote(
-                    User(userid.toInt(), usernameEdit.toString(),
-                        passwordEdit.toString(),emailEdit.toString(),phoneEdit.toString(),
-                    tanggalEdit.toString())
+                    User(userid.toInt(), usernameEdit.getText().toString(),
+                        passwordEdit.getText().toString(),emailEdit.getText().toString(),phoneEdit.getText().toString(),
+                    tanggalEdit.getText().toString())
                 )
                 finish()
             }
