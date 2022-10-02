@@ -68,6 +68,15 @@ class EditActivity : AppCompatActivity(), DatePickerDialog.OnDateSetListener {
             intent.putExtra("profile",mBundle)
             startActivity(intent)
         }
+
+        button_cancle.setOnClickListener {
+            val intent = Intent(this,profile::class.java)
+            val mBundle = Bundle()
+            mBundle.putString("username",usernameEdit.getText().toString())
+            mBundle.putString("password",passwordEdit.getText().toString())
+            intent.putExtra("profile",mBundle)
+            startActivity(intent)
+        }
     }
     override fun onDateSet(view: DatePicker?, year:Int, month:Int, dayofMonth : Int) {
         Log.e("Calender","$year -- $month -- $dayofMonth")
