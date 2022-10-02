@@ -64,10 +64,10 @@
 
 
     <Button
-        android:id="@+id/button_save"
+        android:id="@+id/button_cancle"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:text="SAVE"
+        android:text="Cancle"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/edit_tgl"
@@ -80,7 +80,7 @@
         android:text="UPDATE"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/button_save"
+        app:layout_constraintTop_toBottomOf="@+id/button_cancle"
         android:layout_marginTop="20dp"
         />
 </androidx.constraintlayout.widget.ConstraintLayout>
