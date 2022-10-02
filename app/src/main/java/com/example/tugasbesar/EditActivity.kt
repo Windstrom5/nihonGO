@@ -63,8 +63,8 @@ class EditActivity : AppCompatActivity(), DatePickerDialog.OnDateSetListener {
             }
             val intent = Intent(this,profile::class.java)
             val mBundle = Bundle()
-            mBundle.putString("username",usernameEdit.toString())
-            mBundle.putString("password",passwordEdit.toString())
+            mBundle.putString("username",usernameEdit.getText().toString())
+            mBundle.putString("password",passwordEdit.getText()12.toString())
             intent.putExtra("profile",mBundle)
             startActivity(intent)
         }
