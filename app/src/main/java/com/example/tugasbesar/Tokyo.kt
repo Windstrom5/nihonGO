@@ -37,6 +37,7 @@ class Tokyo : AppCompatActivity() {
 
     private lateinit var botNav : BottomNavigationView
     lateinit var vuser : String
+    lateinit var vpass : String
     lateinit var mbunlde : Bundle
 
     private lateinit var binding: ActivityTokyoBinding
@@ -112,6 +113,7 @@ class Tokyo : AppCompatActivity() {
             val intent = Intent(this, profile::class.java)
             val mBundle = Bundle()
             mBundle.putString("username",vuser)
+            mBundle.putString("password",vpass)
             intent.putExtra("profile",mBundle)
             startActivity(intent)
         }
@@ -123,11 +125,13 @@ class Tokyo : AppCompatActivity() {
             mbunlde = intent?.getBundleExtra("profile")!!
             if(mbunlde != null){
                 vuser = mbunlde.getString("username")!!
+                vpass = mbunlde.getString("password")!!
             }else{
 
             }
         }catch (e: NullPointerException){
             vuser = ""
+            vpass = ""
         }
 
     }

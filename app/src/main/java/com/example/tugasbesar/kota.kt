@@ -9,6 +9,7 @@ import com.example.tugasbesar.entity.kota
     class kota : AppCompatActivity() {
     var binding : ActivityKotaBinding? = null
     lateinit var vuser : String
+    lateinit var vpass : String
     lateinit var mbunlde : Bundle
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -16,7 +17,7 @@ import com.example.tugasbesar.entity.kota
         getBundle()
         setContentView(binding?.root)
         val adapter = RVKotaAdapter(kota.listofnamaKota)
-        adapter.getVariable(vuser)
+        adapter.getVariable(vuser,vpass)
         binding?.rvKota?.adapter = adapter
     }
     override fun onDestroy() {
@@ -39,6 +40,7 @@ import com.example.tugasbesar.entity.kota
             mbunlde = intent?.getBundleExtra("login")!!
             if(mbunlde != null){
                 vuser = mbunlde.getString("username")!!
+                vpass = mbunlde.getString("password")!!
             }else{
 
             }

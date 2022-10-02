@@ -14,7 +14,9 @@ import com.example.tugasbesar.databinding.ActivityProfileBinding
 import com.example.tugasbesar.room.Constant
 import com.example.tugasbesar.room.User
 import com.example.tugasbesar.room.UserDB
+import kotlinx.android.synthetic.main.activity_edit.*
 import kotlinx.android.synthetic.main.activity_profile.*
+import kotlinx.android.synthetic.main.activity_profile.button_update
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -25,15 +27,23 @@ class profile : AppCompatActivity() {
     lateinit var userAdapter: MainAdapterProfile
     lateinit var mbunlde : Bundle
     lateinit var vuser : String
+    lateinit var vpass : String
     lateinit var binding: ActivityProfileBinding
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityProfileBinding.inflate(layoutInflater)
         setContentView(binding.root)
         getBundle()
-        setupListener()
         onStart()
         setupRecyclerView()
+        button_update.setOnClickListener(){
+            val intent = Intent(this,EditActivity::class.java)
+            val mBundle = Bundle()
+            mBundle.putString("username",vuser)
+            mBundle.putString("password",vpass)
+            intent.putExtra("profile",mBundle)
+            startActivity(intent)
+        }
     }
 
     private fun setupRecyclerView() {
@@ -43,8 +53,8 @@ class profile : AppCompatActivity() {
 //               intentEdit(note.id, Constant.TYPE_READ)
             }
 
-            override fun onUpdate(note: User) {
-                intentEdit(note.id, Constant.TYPE_UPDATE)
+           override fun onUpdate(note: User) {
+//                intentEdit(note.id, Constant.TYPE_UPDATE)
             }
 
             override fun onDelete(note: User) {
@@ -96,25 +106,27 @@ class profile : AppCompatActivity() {
             mbunlde = intent?.getBundleExtra("profile")!!
             if(mbunlde != null){
                 vuser = mbunlde.getString("username")!!
+                vpass = mbunlde.getString("password")!!
             }else{
 
             }
         }catch (e: NullPointerException){
             vuser = ""
+            vpass = ""
         }
 
     }
 
 //
-    fun setupListener() {
-        button_update.setOnClickListener{
-            intentEdit(0,Constant.TYPE_CREATE)
-        }
-    }
-
-    fun intentEdit(noteId : Int, intentType: Int){
-        startActivity(
-            Intent(applicationContext, EditActivity::class.java).putExtra("intent_id", noteId).putExtra("intent_type", intentType)
-        )
-    }
+//    fun setupListener() {
+//        button_update.setOnClickListener{
+//            intentEdit(0,Constant.TYPE_CREATE)
+//        }
+//    }
+//
+//    fun intentEdit(noteId : Int, intentType: Int){
+//        startActivity(
+//            Intent(applicationContext, EditActivity::class.java).putExtra("intent_id", noteId).putExtra("intent_type", intentType)
+//        )
+//    }
 }

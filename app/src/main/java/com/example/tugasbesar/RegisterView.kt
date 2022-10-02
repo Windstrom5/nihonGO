@@ -175,9 +175,9 @@ class RegisterView : AppCompatActivity() , DatePickerDialog.OnDateSetListener{
             .setContentTitle("User "+binding?.username?.text.toString())
             .setContentText("Have Been Registered")
             .setPriority(NotificationCompat.PRIORITY_LOW)
-            .setColor(Color.BLUE)
             .addAction(R.mipmap.ic_launcher, "Toast", actionIntent)
             .setGroup(GROUP_KEY_WORK_EMAIL)
+            .setColor(Color.YELLOW)
             .setStyle(NotificationCompat.BigPictureStyle()
                 .bigPicture(BitmapFactory.decodeResource(resources,R.drawable.message_arigatou)))
 

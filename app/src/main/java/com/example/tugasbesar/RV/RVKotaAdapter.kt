@@ -11,6 +11,7 @@ import com.example.tugasbesar.entity.kota
 
 class RVKotaAdapter(private val data: Array<kota>) : RecyclerView.Adapter<RVKotaAdapter.MainViewHolder>() {
     lateinit var vuser : String
+    lateinit var vpass : String
     inner class MainViewHolder (val itemBinding: RvItemKotaBinding)
         :RecyclerView.ViewHolder(itemBinding.root){
         fun bindItem(task: kota){
@@ -31,6 +32,7 @@ class RVKotaAdapter(private val data: Array<kota>) : RecyclerView.Adapter<RVKota
                 val intent = Intent(holder.itemView.context, Tokyo::class.java)
                 val mBundle = Bundle()
                 mBundle.putString("username",vuser)
+                mBundle.putString("password",vpass)
                 intent.putExtra("profile",mBundle)
                 holder.itemView.context.startActivity(intent)
             }
@@ -41,8 +43,9 @@ class RVKotaAdapter(private val data: Array<kota>) : RecyclerView.Adapter<RVKota
         return data.size
     }
 
-    fun getVariable(user : String){
+    fun getVariable(user : String,pass : String){
         vuser = user
+        vpass = pass
     }
 }
 

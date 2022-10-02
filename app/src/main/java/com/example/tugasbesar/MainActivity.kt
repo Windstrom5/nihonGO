@@ -136,6 +136,7 @@ class MainActivity : AppCompatActivity() {
                 val intent = Intent(this,kota::class.java)
                 val mBundle = Bundle()
                 mBundle.putString("username",usernameInput.getEditText()?.getText().toString())
+                mBundle.putString("password",passwordInput.getEditText()?.getText().toString())
                 intent.putExtra("login",mBundle)
                 startActivity(intent)
             }
