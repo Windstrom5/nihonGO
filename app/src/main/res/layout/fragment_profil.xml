@@ -21,14 +21,22 @@
         app:layout_constraintTop_toBottomOf="@+id/profileView"
         app:layout_constraintVertical_bias="0.322">
 
-        <TextView
-            android:id="@+id/usernameView"
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/USERNAME"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="30dp"
-            android:gravity="center"
-            android:text="Username"
-            android:textSize="20dp" />
+            android:layout_height="80dp"
+            app:errorEnabled="true">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/username"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:hint="USERNAME"
+                android:inputType="textPassword" /> />
+
+        </com.google.android.material.textfield.TextInputLayout>
 
         <TextView
             android:id="@+id/emailView"
