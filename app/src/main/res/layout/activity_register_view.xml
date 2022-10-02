@@ -24,7 +24,8 @@
             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
             android:layout_width="match_parent"
             android:layout_height="80dp"
-            app:errorEnabled="true">
+            app:errorEnabled="true"
+            app:startIconDrawable="@drawable/ic_baseline_person_24">
 
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/username"
@@ -39,7 +40,8 @@
             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
             android:layout_width="match_parent"
             android:layout_height="80dp"
-            app:errorEnabled="true">
+            app:errorEnabled="true"
+            app:startIconDrawable="@drawable/ic_baseline_lock_24">
 
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/password"
@@ -54,7 +56,8 @@
             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
             android:layout_width="match_parent"
             android:layout_height="80dp"
-            app:errorEnabled="true">
+            app:errorEnabled="true"
+            app:startIconDrawable="@drawable/ic_baseline_lock_24">
 
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/confirmpassword"
@@ -69,7 +72,8 @@
             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
             android:layout_width="match_parent"
             android:layout_height="80dp"
-            app:errorEnabled="true">
+            app:errorEnabled="true"
+            app:startIconDrawable="@drawable/ic_baseline_email_24">
 
             <com.google.android.material.textfield.TextInputEditText
                 android:layout_width="match_parent"
@@ -82,12 +86,13 @@
             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
             android:layout_width="match_parent"
             android:layout_height="80dp"
-            app:errorEnabled="true">
+            app:errorEnabled="true"
+            app:startIconDrawable="@drawable/ic_baseline_phone_24">
 
             <com.google.android.material.textfield.TextInputEditText
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="No Telepon" />
+                android:hint="Phone Number" />
         </com.google.android.material.textfield.TextInputLayout>
 
         <com.google.android.material.textfield.TextInputLayout
@@ -95,13 +100,14 @@
             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
             android:layout_width="match_parent"
             android:layout_height="80dp"
-            app:errorEnabled="true">
+            app:errorEnabled="true"
+            app:startIconDrawable="@drawable/ic_baseline_calendar_month_24">
 
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/tgl"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="Tanggal Lahir" />
+                android:hint="Date of Birth" />
 
             <CalendarView
                 android:id="@+id/calendarView"

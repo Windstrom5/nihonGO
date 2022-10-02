@@ -86,16 +86,25 @@
             android:hint="New Phone" />
     </com.google.android.material.textfield.TextInputLayout>
 
-    <EditText
-        android:id="@+id/edit_tgl"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:hint="New Tanggal"
-        app:layout_constraintStart_toStartOf="parent"
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/tglInput"
+        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+        android:layout_width="match_parent"
+        android:layout_height="80dp"
+        android:elevation="2dp"
+        app:errorEnabled="true"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="@+id/phoneInput"
         app:layout_constraintTop_toBottomOf="@+id/phoneInput"
-        android:layout_marginTop="10dp"
-        android:gravity="top" />
+        app:startIconDrawable="@drawable/ic_baseline_calendar_month_24">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/edit_tgl"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="New Date of Birth" />
+    </com.google.android.material.textfield.TextInputLayout>
+
 
 
     <Button
@@ -105,7 +114,7 @@
         android:text="CANCEL"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/edit_tgl"
+        app:layout_constraintTop_toBottomOf="@+id/tglInput"
         android:layout_marginTop="20dp"
         />
     <Button
