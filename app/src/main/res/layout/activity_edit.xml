@@ -15,6 +15,7 @@
         android:layout_width="match_parent"
         android:layout_height="80dp"
         android:elevation="2dp"
+        android:textColorHint="@color/dark_blue"
         app:errorEnabled="true"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -34,6 +35,7 @@
         android:layout_width="match_parent"
         android:layout_height="80dp"
         android:elevation="2dp"
+        android:textColorHint="@color/dark_blue"
         app:errorEnabled="true"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="@+id/userInput"
@@ -54,6 +56,7 @@
         android:layout_width="match_parent"
         android:layout_height="80dp"
         android:elevation="2dp"
+        android:textColorHint="@color/dark_blue"
         app:errorEnabled="true"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="@+id/passInput"
@@ -73,6 +76,7 @@
         android:layout_width="match_parent"
         android:layout_height="80dp"
         android:elevation="2dp"
+        android:textColorHint="@color/dark_blue"
         app:errorEnabled="true"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="@+id/emailInput"
@@ -92,6 +96,7 @@
         android:layout_width="match_parent"
         android:layout_height="80dp"
         android:elevation="2dp"
+        android:textColorHint="@color/dark_blue"
         app:errorEnabled="true"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="@+id/phoneInput"
@@ -105,26 +110,29 @@
             android:hint="New Date of Birth" />
     </com.google.android.material.textfield.TextInputLayout>
 
-
+    <Button
+        android:id="@+id/button_update"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="SAVE"
+        android:textColor="@color/dark_blue"
+        android:backgroundTint="@color/green"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tglInput"
+        android:layout_marginTop="20dp"
+        />
 
     <Button
         android:id="@+id/button_cancel"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:text="CANCEL"
+        android:backgroundTint="@color/red"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tglInput"
+        app:layout_constraintTop_toBottomOf="@+id/button_update"
         android:layout_marginTop="20dp"
         />
-    <Button
-        android:id="@+id/button_update"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:text="UPDATE"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/button_cancel"
-        android:layout_marginTop="20dp"
-        />
+
 </androidx.constraintlayout.widget.ConstraintLayout>
