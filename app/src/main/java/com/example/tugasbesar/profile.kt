@@ -2,21 +2,15 @@ package com.example.tugasbesar
 
 import android.content.DialogInterface
 import android.content.Intent
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
 import androidx.appcompat.app.AlertDialog
+import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.tugasbesar.databinding.ActivityProfileBinding
-import com.example.tugasbesar.room.Constant
 import com.example.tugasbesar.room.User
 import com.example.tugasbesar.room.UserDB
-import kotlinx.android.synthetic.main.activity_edit.*
 import kotlinx.android.synthetic.main.activity_profile.*
-import kotlinx.android.synthetic.main.activity_profile.button_update
 import kotlinx.coroutines.*
 
 class profile : AppCompatActivity() {
@@ -61,6 +55,16 @@ class profile : AppCompatActivity() {
             val intent = Intent(this,MainActivity::class.java)
             startActivity(intent)
         }
+    }
+
+    override fun onBackPressed() {
+        Log.d("CDA", "onBackPressed Called")
+        val intent = Intent(this,Tokyo::class.java)
+        val mBundle = Bundle()
+        mBundle.putString("username",vuser)
+        mBundle.putString("password",vpass)
+        intent.putExtra("profile",mBundle)
+        startActivity(intent)
     }
 
     private fun setupRecyclerView() {

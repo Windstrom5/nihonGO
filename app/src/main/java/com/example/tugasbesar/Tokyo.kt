@@ -11,6 +11,7 @@ import android.graphics.Color
 import android.os.Build
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
 import android.view.Menu
 import android.view.MenuInflater
 import android.view.MenuItem
@@ -71,6 +72,16 @@ class Tokyo : AppCompatActivity() {
             }
         }
 
+    }
+
+    override fun onBackPressed() {
+        Log.d("CDA", "onBackPressed Called")
+        val intent = Intent(this,kota::class.java)
+        val mBundle = Bundle()
+        mBundle.putString("username",vuser)
+        mBundle.putString("password",vpass)
+        intent.putExtra("profile",mBundle)
+        startActivity(intent)
     }
 
     fun changeFragment(fragment: Fragment?) {

@@ -1,12 +1,16 @@
 package com.example.tugasbesar
 
-import androidx.appcompat.app.AppCompatActivity
+import android.content.DialogInterface
+import android.content.Intent
 import android.os.Bundle
+import android.util.Log
+import androidx.appcompat.app.AlertDialog
+import androidx.appcompat.app.AppCompatActivity
 import com.example.tugasbesar.RV.RVKotaAdapter
 import com.example.tugasbesar.databinding.ActivityKotaBinding
 import com.example.tugasbesar.entity.kota
 
-    class kota : AppCompatActivity() {
+class kota : AppCompatActivity() {
     var binding : ActivityKotaBinding? = null
     lateinit var vuser : String
     lateinit var vpass : String
@@ -35,6 +39,23 @@ import com.example.tugasbesar.entity.kota
 //        rvKulinerAdapter.adapter = adapter
 
 //    }
+    override fun onBackPressed() {
+        Log.d("CDA", "onBackPressed Called")
+        val builder: AlertDialog.Builder = AlertDialog.Builder(this@kota)
+        builder.setMessage("Want to log out?")
+        .setNegativeButton("No", object : DialogInterface.OnClickListener {
+            override fun onClick(dialogInterface: DialogInterface, i: Int) {
+
+            }
+        })
+        .setPositiveButton("YES", object : DialogInterface.OnClickListener {
+            override fun onClick(dialogInterface: DialogInterface, i: Int) {
+                startActivity(Intent(this@kota, MainActivity::class.java))
+            }
+        })
+        .show()
+
+    }
     fun getBundle(){
         try{
             mbunlde = intent?.getBundleExtra("login")!!
