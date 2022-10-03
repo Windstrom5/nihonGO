@@ -52,13 +52,14 @@
         <entry key="..\:/Semester 5/PBP/TugasBesar/app/src/main/res/drawable/ic_baseline_person_24.xml" value="0.1" />
         <entry key="..\:/Semester 5/PBP/TugasBesar/app/src/main/res/drawable/ic_exit_24.xml" value="0.1" />
         <entry key="..\:/Semester 5/PBP/TugasBesar/app/src/main/res/drawable/ic_home_24.xml" value="0.1" />
-        <entry key="..\:/Semester 5/PBP/TugasBesar/app/src/main/res/layout/activity_edit.xml" value="0.264" />
+        <entry key="..\:/Semester 5/PBP/TugasBesar/app/src/main/res/drawable/ic_settings_24.xml" value="0.166" />
+        <entry key="..\:/Semester 5/PBP/TugasBesar/app/src/main/res/layout/activity_edit.xml" value="0.2624521072796935" />
         <entry key="..\:/Semester 5/PBP/TugasBesar/app/src/main/res/layout/activity_home.xml" value="0.2653985507246377" />
         <entry key="..\:/Semester 5/PBP/TugasBesar/app/src/main/res/layout/activity_kota.xml" value="0.2653985507246377" />
-        <entry key="..\:/Semester 5/PBP/TugasBesar/app/src/main/res/layout/activity_main.xml" value="0.1" />
+        <entry key="..\:/Semester 5/PBP/TugasBesar/app/src/main/res/layout/activity_main.xml" value="0.264" />
         <entry key="..\:/Semester 5/PBP/TugasBesar/app/src/main/res/layout/activity_main_adapter_profile.xml" value="0.27447916666666666" />
         <entry key="..\:/Semester 5/PBP/TugasBesar/app/src/main/res/layout/activity_profile.xml" value="0.27447916666666666" />
-        <entry key="..\:/Semester 5/PBP/TugasBesar/app/src/main/res/layout/activity_register_view.xml" value="0.1324200913242009" />
+        <entry key="..\:/Semester 5/PBP/TugasBesar/app/src/main/res/layout/activity_register_view.xml" value="0.264" />
         <entry key="..\:/Semester 5/PBP/TugasBesar/app/src/main/res/layout/activity_splash_screen.xml" value="0.264" />
         <entry key="..\:/Semester 5/PBP/TugasBesar/app/src/main/res/layout/activity_tokyo.xml" value="0.2246376811594203" />
         <entry key="..\:/Semester 5/PBP/TugasBesar/app/src/main/res/layout/editactivity.xml" value="0.22916666666666666" />
@@ -74,6 +75,10 @@
         <entry key="..\:/Semester 5/PBP/TugasBesar/app/src/main/res/layout/rv_item_kuliner.xml" value="0.536" />
         <entry key="..\:/Semester 5/PBP/TugasBesar/app/src/main/res/layout/rv_item_tempat.xml" value="0.151268115942029" />
         <entry key="..\:/Semester 5/PBP/TugasBesar/app/src/main/res/menu/menu.xml" value="0.27447916666666666" />
+        <entry key="..\:/Semester 5/PBP/TugasBesar/app/src/main/res/mipmap-anydpi-v26/ic_launcher.xml" value="0.279" />
+        <entry key="..\:/Semester 5/PBP/TugasBesar/app/src/main/res/mipmap-anydpi-v26/ic_launcher_round.xml" value="0.279" />
+        <entry key="..\:/Semester 5/PBP/TugasBesar/app/src/main/res/mipmap-anydpi-v26/wisatalogo.xml" value="0.279" />
+        <entry key="..\:/Semester 5/PBP/TugasBesar/app/src/main/res/mipmap-anydpi-v26/wisatalogo_round.xml" value="0.279" />
         <entry key="..\:/Users/NEW NOTEBOOK/AndroidStudioProjects/TugasBesar/app/src/main/res/drawable/ic_user_24.xml" value="0.1625" />
         <entry key="..\:/Users/NEW NOTEBOOK/AndroidStudioProjects/TugasBesar/app/src/main/res/layout/activity_home.xml" value="0.22826086956521738" />
         <entry key="..\:/Users/NEW NOTEBOOK/AndroidStudioProjects/TugasBesar/app/src/main/res/layout/activity_kota.xml" value="0.25416666666666665" />
@@ -81,7 +86,7 @@
         <entry key="..\:/Users/NEW NOTEBOOK/AndroidStudioProjects/TugasBesar/app/src/main/res/layout/activity_main_adapter_profile.xml" value="0.1480978260869565" />
         <entry key="..\:/Users/NEW NOTEBOOK/AndroidStudioProjects/TugasBesar/app/src/main/res/layout/activity_profile.xml" value="0.1480978260869565" />
         <entry key="..\:/Users/NEW NOTEBOOK/AndroidStudioProjects/TugasBesar/app/src/main/res/layout/activity_register_view.xml" value="0.1" />
-        <entry key="..\:/Users/NEW NOTEBOOK/AndroidStudioProjects/TugasBesar/app/src/main/res/layout/activity_tokyo.xml" value="0.264" />
+        <entry key="..\:/Users/NEW NOTEBOOK/AndroidStudioProjects/TugasBesar/app/src/main/res/layout/activity_tokyo.xml" value="0.2" />
         <entry key="..\:/Users/NEW NOTEBOOK/AndroidStudioProjects/TugasBesar/app/src/main/res/layout/fragment_akomodasi.xml" value="0.22826086956521738" />
         <entry key="..\:/Users/NEW NOTEBOOK/AndroidStudioProjects/TugasBesar/app/src/main/res/layout/fragment_event.xml" value="0.25416666666666665" />
         <entry key="..\:/Users/NEW NOTEBOOK/AndroidStudioProjects/TugasBesar/app/src/main/res/layout/fragment_profil.xml" value="0.22826086956521738" />
