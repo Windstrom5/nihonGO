@@ -35,7 +35,6 @@ class Tokyo : AppCompatActivity() {
     private val notificationId2 = 102
     val GROUP_KEY_WORK_EMAIL = "com.android.example.tugasbesar"
     val SUMMARY_ID = 0
-
     private lateinit var botNav : BottomNavigationView
     lateinit var vuser : String
     lateinit var vpass : String
@@ -47,7 +46,7 @@ class Tokyo : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = ActivityTokyoBinding.inflate(layoutInflater)
         setContentView(binding.root)
-
+        getBundle()
         createNotificationChannel()
         sendNotification1()
 
@@ -120,7 +119,6 @@ class Tokyo : AppCompatActivity() {
             val intent = Intent(this, kota::class.java)
             startActivity(intent)
         }else if(item.itemId == R.id.menuProfile){
-            getBundle()
             val intent = Intent(this, profile::class.java)
             val mBundle = Bundle()
             mBundle.putString("username",vuser)
