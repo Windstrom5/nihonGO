@@ -67,6 +67,7 @@ class kota : AppCompatActivity() {
             }
         }catch (e: NullPointerException){
             vuser = ""
+            vpass = ""
         }
     }
 }

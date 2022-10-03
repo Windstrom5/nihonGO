@@ -168,7 +168,7 @@ class MainActivity : AppCompatActivity() {
 
     fun getBundle(){
         try{
-            mbunlde = intent?.getBundleExtra("register")!!
+            mbunlde = intent?.getBundleExtra("profile")!!
             if(mbunlde != null){
                 vuser = mbunlde.getString("username")!!
                 vpassword = mbunlde.getString("password")!!

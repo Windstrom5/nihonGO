@@ -122,7 +122,7 @@ class RegisterView : AppCompatActivity() , DatePickerDialog.OnDateSetListener{
                 mBundle.putString("email",emailRegister.getEditText()?.getText().toString())
                 mBundle.putString("notelp",teleponRegister.getEditText()?.getText().toString())
                 mBundle.putString("tanggallahir",tanggalRegister.getEditText()?.getText().toString())
-                intent.putExtra("register",mBundle)
+                intent.putExtra("profile",mBundle)
                 startActivity(intent)
             }
         })
