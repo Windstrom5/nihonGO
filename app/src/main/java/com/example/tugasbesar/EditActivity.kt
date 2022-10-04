@@ -53,20 +53,35 @@ class EditActivity : AppCompatActivity(), DatePickerDialog.OnDateSetListener {
             DatePickerDialog(this,this,calender.get(Calendar.YEAR),calender.get(Calendar.MONTH),calender.get(Calendar.DAY_OF_MONTH)).show()
         }
         button_update.setOnClickListener {
-            CoroutineScope(Dispatchers.IO).launch {
-                db.noteDao().updateNote(
-                    User(userid.toInt(), usernameEdit.getText().toString(),
-                        passwordEdit.getText().toString(),emailEdit.getText().toString(),phoneEdit.getText().toString(),
-                    tanggalEdit.getText().toString())
-                )
-                finish()
+            runBlocking(){
+                val usernameDb = async {
+                    val Account: User? = db.noteDao().getUsername(usernameEdit.getText().toString())
+                    if (Account != null) {
+                        Account.username
+                    } else {
+                        null
+                    }
+                }
+                usernamedb = usernameDb.await().toString()
             }
-            val intent = Intent(this,profile::class.java)
-            val mBundle = Bundle()
-            mBundle.putString("username",usernameEdit.getText().toString())
-            mBundle.putString("password",passwordEdit.getText().toString())
-            intent.putExtra("profile",mBundle)
-            startActivity(intent)
+            if(usernameEdit.getText().toString() == usernamedb && usernameEdit.getText().toString()!=vuser){
+                usernameEdit.setError("Username Sudah Ada")
+            }else{
+                CoroutineScope(Dispatchers.IO).launch {
+                    db.noteDao().updateNote(
+                        User(userid.toInt(), usernameEdit.getText().toString(),
+                            passwordEdit.getText().toString(),emailEdit.getText().toString(),phoneEdit.getText().toString(),
+                            tanggalEdit.getText().toString())
+                    )
+                    finish()
+                }
+                val intent = Intent(this,profile::class.java)
+                val mBundle = Bundle()
+                mBundle.putString("username",usernameEdit.getText().toString())
+                mBundle.putString("password",passwordEdit.getText().toString())
+                intent.putExtra("profile",mBundle)
+                startActivity(intent)
+            }
         }
 
         button_cancel.setOnClickListener {
