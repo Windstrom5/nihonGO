@@ -18,6 +18,8 @@ interface UserDao {
     suspend fun getUser(user_username: String) : List<User>
     @Query("SELECT * FROM User WHERE username =:user_username AND password=:user_password")
     suspend fun getAccount(user_username: String,user_password:String) : User?
+    @Query("SELECT * FROM User WHERE username =:user_username")
+    suspend fun getUsername(user_username: String) : User?
 //    @Query("SELECT * FROM User WHERE username =:user_username")
 //    suspend fun getUsername(user_username: String) : String
 }

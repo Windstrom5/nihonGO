@@ -3,6 +3,7 @@ package com.example.tugasbesar
 import android.app.*
 import android.content.Context
 import android.content.Intent
+import android.content.SharedPreferences
 import android.graphics.BitmapFactory
 import android.graphics.Color
 import android.os.Build
@@ -20,9 +21,7 @@ import com.example.tugasbesar.room.User
 import com.example.tugasbesar.room.UserDB
 import com.google.android.material.textfield.TextInputEditText
 import com.google.android.material.textfield.TextInputLayout
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.launch
+import kotlinx.coroutines.*
 import java.text.SimpleDateFormat
 import java.util.*
 
@@ -37,8 +36,14 @@ class RegisterView : AppCompatActivity() , DatePickerDialog.OnDateSetListener{
     private lateinit var tanggalRegister : TextInputLayout
     private lateinit var confirmRegister : TextInputLayout
     private lateinit var tglView : TextInputEditText
+    lateinit var usernamedb :String
+    var sharedPreferences: SharedPreferences? = null
+    lateinit var passworddb :String
     private val calender = Calendar.getInstance()
     private val CHANNEL_ID_1 = "channel_notification_01"
+    private val myPreference = "myPref"
+    private val userkey = "userKey"
+    private val passkey = "passwordKey"
     private val notificationId1 = 101
     private val formatter = SimpleDateFormat("dd, MMM, yyyy",Locale.US)
     val GROUP_KEY_WORK_EMAIL = "com.android.example.tugasbesar"
@@ -99,7 +104,22 @@ class RegisterView : AppCompatActivity() , DatePickerDialog.OnDateSetListener{
                 checkLogin = false
             }
             if (pass == confirmpass && user.isNotEmpty() && pass.isNotEmpty() && confirmpass.isNotEmpty()){
-                checkLogin=true
+                runBlocking(){
+                    val usernameDb = async {
+                        val Account: User? = db.noteDao().getUsername(userRegister.getEditText()?.getText().toString())
+                        if (Account != null) {
+                            Account.username
+                        } else {
+                            null
+                        }
+                    }
+                    usernamedb = usernameDb.await().toString()
+                }
+                if(userRegister.getEditText()?.getText().toString() == usernamedb){
+                    userRegister.setError("Username Sudah Ada")
+                }else{
+                    checkLogin=true
+                }
             }else if(pass != confirmpass){
                 confirmRegister.setError("Password Tidak Sama")
             }
@@ -115,6 +135,17 @@ class RegisterView : AppCompatActivity() , DatePickerDialog.OnDateSetListener{
                     finish()
                 }
                 sendNotification1()
+                val userSave: String =
+                    userRegister.getEditText()?.getText().toString().trim()
+                val passSave: String =
+                    passRegister.getEditText()?.getText().toString().trim()
+                sharedPreferences = getSharedPreferences(myPreference,
+                    Context.MODE_PRIVATE)
+                val editor: SharedPreferences.Editor =
+                    sharedPreferences!!.edit()
+                editor.putString(userkey, userSave)
+                editor.putString(passkey, passSave)
+                editor.apply()
                 val intent = Intent(this,MainActivity::class.java)
                 val mBundle = Bundle()
                 mBundle.putString("username",userRegister.getEditText()?.getText().toString())
