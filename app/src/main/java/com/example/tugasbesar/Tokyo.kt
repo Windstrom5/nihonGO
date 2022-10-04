@@ -109,8 +109,7 @@ class Tokyo : AppCompatActivity() {
                 })
                 .setPositiveButton("YES", object : DialogInterface.OnClickListener {
                     override fun onClick(dialogInterface: DialogInterface, i: Int) {
-                        finishAndRemoveTask()
-
+                        startActivity(Intent(this@Tokyo, MainActivity::class.java))
                     }
                 })
                 .show()
