@@ -13,19 +13,21 @@ import com.example.tugasbesar.room.Constant
 import com.example.tugasbesar.room.User
 import com.example.tugasbesar.room.UserDB
 import com.google.android.material.textfield.TextInputEditText
+import com.google.android.material.textfield.TextInputLayout
 import kotlinx.android.synthetic.main.activity_edit.*
 import kotlinx.coroutines.*
+import org.w3c.dom.Text
 import java.text.SimpleDateFormat
 import java.util.*
 
 class EditActivity : AppCompatActivity(), DatePickerDialog.OnDateSetListener {
     lateinit var mbunlde : Bundle
     private lateinit var binding: ActivityEditBinding
-    private lateinit var usernameEdit : EditText
-    private lateinit var passwordEdit : EditText
-    private lateinit var emailEdit : EditText
-    private lateinit var phoneEdit : EditText
-    private lateinit var tanggalEdit : EditText
+    private lateinit var usernameEdit : TextInputLayout
+    private lateinit var passwordEdit : TextInputLayout
+    private lateinit var emailEdit : TextInputLayout
+    private lateinit var phoneEdit : TextInputLayout
+    private lateinit var tanggalEdit : TextInputLayout
     lateinit var vuser : String
     lateinit var vpass : String
     lateinit var passworddb :String
@@ -41,21 +43,21 @@ class EditActivity : AppCompatActivity(), DatePickerDialog.OnDateSetListener {
         super.onCreate(savedInstanceState)
         binding = ActivityEditBinding.inflate(layoutInflater)
         setContentView(binding.root)
-        usernameEdit = binding.editUsername
-        passwordEdit = binding.editPassword
-        emailEdit = binding.editEmail
-        phoneEdit = binding.editPhone
-        tanggalEdit = binding.editTgl
+        usernameEdit = binding.userInput
+        passwordEdit = binding.passInput
+        emailEdit = binding.emailInput
+        phoneEdit = binding.phoneInput
+        tanggalEdit = binding.tglInput
         getBundle()
         autofill(vuser ,vpass)
         setText()
-        tanggalEdit.setOnClickListener{
+        tanggalEdit.setStartIconOnClickListener(View.OnClickListener{
             DatePickerDialog(this,this,calender.get(Calendar.YEAR),calender.get(Calendar.MONTH),calender.get(Calendar.DAY_OF_MONTH)).show()
-        }
+        })
         button_update.setOnClickListener {
             runBlocking(){
                 val usernameDb = async {
-                    val Account: User? = db.noteDao().getUsername(usernameEdit.getText().toString())
+                    val Account: User? = db.noteDao().getUsername(usernameEdit.getEditText()?.getText().toString())
                     if (Account != null) {
                         Account.username
                     } else {
@@ -64,21 +66,21 @@ class EditActivity : AppCompatActivity(), DatePickerDialog.OnDateSetListener {
                 }
                 usernamedb = usernameDb.await().toString()
             }
-            if(usernameEdit.getText().toString() == usernamedb && usernameEdit.getText().toString()!=vuser){
+            if(usernameEdit.getEditText()?.getText().toString() == usernamedb && usernameEdit.getEditText()?.getText().toString()!=vuser){
                 usernameEdit.setError("Username Sudah Ada")
             }else{
                 CoroutineScope(Dispatchers.IO).launch {
                     db.noteDao().updateNote(
-                        User(userid.toInt(), usernameEdit.getText().toString(),
-                            passwordEdit.getText().toString(),emailEdit.getText().toString(),phoneEdit.getText().toString(),
-                            tanggalEdit.getText().toString())
+                        User(userid.toInt(), usernameEdit.getEditText()?.getText().toString(),
+                            passwordEdit.getEditText()?.getText().toString(),emailEdit.getEditText()?.getText().toString(),
+                            phoneEdit.getEditText()?.getText().toString(), tanggalEdit.getEditText()?.getText().toString())
                     )
                     finish()
                 }
                 val intent = Intent(this,profile::class.java)
                 val mBundle = Bundle()
-                mBundle.putString("username",usernameEdit.getText().toString())
-                mBundle.putString("password",passwordEdit.getText().toString())
+                mBundle.putString("username",usernameEdit.getEditText()?.getText().toString())
+                mBundle.putString("password",passwordEdit.getEditText()?.getText().toString())
                 intent.putExtra("profile",mBundle)
                 startActivity(intent)
             }
@@ -87,8 +89,8 @@ class EditActivity : AppCompatActivity(), DatePickerDialog.OnDateSetListener {
         button_cancel.setOnClickListener {
             val intent = Intent(this,profile::class.java)
             val mBundle = Bundle()
-            mBundle.putString("username",usernameEdit.getText().toString())
-            mBundle.putString("password",passwordEdit.getText().toString())
+            mBundle.putString("username",usernameEdit.getEditText()?.getText().toString())
+            mBundle.putString("password",passwordEdit.getEditText()?.getText().toString())
             intent.putExtra("profile",mBundle)
             startActivity(intent)
         }

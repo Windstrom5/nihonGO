@@ -7,13 +7,13 @@ import android.content.SharedPreferences
 import android.graphics.BitmapFactory
 import android.graphics.Color
 import android.os.Build
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
 import android.view.View
 import android.widget.Button
 import android.widget.DatePicker
 import android.widget.TextView
+import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.NotificationCompat
 import androidx.core.app.NotificationManagerCompat
 import com.example.tugasbesar.databinding.ActivityRegisterViewBinding
@@ -67,9 +67,9 @@ class RegisterView : AppCompatActivity() , DatePickerDialog.OnDateSetListener{
         emailRegister = binding.emailRegis
         tanggalRegister = binding.tglRegis
         tglView = binding.tgl
-        tglView.setOnClickListener{
+        tanggalRegister.setStartIconOnClickListener(View.OnClickListener{
             DatePickerDialog(this,this,calender.get(Calendar.YEAR),calender.get(Calendar.MONTH),calender.get(Calendar.DAY_OF_MONTH)).show()
-        }
+        })
         teleponRegister = binding.noRegis
         binding.regisButton.setOnClickListener(View.OnClickListener {
             var checkLogin = false
@@ -196,7 +196,7 @@ class RegisterView : AppCompatActivity() , DatePickerDialog.OnDateSetListener{
 
     private fun sendNotification1(){
         val broadcastIntent : Intent = Intent(this, NotificationReceiver::class.java)
-        broadcastIntent.putExtra("toastMessage","welcome",)
+        broadcastIntent.putExtra("toastMessage", "welcome")
         val actionIntent = PendingIntent.getBroadcast(this, 0, broadcastIntent, PendingIntent.FLAG_UPDATE_CURRENT)
 
 

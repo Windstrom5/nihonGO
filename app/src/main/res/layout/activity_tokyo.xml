@@ -6,7 +6,6 @@
     android:layout_height="match_parent"
     android:background="@drawable/background"
     tools:context=".Tokyo"
-
     >
 
     <com.google.android.material.bottomnavigation.BottomNavigationView

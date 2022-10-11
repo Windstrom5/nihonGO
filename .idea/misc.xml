@@ -18,6 +18,7 @@
         <entry key="..\:/Android Studio Project/TgsBesar/app/src/main/res/drawable/myrectangle.xml" value="0.12" />
         <entry key="..\:/Android Studio Project/TgsBesar/app/src/main/res/drawable/wisatalogo_background.xml" value="0.119" />
         <entry key="..\:/Android Studio Project/TgsBesar/app/src/main/res/layout/activity_edit.xml" value="0.1334853090172239" />
+        <entry key="..\:/Android Studio Project/TgsBesar/app/src/main/res/layout/activity_forget_password.xml" value="0.1265625" />
         <entry key="..\:/Android Studio Project/TgsBesar/app/src/main/res/layout/activity_home.xml" value="0.27447916666666666" />
         <entry key="..\:/Android Studio Project/TgsBesar/app/src/main/res/layout/activity_kota.xml" value="0.2708333333333333" />
         <entry key="..\:/Android Studio Project/TgsBesar/app/src/main/res/layout/activity_main.xml" value="0.264" />
@@ -25,12 +26,13 @@
         <entry key="..\:/Android Studio Project/TgsBesar/app/src/main/res/layout/activity_register_view.xml" value="0.264" />
         <entry key="..\:/Android Studio Project/TgsBesar/app/src/main/res/layout/activity_splash_screen.xml" value="0.264" />
         <entry key="..\:/Android Studio Project/TgsBesar/app/src/main/res/layout/activity_tokyo.xml" value="0.4" />
+        <entry key="..\:/Android Studio Project/TgsBesar/app/src/main/res/layout/fragment_akomodasi.xml" value="0.25181159420289856" />
         <entry key="..\:/Android Studio Project/TgsBesar/app/src/main/res/layout/fragment_event.xml" value="0.12395833333333334" />
         <entry key="..\:/Android Studio Project/TgsBesar/app/src/main/res/layout/fragment_kota.xml" value="0.1265625" />
         <entry key="..\:/Android Studio Project/TgsBesar/app/src/main/res/layout/fragment_kuliner.xml" value="0.14855072463768115" />
         <entry key="..\:/Android Studio Project/TgsBesar/app/src/main/res/layout/fragment_profil.xml" value="0.2708333333333333" />
-        <entry key="..\:/Android Studio Project/TgsBesar/app/src/main/res/layout/fragment_tempat_wisata.xml" value="0.27447916666666666" />
-        <entry key="..\:/Android Studio Project/TgsBesar/app/src/main/res/layout/rv_item_akomodasi.xml" value="0.14855072463768115" />
+        <entry key="..\:/Android Studio Project/TgsBesar/app/src/main/res/layout/fragment_tempat_wisata.xml" value="0.25" />
+        <entry key="..\:/Android Studio Project/TgsBesar/app/src/main/res/layout/rv_item_akomodasi.xml" value="0.4538878842676311" />
         <entry key="..\:/Android Studio Project/TgsBesar/app/src/main/res/layout/rv_item_event.xml" value="0.14855072463768115" />
         <entry key="..\:/Android Studio Project/TgsBesar/app/src/main/res/layout/rv_item_kota.xml" value="0.1265625" />
         <entry key="..\:/Android Studio Project/TgsBesar/app/src/main/res/layout/rv_item_kuliner.xml" value="0.14855072463768115" />

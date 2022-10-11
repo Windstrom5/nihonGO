@@ -108,7 +108,9 @@
                 android:id="@+id/tgl"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="Date of Birth" />
+                android:hint="Date of Birth"
+                android:focusable="false"
+                android:cursorVisible="false"/>
 
             <CalendarView
                 android:id="@+id/calendarView"

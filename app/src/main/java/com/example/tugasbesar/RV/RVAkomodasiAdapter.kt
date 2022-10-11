@@ -20,6 +20,12 @@ class RVAkomodasiAdapter(private val data : Array<akomodasiTokyo>) : RecyclerVie
         holder.tvName.text = currentItem.name
         holder.tvAlamat.text = currentItem.alamat
         holder.tvRating.text = currentItem.rating.toString()
+        holder.more.setOnClickListener(){
+            val name = currentItem.name
+            if (name == "Park Hyatt Tokyo"){
+
+            }
+        }
     }
 
     override fun getItemCount(): Int {
@@ -30,5 +36,6 @@ class RVAkomodasiAdapter(private val data : Array<akomodasiTokyo>) : RecyclerVie
         val tvName : TextView = itemView.findViewById(R.id.tv_namaTempat)
         val tvAlamat : TextView = itemView.findViewById(R.id.tv_alamat)
         val tvRating : TextView = itemView.findViewById(R.id.tv_rating)
+        val more : TextView = itemView.findViewById(R.id.seeMore)
     }
 }
