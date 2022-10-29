@@ -1,0 +1,13 @@
+{
+  "results" : [{
+    "geometry" : {
+      "location": {
+        "lat": -7.779433,
+        "lng": 118.415782
+      }
+    },
+    "name": "Kampus 3 Universitas AtmaJaya Yogyakarta",
+    "vicinity": "Jl. Barbarsari No.43, Janti, CaturTunggal, Kec. Depok, kabupaten Sleman, Daerah Istimewa Yogyakarta 55281"
+  }],
+  "status" : "OK"
+}

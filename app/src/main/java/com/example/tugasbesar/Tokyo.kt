@@ -19,8 +19,6 @@ import androidx.appcompat.app.AlertDialog
 import androidx.core.app.NotificationCompat
 import androidx.core.app.NotificationManagerCompat
 import androidx.fragment.app.Fragment
-import com.example.tugasbesar.databinding.ActivityEditBinding
-import com.example.tugasbesar.databinding.ActivityMainBinding
 import com.example.tugasbesar.databinding.ActivityTokyoBinding
 import com.example.tugasbesar.fragment.*
 import com.google.android.material.bottomnavigation.BottomNavigationView
@@ -109,7 +107,7 @@ class Tokyo : AppCompatActivity() {
                 })
                 .setPositiveButton("YES", object : DialogInterface.OnClickListener {
                     override fun onClick(dialogInterface: DialogInterface, i: Int) {
-                        startActivity(Intent(this@Tokyo, MainActivity::class.java))
+                        startActivity(Intent(this@Tokyo, MapsActivity::class.java))
                     }
                 })
                 .show()
@@ -159,7 +157,7 @@ class Tokyo : AppCompatActivity() {
     }
 
     private fun sendNotification1(){
-        val intent : Intent = Intent(this, MainActivity::class.java).apply {
+        val intent : Intent = Intent(this, MapsActivity::class.java).apply {
             flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
         }
         val pendingIntent: PendingIntent = PendingIntent.getActivity(this, 0, intent,0)

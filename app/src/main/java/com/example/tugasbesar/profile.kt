@@ -52,7 +52,7 @@ class profile : AppCompatActivity() {
                 )
                 finish()
             }
-            val intent = Intent(this,MainActivity::class.java)
+            val intent = Intent(this,MapsActivity::class.java)
             startActivity(intent)
         }
     }
