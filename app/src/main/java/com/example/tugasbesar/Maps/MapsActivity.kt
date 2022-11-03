@@ -1,4 +1,9 @@
 package com.example.tugasbesar
+
+import android.R.attr.x
+import android.R.attr.y
+import android.location.Location
+import android.location.LocationManager
 import android.os.Bundle
 import android.preference.PreferenceManager
 import android.widget.Toast
@@ -12,6 +17,7 @@ import org.osmdroid.views.MapController
 import org.osmdroid.views.overlay.Marker
 import org.osmdroid.views.overlay.OverlayItem
 import java.io.IOException
+
 
 class MapsActivity : AppCompatActivity() {
     lateinit var vnama : String
@@ -28,6 +34,7 @@ class MapsActivity : AppCompatActivity() {
         getBundle()
         Configuration.getInstance().load(this,PreferenceManager.getDefaultSharedPreferences(this))
         val geoPoint = GeoPoint(vlatitude,vlongtitude)
+        val startPoint = GeoPoint(x, y)
         mapView.setMultiTouchControls(true)
         mapView.controller.animateTo(geoPoint)
         mapView.setTileSource(TileSourceFactory.DEFAULT_TILE_SOURCE)
@@ -35,7 +42,7 @@ class MapsActivity : AppCompatActivity() {
 
         mapController = mapView.controller as MapController
         mapController.setCenter(geoPoint)
-        mapController.zoomTo(15)
+        mapController.zoomTo(10)
 
         getLocationMarker()
     }
@@ -80,6 +87,7 @@ class MapsActivity : AppCompatActivity() {
             modelMain.strAlamat=valamat
             modelMain.latLoc = vlatitude
             modelMain.longLoc = vlongtitude
+
             modelMainList.add(modelMain)
             initMarker(modelMainList)
         }catch (ignored: IOException){
@@ -110,7 +118,15 @@ class MapsActivity : AppCompatActivity() {
                 item.showInfoWindow()
                 true
             }
+            val marker2 = Marker(mapView)
+
+            marker2.position = GeoPoint(35.658581, 139.745438)
+            marker2.setOnMarkerClickListener{ item, arg1->
+                item.showInfoWindow()
+                true
+            }
             mapView.overlays.add(marker)
+            mapView.overlays.add(marker2)
             mapView.invalidate()
         }
     }

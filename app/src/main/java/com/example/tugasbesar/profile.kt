@@ -6,8 +6,11 @@ import android.os.Bundle
 import android.util.Log
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
+import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.example.tugasbesar.camera.CameraActivity
 import com.example.tugasbesar.databinding.ActivityProfileBinding
+import com.example.tugasbesar.fragment.FragmentTempatWisata
 import com.example.tugasbesar.room.User
 import com.example.tugasbesar.room.UserDB
 import kotlinx.android.synthetic.main.activity_profile.*
@@ -42,6 +45,12 @@ class profile : AppCompatActivity() {
             intent.putExtra("profile",mBundle)
             startActivity(intent)
         }
+        profileView.setOnClickListener(){
+//            changeFragment(DialogImageChooser())
+//            true
+            val intent = Intent(this, CameraActivity::class.java)
+            startActivity(intent)
+        }
 
         button_delete.setOnClickListener {
             CoroutineScope(Dispatchers.IO).launch {
@@ -65,6 +74,15 @@ class profile : AppCompatActivity() {
         mBundle.putString("password",vpass)
         intent.putExtra("profile",mBundle)
         startActivity(intent)
+    }
+
+    fun changeFragment(fragment: Fragment?) {
+        if (fragment != null) {
+            getSupportFragmentManager()
+                .beginTransaction()
+                .replace(R.id.layout_fragment, fragment)
+                .commit()
+        }
     }
 
     private fun setupRecyclerView() {
