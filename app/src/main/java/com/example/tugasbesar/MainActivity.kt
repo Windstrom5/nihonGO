@@ -108,10 +108,13 @@ class MainActivity : AppCompatActivity() {
             }
             getAkun(user,pass)
             usernameGet.observe(this, Observer { String->
-                usernamedb = usernameGet.toString()
+                usernamedb = usernameGet.value
             })
             passwordGet.observe(this, Observer { String->
-                passworddb = passwordGet.toString()
+                passworddb = passwordGet.value
+            })
+            checkGet.observe(this, Observer { String->
+                check = checkGet.value.toString().toBoolean()
             })
 //            runBlocking(){
 //                val usernameDb = async {
@@ -148,7 +151,7 @@ class MainActivity : AppCompatActivity() {
 //                }
 //            }
             getAkun(user,pass)
-            if (usernamedb != "False"){
+            if (check == true){
                 checkLogin=true
             }else{
                 usernameInput.setError("Username Atau Password Salah")
@@ -293,7 +296,7 @@ class MainActivity : AppCompatActivity() {
                 setLoading(false)
             }, Response.ErrorListener { error->
                 setLoading(false)
-                usernameGet.postValue("False")
+                checkGet.postValue(false)
                 try{
                     val responseBody = String(error.networkResponse.data, StandardCharsets.UTF_8)
                     val errors = JSONObject(responseBody)
