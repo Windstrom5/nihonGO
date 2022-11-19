@@ -40,7 +40,8 @@
         <activity
             android:name=".kota"
             android:exported="false"
-            android:label="Select Region" />
+            android:label="Select Region"
+            android:fontFamily="@font/cyberpunkfont"/>
         <activity
             android:name=".Tokyo"
             android:exported="false" /> <!-- <activity -->

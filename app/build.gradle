@@ -69,4 +69,19 @@ dependencies {
     implementation 'com.google.firebase:firebase-database-ktx'
     //maps
     implementation 'org.osmdroid:osmdroid-android:6.1.11'
+    //swipe  refresh
+    implementation 'androidx.swiperefreshlayout:swiperefreshlayout:1.1.0'
+
+    //volley
+    implementation 'com.android.volley:volley:1.2.1'
+
+    //gson
+    implementation 'com.google.code.gson:gson:2.8.8'
+    def lifecycle_version = "2.4.0-alpha02"
+
+    implementation "androidx.lifecycle:lifecycle-livedata-ktx:$lifecycle_version"
+    // Annotation processor
+    kapt "androidx.lifecycle:lifecycle-compiler:$lifecycle_version"
+    // alternately - if using Java8, use the following instead of lifecycle-compiler
+    implementation "androidx.lifecycle:lifecycle-common-java8:$lifecycle_version"
 }

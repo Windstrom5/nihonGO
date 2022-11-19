@@ -7,10 +7,17 @@ import android.graphics.Color
 import android.os.Bundle
 import android.util.Log
 import android.view.View
+import android.view.WindowManager
 import android.widget.Button
+import android.widget.LinearLayout
 import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.Observer
+import com.android.volley.AuthFailureError
+import com.android.volley.Response
+import com.android.volley.toolbox.StringRequest
 import com.example.tugasbesar.databinding.ActivityMainBinding
 import com.example.tugasbesar.room.User
 import com.example.tugasbesar.room.UserDB
@@ -18,6 +25,13 @@ import com.google.android.material.textfield.TextInputEditText
 import com.google.android.material.textfield.TextInputLayout
 import kotlinx.coroutines.async
 import kotlinx.coroutines.runBlocking
+import org.json.JSONObject
+import java.nio.charset.StandardCharsets
+import com.example.tugasbesar.models.Users
+import com.example.tugasbesar.api.AkunApi
+import com.google.gson.Gson
+import com.android.volley.toolbox.Volley
+import com.android.volley.RequestQueue
 
 class MainActivity : AppCompatActivity() {
     private lateinit var register : TextView
@@ -26,6 +40,7 @@ class MainActivity : AppCompatActivity() {
     private lateinit var btnLogin : Button
     private lateinit var usernameInput : TextInputLayout
     private lateinit var passwordInput : TextInputLayout
+    private lateinit var loading : LinearLayout
     private val myPreference = "myPref"
     private val userkey = "userKey"
     private val passkey = "passwordKey"
@@ -34,11 +49,22 @@ class MainActivity : AppCompatActivity() {
     private lateinit var usernameView : TextInputEditText
     private lateinit var passwordView : TextInputEditText
     lateinit var mbunlde : Bundle
+    private var queue: RequestQueue? = null
     lateinit var vuser : String
-    lateinit var usernamedb :String
+    private var usernamedb :String? = null
     lateinit var account :User
-    lateinit var passworddb :String
+    private var passworddb :String? = null
     lateinit var vpassword : String
+    private var emaildb :String? = null
+    private var check:Boolean = false
+    private var phonedb : String? = null
+    private var tgldb : String? = null
+    val usernameGet: MutableLiveData<String> = MutableLiveData<String>()
+    val passwordGet: MutableLiveData<String> = MutableLiveData<String>()
+    val emailGet: MutableLiveData<String> = MutableLiveData<String>()
+    val phoneGet: MutableLiveData<String> = MutableLiveData<String>()
+    val tglGet: MutableLiveData<String> = MutableLiveData<String>()
+    val checkGet: MutableLiveData<Boolean> = MutableLiveData<Boolean>()
     var sharedPreferences: SharedPreferences? = null
     val db by lazy { UserDB(this) }
 
@@ -46,7 +72,6 @@ class MainActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
         getSupportActionBar()?.hide();
@@ -54,6 +79,8 @@ class MainActivity : AppCompatActivity() {
         setRegister()
         usernameInput = binding.userInput
         passwordInput = binding.passInput
+        loading = findViewById(R.id.layout_loading)
+        queue= Volley.newRequestQueue(this)
         btnLogin = binding.loginButton
         getBundle()
         setText()
@@ -79,27 +106,34 @@ class MainActivity : AppCompatActivity() {
                 checkLogin = false
                 return@OnClickListener
             }
-            runBlocking(){
-                val usernameDb = async {
-                    val Account: User? = db.noteDao().getAccount(user, pass)
-                    if (Account != null) {
-                        Account.username
-                    } else {
-                        null
-                    }
-                }
-                val passwordDb = async {
-                    val Account: User? = db.noteDao().getAccount(user, pass)
-                    Log.d("MainActivity","dbResponse: $Account")
-                    if (Account != null) {
-                        Account.password
-                    } else {
-                        null
-                    }
-                }
-                usernamedb = usernameDb.await().toString()
-                passworddb = passwordDb.await().toString()
-            }
+            getAkun(user,pass)
+            usernameGet.observe(this, Observer { String->
+                usernamedb = usernameGet.toString()
+            })
+            passwordGet.observe(this, Observer { String->
+                passworddb = passwordGet.toString()
+            })
+//            runBlocking(){
+//                val usernameDb = async {
+//                    val Account: User? = db.noteDao().getAccount(user, pass)
+//                    if (Account != null) {
+//                        Account.username
+//                    } else {
+//                        null
+//                    }
+//                }
+//                val passwordDb = async {
+//                    val Account: User? = db.noteDao().getAccount(user, pass)
+//                    Log.d("MainActivity","dbResponse: $Account")
+//                    if (Account != null) {
+//                        Account.password
+//                    } else {
+//                        null
+//                    }
+//                }
+//                usernamedb = usernameDb.await().toString()
+//                passworddb = passwordDb.await().toString()
+//            }
 //            CoroutineScope(Dispatchers.IO).launch {
 //                val Account: User? = db.noteDao().getAccount(user,pass)
 //                if(Account!=null){
@@ -113,7 +147,8 @@ class MainActivity : AppCompatActivity() {
 //                    passworddb = ""
 //                }
 //            }
-            if (user == usernamedb&&pass == passworddb){
+            getAkun(user,pass)
+            if (usernamedb != "False"){
                 checkLogin=true
             }else{
                 usernameInput.setError("Username Atau Password Salah")
@@ -234,4 +269,74 @@ class MainActivity : AppCompatActivity() {
 //            passworddb = Account.get(0).password
 //        }
 //    }
+
+    private fun getAkun(Username:String,Password:String){
+        setLoading(true)
+        val StringRequest: StringRequest = object : StringRequest(Method.GET,AkunApi.GET_BY_USERNAME + Username + "/" + Password,
+            Response.Listener { response->
+                val gson = Gson()
+                val akun = gson.fromJson(response, Users::class.java)
+                val usernameDatabase = akun.username
+                val passwordDatabase = akun.password
+                val emailDatabase = akun.email
+                val phoneDatabase = akun.no_telp
+                val dateDatabase = akun.birth_date
+                usernameGet.postValue(usernameDatabase)
+                passwordGet.postValue(passwordDatabase)
+                emailGet.postValue(emailDatabase)
+                phoneGet.postValue(phoneDatabase)
+                tglGet.postValue(dateDatabase)
+                checkGet.postValue(true)
+//                getData(usernamedb.toString(),passworddb.toString(),emaildb.toString(),
+//                    phonedb.toString(),tgldb.toString())
+                Toast.makeText(this,"Data Berhasil Diambil!",Toast.LENGTH_SHORT).show()
+                setLoading(false)
+            }, Response.ErrorListener { error->
+                setLoading(false)
+                usernameGet.postValue("False")
+                try{
+                    val responseBody = String(error.networkResponse.data, StandardCharsets.UTF_8)
+                    val errors = JSONObject(responseBody)
+                    Toast.makeText(
+                        this@MainActivity,
+                        errors.getString("message"),
+                        Toast.LENGTH_SHORT
+                    ).show()
+                }catch (e: Exception){
+                    Toast.makeText(this@MainActivity,e.message,Toast.LENGTH_SHORT).show()
+                }
+            }
+        ){
+            @Throws(AuthFailureError::class)
+            override fun getHeaders(): Map<String, String> {
+                val headers = HashMap<String,String>()
+                headers["Accept"] = "application/json"
+                return headers
+            }
+        }
+        queue!!.add(StringRequest)
+    }
+
+    fun setLoading(isLoading:Boolean){
+        if(isLoading){
+            window.setFlags(
+                WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE,
+                WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE
+            )
+            loading!!.visibility = View.VISIBLE
+        }else{
+            window.clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE)
+            loading!!.visibility = View.INVISIBLE
+        }
+    }
+
+    fun getData(username : String, password: String, email:String,telp:String,birth_date:String){
+        usernamedb = username
+        passworddb = password
+        emaildb = email
+        phonedb = telp
+        tgldb = birth_date
+        check = true
+    }
+
 }

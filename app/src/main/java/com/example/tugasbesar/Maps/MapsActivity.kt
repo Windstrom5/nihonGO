@@ -119,7 +119,6 @@ class MapsActivity : AppCompatActivity() {
                 true
             }
             val marker2 = Marker(mapView)
-
             marker2.position = GeoPoint(35.658581, 139.745438)
             marker2.setOnMarkerClickListener{ item, arg1->
                 item.showInfoWindow()
