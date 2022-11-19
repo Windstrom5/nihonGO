@@ -33,6 +33,7 @@ import java.util.*
 import com.example.tugasbesar.models.Users
 import com.example.tugasbesar.api.AkunApi
 import com.google.gson.Gson
+import kotlinx.android.synthetic.main.activity_register_view.*
 
 class RegisterView : AppCompatActivity() , DatePickerDialog.OnDateSetListener{
     private lateinit var register : TextView
@@ -48,6 +49,11 @@ class RegisterView : AppCompatActivity() , DatePickerDialog.OnDateSetListener{
     private lateinit var loading :LinearLayout
     lateinit var usernamedb :String
     var sharedPreferences: SharedPreferences? = null
+    private var etUser:EditText? = null
+    private var etPass:EditText? = null
+    private var etEmail:EditText? = null
+    private var etTelp:EditText? = null
+    private var etDate:EditText? = null
     lateinit var passworddb :String
     private val calender = Calendar.getInstance()
     private val CHANNEL_ID_1 = "channel_notification_01"
@@ -70,6 +76,11 @@ class RegisterView : AppCompatActivity() , DatePickerDialog.OnDateSetListener{
         setTitle("Register Page")
         setRegister()
         queue= Volley.newRequestQueue(this)
+        etUser = binding.username
+        etPass = binding.password
+        etEmail = binding.email
+        etTelp = binding.phone
+        etDate = binding.tgl
         btnRegister = binding.regisButton
         btnlogin = binding.loginText
         userRegister = binding.userRegis
@@ -138,7 +149,7 @@ class RegisterView : AppCompatActivity() , DatePickerDialog.OnDateSetListener{
             if(!checkLogin) {
                 return@OnClickListener
             }else{
-                createAccount(user,pass,email,tlp,tgl)
+                createAccount()
                 sendNotification1()
                 val userSave: String =
                     userRegister.getEditText()?.getText().toString().trim()
@@ -233,20 +244,21 @@ class RegisterView : AppCompatActivity() , DatePickerDialog.OnDateSetListener{
         }
     }
 
-    private fun createAccount(username:String,password:String,email:String,telepon:String,tanggal:String){
+    private fun createAccount(){
         setLoading(true)
-
         val akun = Users(
-            username,password, email, telepon, tanggal
+            userRegister.getEditText()?.getText().toString(),
+            passRegister.getEditText()?.getText().toString(),
+            emailRegister.getEditText()?.getText().toString(),
+            teleponRegister.getEditText()?.getText().toString(),
+            tanggalRegister.getEditText()?.getText().toString()
         )
-
         val StringRequest:StringRequest = object : StringRequest(Method.POST,AkunApi.ADD_URL,
             Response.Listener { response ->
                 val gson = Gson()
                 val akun = gson.fromJson(response, Users::class.java)
                 if(akun != null)
                     Toast.makeText(this@RegisterView,"Akun Berhasil Ditambahkan", Toast.LENGTH_SHORT).show()
-
                 val returnIntent = Intent()
                 setResult(RESULT_OK, returnIntent)
                 finish()
@@ -273,16 +285,26 @@ class RegisterView : AppCompatActivity() , DatePickerDialog.OnDateSetListener{
                 headers["Accept"] = "application/json"
                 return headers
             }
-            @Throws(AuthFailureError::class)
-            override fun getBody(): ByteArray {
-                val gson = Gson()
-                val requestBody = gson.toJson(akun)
-                return requestBody.toByteArray(StandardCharsets.UTF_8)
-            }
 
-            override fun getBodyContentType(): String {
-                return "application/json"
+            override fun getParams(): Map<String, String>? {
+                val params = HashMap<String,String>()
+                params.put("username",userRegister.getEditText()?.getText().toString())
+                params.put("password",passRegister.getEditText()?.getText().toString())
+                params.put("email",emailRegister.getEditText()?.getText().toString())
+                params.put("no_telp",teleponRegister.getEditText()?.getText().toString())
+                params.put("birth_date",tanggalRegister.getEditText()?.getText().toString())
+                return params
             }
+//            @Throws(AuthFailureError::class)
+//            override fun getBody(): ByteArray {
+//                val gson = Gson()
+//                val requestBody = gson.toJson(akun)
+//                return requestBody.toByteArray(StandardCharsets.UTF_8)
+//            }
+//
+//            override fun getBodyContentType(): String {
+//                return "application/json"
+//            }
         }
         queue!!.add(StringRequest)
     }

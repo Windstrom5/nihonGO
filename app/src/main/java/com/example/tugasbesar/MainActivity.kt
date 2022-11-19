@@ -56,7 +56,6 @@ class MainActivity : AppCompatActivity() {
     private var passworddb :String? = null
     lateinit var vpassword : String
     private var emaildb :String? = null
-    private var check:Boolean = false
     private var phonedb : String? = null
     private var tgldb : String? = null
     val usernameGet: MutableLiveData<String> = MutableLiveData<String>()
@@ -89,6 +88,7 @@ class MainActivity : AppCompatActivity() {
         etPassword = binding.pass
         btnLogin.setOnClickListener(View.OnClickListener{
             var checkLogin = false
+            var check = false
             var checkBundle = false
             val user : String = usernameInput.getEditText()?.getText().toString()
             val pass : String = passwordInput.getEditText()?.getText().toString()
@@ -102,7 +102,7 @@ class MainActivity : AppCompatActivity() {
                 return@OnClickListener
             }else if(user.isEmpty()&&pass.isEmpty()){
                 usernameInput.setError("Username tidak boleh Kosong")
-                passwordInput.setError("Username tidak boleh Kosong")
+                passwordInput.setError("Password tidak boleh Kosong")
                 checkLogin = false
                 return@OnClickListener
             }
@@ -339,7 +339,6 @@ class MainActivity : AppCompatActivity() {
         emaildb = email
         phonedb = telp
         tgldb = birth_date
-        check = true
+//        check = true
     }
-
 }
