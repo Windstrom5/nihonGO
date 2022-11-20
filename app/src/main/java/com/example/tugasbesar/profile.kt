@@ -4,18 +4,32 @@ import android.content.DialogInterface
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
+import android.view.View
+import android.view.WindowManager
+import android.widget.LinearLayout
 import android.widget.TextView
+import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.android.volley.AuthFailureError
+import com.android.volley.RequestQueue
+import com.android.volley.Response
+import com.android.volley.toolbox.StringRequest
+import com.android.volley.toolbox.Volley
+import com.example.tugasbesar.api.AkunApi
 import com.example.tugasbesar.camera.CameraActivity
 import com.example.tugasbesar.databinding.ActivityProfileBinding
 import com.example.tugasbesar.fragment.FragmentTempatWisata
+import com.example.tugasbesar.models.Users
 import com.example.tugasbesar.room.User
 import com.example.tugasbesar.room.UserDB
+import com.google.gson.Gson
 import kotlinx.android.synthetic.main.activity_profile.*
 import kotlinx.coroutines.*
+import org.json.JSONObject
+import java.nio.charset.StandardCharsets
 
 class profile : AppCompatActivity() {
     val db by lazy { UserDB(this) }
@@ -24,11 +38,17 @@ class profile : AppCompatActivity() {
     lateinit var vuser : String
     lateinit var vpass : String
     lateinit var passworddb :String
+    private var userProfile:TextView? = null
+    private var emailProfile:TextView? = null
+    private var notelpProfile:TextView? = null
+    private var birthProfile:TextView? = null
     lateinit var usernamedb :String
     lateinit var emaildb :String
     lateinit var telpdb :String
     lateinit var tgldb :String
     lateinit var userid: String
+    private lateinit var loading : LinearLayout
+    private var queue: RequestQueue? = null
     lateinit var binding: ActivityProfileBinding
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -37,15 +57,14 @@ class profile : AppCompatActivity() {
         getBundle()
         autofill(vuser ,vpass)
         onStart()
-
+        loading = findViewById(R.id.layout_loading)
+        queue= Volley.newRequestQueue(this)
         //Tampil PROFILE
-        val username: TextView = findViewById(R.id.namaProfil)
-        val email: TextView = findViewById(R.id.emailProfil)
-        val noTelp: TextView = findViewById(R.id.notelpProfil)
-        val birthDate: TextView = findViewById(R.id.birthProfil)
-        username.setText(usernamedb)
-        email.setText(emaildb)
-        noTelp.setText(telpdb)
+        userProfile = findViewById(R.id.namaProfil)
+        emailProfile= findViewById(R.id.emailProfil)
+        notelpProfile= findViewById(R.id.notelpProfil)
+        birthProfile=findViewById(R.id.birthProfil)
+        getAkun(vuser,vpass)
       //  setupRecyclerView()
         button_update.setOnClickListener(){
             val intent = Intent(this,EditActivity::class.java)
@@ -128,7 +147,7 @@ class profile : AppCompatActivity() {
                     dialogInterface, i -> dialogInterface.dismiss()
                 CoroutineScope(Dispatchers.IO).launch {
                     db.noteDao().deleteNote(user)
-                    loadData(vuser)
+//                    loadData(vuser)
                 }
             })
         }
@@ -137,18 +156,18 @@ class profile : AppCompatActivity() {
 
     override fun onStart() {
         super.onStart()
-        loadData(vuser)
+//        loadData(vuser)
     }
 
-    fun loadData(vuser : String) {
-        CoroutineScope(Dispatchers.IO).launch  {
-            val notes = db.noteDao().getUser(vuser)
-            Log.d("MainActivity","dbResponse: $notes")
-            withContext(Dispatchers.Main){
-                userAdapter.setData(notes)
-            }
-        }
-    }
+//    fun loadData(vuser : String) {
+//        CoroutineScope(Dispatchers.IO).launch  {
+//            val notes = db.noteDao().getUser(vuser)
+//            Log.d("MainActivity","dbResponse: $notes")
+//            withContext(Dispatchers.Main){
+//                userAdapter.setData(notes)
+//            }
+//        }
+//    }
 
     fun getBundle(){
         try{
@@ -243,4 +262,55 @@ class profile : AppCompatActivity() {
 //            Intent(applicationContext, EditActivity::class.java).putExtra("intent_id", noteId).putExtra("intent_type", intentType)
 //        )
 //    }
+
+    private fun getAkun(Username:String,Password:String){
+        setLoading(true)
+        val StringRequest: StringRequest = object : StringRequest(Method.GET, AkunApi.GET_BY_USERNAME + Username + "/" + Password,
+            Response.Listener { response->
+                val gson = Gson()
+                val akun = gson.fromJson(response, Users::class.java)
+                userProfile!!.setText(akun.username)
+                emailProfile!!.setText(akun.email)
+                notelpProfile!!.setText(akun.no_telp)
+                birthProfile!!.setText(akun.birth_date)
+//                getData(usernamedb.toString(),passworddb.toString(),emaildb.toString(),
+//                    phonedb.toString(),tgldb.toString())
+                Toast.makeText(this,"Data Berhasil Diambil!", Toast.LENGTH_SHORT).show()
+                setLoading(false)
+            }, Response.ErrorListener { error->
+                setLoading(false)
+                try{
+                    val responseBody = String(error.networkResponse.data, StandardCharsets.UTF_8)
+                    val errors = JSONObject(responseBody)
+                    Toast.makeText(
+                        this@profile,
+                        errors.getString("message"),
+                        Toast.LENGTH_SHORT
+                    ).show()
+                }catch (e: Exception){
+                    Toast.makeText(this@profile,e.message, Toast.LENGTH_SHORT).show()
+                }
+            }
+        ){
+            @Throws(AuthFailureError::class)
+            override fun getHeaders(): Map<String, String> {
+                val headers = HashMap<String,String>()
+                headers["Accept"] = "application/json"
+                return headers
+            }
+        }
+        queue!!.add(StringRequest)
+    }
+    fun setLoading(isLoading:Boolean){
+        if(isLoading){
+            window.setFlags(
+                WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE,
+                WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE
+            )
+            loading!!.visibility = View.VISIBLE
+        }else{
+            window.clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE)
+            loading!!.visibility = View.INVISIBLE
+        }
+    }
 }

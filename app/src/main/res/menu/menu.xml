@@ -10,6 +10,11 @@
         android:enabled="true"
         android:icon="@drawable/ic_user_24"
         android:title="Profile"/>
+    <item
+        android:id="@+id/menuwisata"
+        android:enabled="true"
+        android:icon="@drawable/ic_user_24"
+        android:title="Add Tourist Spot"/>
 <!--    <item-->
 <!--        android:id="@+id/menuSettings"-->
 <!--        android:enabled="true"-->

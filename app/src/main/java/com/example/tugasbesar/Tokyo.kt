@@ -122,6 +122,13 @@ class Tokyo : AppCompatActivity() {
             mBundle.putString("password",vpass)
             intent.putExtra("profile",mBundle)
             startActivity(intent)
+        }else if(item.itemId == R.id.menuWisata){
+            val intent = Intent(this, addWisata::class.java)
+            val mBundle = Bundle()
+            mBundle.putString("username",vuser)
+            mBundle.putString("password",vpass)
+            intent.putExtra("profile",mBundle)
+            startActivity(intent)
         }
         return super.onOptionsItemSelected(item)
     }

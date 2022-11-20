@@ -14,10 +14,11 @@ import com.android.volley.toolbox.Volley
 import com.example.tugasbesar.api.tempatWisataApi
 import com.example.tugasbesar.models.TempatWisata
 import com.google.gson.Gson
+import kotlinx.android.synthetic.main.activity_add_tempat_wisata.*
 import org.json.JSONObject
 import java.nio.charset.StandardCharsets
 
-class addTempatWisata : AppCompatActivity() {
+class addWisata : AppCompatActivity() {
     private var etNama: EditText? = null
     private var etAlamat: EditText? = null
     private var etRating: EditText? = null
@@ -25,6 +26,14 @@ class addTempatWisata : AppCompatActivity() {
     private var etLong: EditText? = null
     private var layout_loading: LinearLayout? = null
     private var queue: RequestQueue? = null
+    companion object{
+        private val Category_LIST = arrayOf(
+            "Tempat Wisata",
+            "Akomodasi",
+            "Kuliner",
+            "Event"
+        )
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -37,7 +46,7 @@ class addTempatWisata : AppCompatActivity() {
         etLat = findViewById(R.id.et_lat)
         etLong = findViewById(R.id.et_long)
         layout_loading = findViewById(R.id.layout_loading)
-
+        setExposeDropDownMenu()
         val btnCancel = findViewById<Button>(R.id.btn_cancel)
         btnCancel.setOnClickListener{ finish() }
         val btnSave = findViewById<Button>(R.id.btn_save)
@@ -50,6 +59,12 @@ class addTempatWisata : AppCompatActivity() {
             tvTitle.setText("Edit Tempat")
             btnSave.setOnClickListener{ updateTempat(id) }
         }
+    }
+
+    fun setExposeDropDownMenu() {
+        val adapterCategory: ArrayAdapter<String> =
+            ArrayAdapter<String>(this, R.layout.item_list, Category_LIST)
+        ed_jenis!!.setAdapter(adapterCategory)
     }
 
     private fun createTempat(){
@@ -69,7 +84,7 @@ class addTempatWisata : AppCompatActivity() {
                 val tempatWisata = gson.fromJson(response, TempatWisata::class.java)
 
                 if(tempatWisata != null)
-                    Toast.makeText(this@addTempatWisata,"Data Berhasil Ditambahkan", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(this@addWisata,"Data Berhasil Ditambahkan", Toast.LENGTH_SHORT).show()
 
                 val returnIntent = Intent()
                 setResult(RESULT_OK, returnIntent)
@@ -82,12 +97,12 @@ class addTempatWisata : AppCompatActivity() {
                     val responseBody = String(error.networkResponse.data, StandardCharsets.UTF_8)
                     val errors = JSONObject(responseBody)
                     Toast.makeText(
-                        this@addTempatWisata,
+                        this@addWisata,
                         errors.getString("message"),
                         Toast.LENGTH_SHORT
                     ).show()
                 }catch (e: Exception){
-                    Toast.makeText(this@addTempatWisata,e.message, Toast.LENGTH_SHORT).show()
+                    Toast.makeText(this@addWisata,e.message, Toast.LENGTH_SHORT).show()
                 }
             }
         ){
@@ -127,7 +142,7 @@ class addTempatWisata : AppCompatActivity() {
                 val tempatWisata = gson.fromJson(response, TempatWisata::class.java)
 
                 if(tempatWisata != null)
-                    Toast.makeText(this@addTempatWisata,"Data Berhasil Diupdate", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(this@addWisata,"Data Berhasil Diupdate", Toast.LENGTH_SHORT).show()
 
                 val returnIntent = Intent()
                 setResult(RESULT_OK, returnIntent)
@@ -140,12 +155,12 @@ class addTempatWisata : AppCompatActivity() {
                     val responseBody = String(error.networkResponse.data, StandardCharsets.UTF_8)
                     val errors = JSONObject(responseBody)
                     Toast.makeText(
-                        this@addTempatWisata,
+                        this@addWisata,
                         errors.getString("message"),
                         Toast.LENGTH_SHORT
                     ).show()
                 }catch (e: Exception){
-                    Toast.makeText(this@addTempatWisata,e.message, Toast.LENGTH_SHORT).show()
+                    Toast.makeText(this@addWisata,e.message, Toast.LENGTH_SHORT).show()
                 }
             }
         ){
