@@ -29,7 +29,9 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_margin="16dp"
-                android:text="Add Tourist Spot"/>
+                android:text="Add Tourist Spot"
+                android:textAlignment="center"
+                android:textColor="@color/dark_blue"/>
 
             <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/layout_nama"
@@ -38,7 +40,8 @@
                 android:layout_height="wrap_content"
                 android:layout_marginHorizontal="16dp"
                 android:layout_marginTop="8dp"
-                android:hint="Nama Tempat">
+                android:hint="Nama Tempat"
+                app:startIconDrawable="@drawable/ic_location">
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/et_nama"
@@ -54,7 +57,8 @@
                 android:layout_height="wrap_content"
                 android:layout_marginHorizontal="16dp"
                 android:layout_marginTop="8dp"
-                android:hint="Category">
+                android:hint="Category"
+                app:startIconDrawable="@drawable/ic_baseline_category_24">
 
                 <AutoCompleteTextView
                     android:id="@+id/ed_jenis"
@@ -70,7 +74,8 @@
                 android:layout_height="wrap_content"
                 android:layout_marginHorizontal="16dp"
                 android:layout_marginTop="8dp"
-                android:hint="Alamat">
+                android:hint="Alamat"
+                app:startIconDrawable="@drawable/ic_coordinates">
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/et_alamat"
@@ -86,7 +91,8 @@
                 android:layout_height="wrap_content"
                 android:layout_marginHorizontal="16dp"
                 android:layout_marginTop="8dp"
-                android:hint="Rating">
+                android:hint="Rating"
+                app:startIconDrawable="@drawable/ic_star">
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/et_rating"
@@ -102,7 +108,8 @@
                 android:layout_height="wrap_content"
                 android:layout_marginHorizontal="16dp"
                 android:layout_marginTop="8dp"
-                android:hint="Latitude">
+                android:hint="Latitude"
+                app:startIconDrawable="@drawable/ic_graph">
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/et_lat"
@@ -118,7 +125,8 @@
                 android:layout_height="wrap_content"
                 android:layout_marginHorizontal="16dp"
                 android:layout_marginTop="8dp"
-                android:hint="Longitude">
+                android:hint="Longitude"
+                app:startIconDrawable="@drawable/ic_graph">
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/et_long"
@@ -145,7 +153,9 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="Batal"/>
+            android:text="Batal"
+            android:backgroundTint="@color/red"
+            />
 
         <Button
             android:id="@+id/btn_save"
