@@ -36,7 +36,7 @@ class profile : AppCompatActivity() {
         getBundle()
         autofill(vuser ,vpass)
         onStart()
-        setupRecyclerView()
+      //  setupRecyclerView()
         button_update.setOnClickListener(){
             val intent = Intent(this,EditActivity::class.java)
             val mBundle = Bundle()
@@ -85,26 +85,26 @@ class profile : AppCompatActivity() {
         }
     }
 
-    private fun setupRecyclerView() {
-        userAdapter = MainAdapterProfile(arrayListOf(), object : MainAdapterProfile.OnAdapterListener{
-            override fun onClick(note: User) {
-                //Toast.makeText(applicationContext, note.title, Toast.LENGTH_SHORT).show()
-//               intentEdit(note.id, Constant.TYPE_READ)
-            }
-
-           override fun onUpdate(note: User) {
-//                intentEdit(note.id, Constant.TYPE_UPDATE)
-            }
-
-            override fun onDelete(note: User) {
-//                deleteDialog(note)
-            }
-        })
-        list_note.apply {
-            layoutManager = LinearLayoutManager(applicationContext)
-            adapter = userAdapter
-        }
-    }
+//    private fun setupRecyclerView() {
+//        userAdapter = MainAdapterProfile(arrayListOf(), object : MainAdapterProfile.OnAdapterListener{
+//            override fun onClick(note: User) {
+//                //Toast.makeText(applicationContext, note.title, Toast.LENGTH_SHORT).show()
+////               intentEdit(note.id, Constant.TYPE_READ)
+//            }
+//
+//           override fun onUpdate(note: User) {
+////                intentEdit(note.id, Constant.TYPE_UPDATE)
+//            }
+//
+//            override fun onDelete(note: User) {
+////                deleteDialog(note)
+//            }
+//        })
+//        list_note.apply {
+//            layoutManager = LinearLayoutManager(applicationContext)
+//            adapter = userAdapter
+//        }
+//    }
 
     private fun deleteDialog(user: User){
         val alertDialog = AlertDialog.Builder(this)
