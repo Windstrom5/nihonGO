@@ -4,6 +4,7 @@ import android.content.DialogInterface
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
+import android.widget.TextView
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
@@ -36,6 +37,15 @@ class profile : AppCompatActivity() {
         getBundle()
         autofill(vuser ,vpass)
         onStart()
+
+        //Tampil PROFILE
+        val username: TextView = findViewById(R.id.namaProfil)
+        val email: TextView = findViewById(R.id.emailProfil)
+        val noTelp: TextView = findViewById(R.id.notelpProfil)
+        val birthDate: TextView = findViewById(R.id.birthProfil)
+        username.setText(usernamedb)
+        email.setText(emaildb)
+        noTelp.setText(telpdb)
       //  setupRecyclerView()
         button_update.setOnClickListener(){
             val intent = Intent(this,EditActivity::class.java)

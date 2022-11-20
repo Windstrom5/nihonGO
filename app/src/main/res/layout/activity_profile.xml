@@ -7,20 +7,61 @@
     android:background="@drawable/background"
     tools:context=".profile">
 
-    <TextView xmlns:android="http://schemas.android.com/apk/res/android"
-        android:id="@+id/list_note"
-        android:layout_width="match_parent"
-        android:layout_height="250dp"
+    <TextView
+        android:id="@+id/namaProfil"
+        android:layout_width="411dp"
+        android:layout_height="66dp"
         android:layout_marginTop="36dp"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/profileView"
         android:ellipsize="end"
         android:maxLines="1"
         android:padding="16dp"
-        android:textAppearance="?attr/textAppearanceSubtitle1">
-    </TextView>
+        android:textAppearance="?attr/textAppearanceSubtitle1"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/profileView"></TextView>
+
+    <TextView
+        android:id="@+id/emailProfil"
+        android:layout_width="411dp"
+        android:layout_height="66dp"
+        android:layout_marginTop="36dp"
+        android:ellipsize="end"
+        android:maxLines="1"
+        android:padding="16dp"
+        android:textAppearance="?attr/textAppearanceSubtitle1"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/namaProfil"></TextView>
+
+    <TextView
+        android:id="@+id/notelpProfil"
+        android:layout_width="411dp"
+        android:layout_height="66dp"
+        android:layout_marginTop="36dp"
+        android:ellipsize="end"
+        android:maxLines="1"
+        android:padding="16dp"
+        android:textAppearance="?attr/textAppearanceSubtitle1"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/emailProfil"></TextView>
+
+    <TextView
+        android:id="@+id/birthProfil"
+        android:layout_width="411dp"
+        android:layout_height="66dp"
+        android:layout_marginTop="36dp"
+        android:ellipsize="end"
+        android:maxLines="1"
+        android:padding="16dp"
+        android:textAppearance="?attr/textAppearanceSubtitle1"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/notelpProfil"></TextView>
 
 <!--    <androidx.recyclerview.widget.RecyclerView-->
 <!--        android:id="@+id/list_note"-->
@@ -43,7 +84,7 @@
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.244" />
+        app:layout_constraintVertical_bias="0.141" />
 
     <TextView
         android:id="@+id/textView"
@@ -58,13 +99,13 @@
         app:layout_constraintHorizontal_bias="0.497"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.066" />
+        app:layout_constraintVertical_bias="0.023" />
 
     <ImageView
         android:id="@+id/imageView3"
         android:layout_width="236dp"
         android:layout_height="220dp"
-        app:layout_constraintBottom_toTopOf="@+id/list_note"
+        app:layout_constraintBottom_toTopOf="@+id/namaProfil"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.497"
         app:layout_constraintStart_toStartOf="parent"
@@ -77,13 +118,14 @@
         android:id="@+id/button_delete"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:text="DELETE"
+        android:layout_marginTop="12dp"
         android:backgroundTint="@color/red"
+        android:text="DELETE"
         app:layout_constraintBottom_toTopOf="@+id/button_update"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/list_note"
+        app:layout_constraintTop_toBottomOf="@+id/birthProfil"
         app:layout_constraintVertical_bias="0.0" />
 
     <Button
@@ -95,5 +137,5 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/list_note" />
+        />
 </androidx.constraintlayout.widget.ConstraintLayout>
