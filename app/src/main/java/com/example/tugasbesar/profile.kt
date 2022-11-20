@@ -269,10 +269,10 @@ class profile : AppCompatActivity() {
             Response.Listener { response->
                 val gson = Gson()
                 val akun = gson.fromJson(response, Users::class.java)
-                userProfile!!.setText(akun.username)
-                emailProfile!!.setText(akun.email)
-                notelpProfile!!.setText(akun.no_telp)
-                birthProfile!!.setText(akun.birth_date)
+                userProfile!!.text=akun.username
+                emailProfile!!.text=akun.email
+                notelpProfile!!.text=akun.no_telp
+                birthProfile!!.text=akun.birth_date
 //                getData(usernamedb.toString(),passworddb.toString(),emaildb.toString(),
 //                    phonedb.toString(),tgldb.toString())
                 Toast.makeText(this,"Data Berhasil Diambil!", Toast.LENGTH_SHORT).show()
