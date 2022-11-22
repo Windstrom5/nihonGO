@@ -33,11 +33,11 @@ import java.nio.charset.StandardCharsets
 
 class profile : AppCompatActivity() {
     val db by lazy { UserDB(this) }
-    lateinit var userAdapter: MainAdapterProfile
-    lateinit var mbunlde : Bundle
-    lateinit var vuser : String
-    lateinit var vpass : String
-    lateinit var passworddb :String
+    private lateinit var userAdapter: MainAdapterProfile
+    private lateinit var mbunlde : Bundle
+    private lateinit var vuser : String
+    private lateinit var vpass : String
+    private lateinit var passworddb :String
     private var userProfile:TextView? = null
     private var emailProfile:TextView? = null
     private var notelpProfile:TextView? = null
@@ -55,15 +55,16 @@ class profile : AppCompatActivity() {
         binding = ActivityProfileBinding.inflate(layoutInflater)
         setContentView(binding.root)
         getBundle()
-        autofill(vuser ,vpass)
-        onStart()
+//        autofill(vuser ,vpass)
+//        onStart()
+        Toast.makeText(this,"Welcome "+vuser,Toast.LENGTH_SHORT).show()
         loading = findViewById(R.id.layout_loading)
         queue= Volley.newRequestQueue(this)
         //Tampil PROFILE
-        userProfile = findViewById(R.id.namaProfil)
-        emailProfile= findViewById(R.id.emailProfil)
-        notelpProfile= findViewById(R.id.notelpProfil)
-        birthProfile=findViewById(R.id.birthProfil)
+        userProfile = binding.namaProfil
+        emailProfile= binding.emailProfil
+        notelpProfile= binding.notelpProfil
+        birthProfile= binding.birthProfil
         getAkun(vuser,vpass)
       //  setupRecyclerView()
         button_update.setOnClickListener(){
@@ -154,10 +155,10 @@ class profile : AppCompatActivity() {
         alertDialog.show()
     }
 
-    override fun onStart() {
-        super.onStart()
-//        loadData(vuser)
-    }
+//    override fun onStart() {
+//        super.onStart()
+////        loadData(vuser)
+//    }
 
 //    fun loadData(vuser : String) {
 //        CoroutineScope(Dispatchers.IO).launch  {
@@ -269,27 +270,57 @@ class profile : AppCompatActivity() {
             Response.Listener { response->
                 val gson = Gson()
                 val akun = gson.fromJson(response, Users::class.java)
-                userProfile!!.text=akun.username
-                emailProfile!!.text=akun.email
-                notelpProfile!!.text=akun.no_telp
-                birthProfile!!.text=akun.birth_date
-//                getData(usernamedb.toString(),passworddb.toString(),emaildb.toString(),
-//                    phonedb.toString(),tgldb.toString())
-                Toast.makeText(this,"Data Berhasil Diambil!", Toast.LENGTH_SHORT).show()
+                Log.d("MainActivity","dbResponse: ${akun.username}")
+//                userProfile!!.text=akun.username
+//                emailProfile!!.text=akun.email
+//                notelpProfile!!.text=akun.no_telp
+//                birthProfile!!.text=akun.birth_date
+////                getData(usernamedb.toString(),passworddb.toString(),emaildb.toString(),
+////                    phonedb.toString(),tgldb.toString())
+//                Toast.makeText(this,"Data Berhasil Diambil!", Toast.LENGTH_SHORT).show()
+//                setLoading(false)
+//            }, Response.ErrorListener { error->
+//                setLoading(false)
+//                try{
+//                    val responseBody = String(error.networkResponse.data, StandardCharsets.UTF_8)
+//                    val errors = JSONObject(responseBody)
+//                    Toast.makeText(
+//                        this@profile,
+//                        errors.getString("message"),
+//                        Toast.LENGTH_SHORT
+//                    ).show()
+//                }catch (e: Exception){
+//                    Toast.makeText(this@profile,e.message, Toast.LENGTH_SHORT).show()
+//                }
+//            }
+//        ){
+//            @Throws(AuthFailureError::class)
+//            override fun getHeaders(): Map<String, String> {
+//                val headers = HashMap<String,String>()
+//                headers["Accept"] = "application/json"
+//                return headers
+//            }
+//        }
+//        queue!!.add(StringRequest)
+                binding.namaProfil.setText(akun.username)
+                binding.emailProfil.setText(akun.email)
+                binding.notelpProfil.setText(akun.no_telp)
+                binding.birthProfil.setText(akun.birth_date)
                 setLoading(false)
             }, Response.ErrorListener { error->
                 setLoading(false)
-                try{
-                    val responseBody = String(error.networkResponse.data, StandardCharsets.UTF_8)
-                    val errors = JSONObject(responseBody)
-                    Toast.makeText(
-                        this@profile,
-                        errors.getString("message"),
-                        Toast.LENGTH_SHORT
-                    ).show()
-                }catch (e: Exception){
-                    Toast.makeText(this@profile,e.message, Toast.LENGTH_SHORT).show()
-                }
+//                try{
+//                    val responseBody = String(error.networkResponse.data, StandardCharsets.UTF_8)
+//                    val errors = JSONObject(responseBody)
+//                    usernameInput.setError("Akun belum Terdaftar")
+//                    Toast.makeText(
+//                        this@MainActivity,
+//                        "Akun Belum Terdaftar",
+//                        Toast.LENGTH_SHORT
+//                    ).show()
+//                }catch (e: Exception){
+//                    Toast.makeText(this@MainActivity,e.message,Toast.LENGTH_SHORT).show()
+//                }
             }
         ){
             @Throws(AuthFailureError::class)
@@ -297,6 +328,13 @@ class profile : AppCompatActivity() {
                 val headers = HashMap<String,String>()
                 headers["Accept"] = "application/json"
                 return headers
+            }
+
+            override fun getParams(): Map<String, String> {
+                val params = HashMap<String, String>()
+                params["username"] = Username
+                params["password"] = Password
+                return params
             }
         }
         queue!!.add(StringRequest)

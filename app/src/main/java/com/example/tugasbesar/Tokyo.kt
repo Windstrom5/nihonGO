@@ -15,6 +15,7 @@ import android.util.Log
 import android.view.Menu
 import android.view.MenuInflater
 import android.view.MenuItem
+import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import androidx.core.app.NotificationCompat
 import androidx.core.app.NotificationManagerCompat
@@ -47,7 +48,7 @@ class Tokyo : AppCompatActivity() {
         getBundle()
         createNotificationChannel()
         sendNotification1()
-
+        Toast.makeText(this,"Welcome To Tokyo "+vuser, Toast.LENGTH_SHORT).show()
         changeFragment(FragmentTempatWisata())
         botNav = binding.botNav
         botNav.setOnNavigationItemSelectedListener {

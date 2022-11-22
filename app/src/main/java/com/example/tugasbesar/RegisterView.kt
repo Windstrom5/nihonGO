@@ -33,7 +33,7 @@ import java.util.*
 import com.example.tugasbesar.models.Users
 import com.example.tugasbesar.api.AkunApi
 import com.google.gson.Gson
-import kotlinx.android.synthetic.main.activity_register_view.*
+//import kotlinx.android.synthetic.main.activity_register_view.*
 
 class RegisterView : AppCompatActivity() , DatePickerDialog.OnDateSetListener{
     private lateinit var register : TextView

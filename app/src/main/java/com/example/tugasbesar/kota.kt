@@ -4,6 +4,7 @@ import android.content.DialogInterface
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
+import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import com.example.tugasbesar.RV.RVKotaAdapter
@@ -20,6 +21,7 @@ class kota : AppCompatActivity() {
         binding = ActivityKotaBinding.inflate(layoutInflater)
         getBundle()
         setContentView(binding?.root)
+        Toast.makeText(this,"Welcome "+vuser,Toast.LENGTH_SHORT).show()
         val adapter = RVKotaAdapter(kota.listofnamaKota)
         adapter.getVariable(vuser,vpass)
         binding?.rvKota?.adapter = adapter
