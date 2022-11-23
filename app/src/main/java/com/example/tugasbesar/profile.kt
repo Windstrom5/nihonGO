@@ -12,7 +12,6 @@ import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
-import androidx.recyclerview.widget.LinearLayoutManager
 import com.android.volley.AuthFailureError
 import com.android.volley.RequestQueue
 import com.android.volley.Response
@@ -21,15 +20,14 @@ import com.android.volley.toolbox.Volley
 import com.example.tugasbesar.api.AkunApi
 import com.example.tugasbesar.camera.CameraActivity
 import com.example.tugasbesar.databinding.ActivityProfileBinding
-import com.example.tugasbesar.fragment.FragmentTempatWisata
 import com.example.tugasbesar.models.Users
 import com.example.tugasbesar.room.User
 import com.example.tugasbesar.room.UserDB
 import com.google.gson.Gson
 import kotlinx.android.synthetic.main.activity_profile.*
 import kotlinx.coroutines.*
+import org.json.JSONArray
 import org.json.JSONObject
-import java.nio.charset.StandardCharsets
 
 class profile : AppCompatActivity() {
     val db by lazy { UserDB(this) }
@@ -83,14 +81,14 @@ class profile : AppCompatActivity() {
         }
 
         button_delete.setOnClickListener {
-            CoroutineScope(Dispatchers.IO).launch {
-                db.noteDao().deleteNote(
-                    User(userid.toInt(), usernamedb,
-                        passworddb,emaildb,telpdb,
-                        tgldb)
-                )
-                finish()
-            }
+//            CoroutineScope(Dispatchers.IO).launch {
+//                db.noteDao().deleteNote(
+//                    User(userid.toInt(), usernamedb,
+//                        passworddb,emaildb,telpdb,
+//                        tgldb)
+//                )
+//                finish()
+//            }
             val intent = Intent(this,MapsActivity::class.java)
             startActivity(intent)
         }
@@ -186,68 +184,68 @@ class profile : AppCompatActivity() {
 
     }
 
-    private fun autofill(user : String ,pass : String){
-        runBlocking(){
-            var idDb = async {
-                val Account: User? = db.noteDao().getAccount(user, pass)
-                if (Account != null) {
-                    Account.id
-                } else {
-                    null
-                }
-            }
-            val usernameDb = async {
-                val Account: User? = db.noteDao().getAccount(user, pass)
-                if (Account != null) {
-                    Account.username
-                } else {
-                    null
-                }
-            }
-            val passwordDb = async {
-                val Account: User? = db.noteDao().getAccount(user, pass)
-                Log.d("MainActivity","dbResponse: $Account")
-                if (Account != null) {
-                    Account.password
-                } else {
-                    null
-                }
-            }
-            val emailDb = async {
-                val Account: User? = db.noteDao().getAccount(user, pass)
-                Log.d("MainActivity","dbResponse: $Account")
-                if (Account != null) {
-                    Account.email
-                } else {
-                    null
-                }
-            }
-            val phoneDb = async {
-                val Account: User? = db.noteDao().getAccount(user, pass)
-                Log.d("MainActivity","dbResponse: $Account")
-                if (Account != null) {
-                    Account.noTelp
-                } else {
-                    null
-                }
-            }
-            val tanggalDb = async {
-                val Account: User? = db.noteDao().getAccount(user, pass)
-                Log.d("MainActivity","dbResponse: $Account")
-                if (Account != null) {
-                    Account.tanggallahir
-                } else {
-                    null
-                }
-            }
-            userid = idDb.await().toString()
-            usernamedb = usernameDb.await().toString()
-            passworddb = passwordDb.await().toString()
-            emaildb = emailDb.await().toString()
-            telpdb = phoneDb.await().toString()
-            tgldb = tanggalDb.await().toString()
-        }
-    }
+//    private fun autofill(user : String ,pass : String){
+//        runBlocking(){
+//            var idDb = async {
+//                val Account: User? = db.noteDao().getAccount(user, pass)
+//                if (Account != null) {
+//                    Account.id
+//                } else {
+//                    null
+//                }
+//            }
+//            val usernameDb = async {
+//                val Account: User? = db.noteDao().getAccount(user, pass)
+//                if (Account != null) {
+//                    Account.username
+//                } else {
+//                    null
+//                }
+//            }
+//            val passwordDb = async {
+//                val Account: User? = db.noteDao().getAccount(user, pass)
+//                Log.d("MainActivity","dbResponse: $Account")
+//                if (Account != null) {
+//                    Account.password
+//                } else {
+//                    null
+//                }
+//            }
+//            val emailDb = async {
+//                val Account: User? = db.noteDao().getAccount(user, pass)
+//                Log.d("MainActivity","dbResponse: $Account")
+//                if (Account != null) {
+//                    Account.email
+//                } else {
+//                    null
+//                }
+//            }
+//            val phoneDb = async {
+//                val Account: User? = db.noteDao().getAccount(user, pass)
+//                Log.d("MainActivity","dbResponse: $Account")
+//                if (Account != null) {
+//                    Account.noTelp
+//                } else {
+//                    null
+//                }
+//            }
+//            val tanggalDb = async {
+//                val Account: User? = db.noteDao().getAccount(user, pass)
+//                Log.d("MainActivity","dbResponse: $Account")
+//                if (Account != null) {
+//                    Account.tanggallahir
+//                } else {
+//                    null
+//                }
+//            }
+//            userid = idDb.await().toString()
+//            usernamedb = usernameDb.await().toString()
+//            passworddb = passwordDb.await().toString()
+//            emaildb = emailDb.await().toString()
+//            telpdb = phoneDb.await().toString()
+//            tgldb = tanggalDb.await().toString()
+//        }
+//    }
 
 
 
@@ -266,11 +264,23 @@ class profile : AppCompatActivity() {
 
     private fun getAkun(Username:String,Password:String){
         setLoading(true)
-        val StringRequest: StringRequest = object : StringRequest(Method.GET, AkunApi.GET_BY_USERNAME + Username + "/" + Password,
+        val StringRequest: StringRequest = object
+            : StringRequest(Method.GET, AkunApi.GET_BY_USERNAME + Username + "/" + Password,
             Response.Listener { response->
                 val gson = Gson()
-                val akun = gson.fromJson(response, Users::class.java)
-                Log.d("MainActivity","dbResponse: ${akun.username}")
+
+                val jsonObject = JSONObject(response)
+                val jsonArray = jsonObject.getJSONArray("data")
+                for (i in 0 until jsonArray.length()) {
+                    val akun = jsonArray.getJSONObject(i)
+                    binding.namaProfil.setText(akun.getString("username"))
+                    binding.emailProfil.setText(akun.getString("email"))
+                    binding.notelpProfil.setText(akun.getString("no_telp"))
+                    binding.birthProfil.setText(akun.getString("birth_date"))
+                    setLoading(false)
+                }
+//                var akun : Users = gson.fromJson(jsonArray.toString(), Users::class.java)
+//                Log.d("MainActivity","dbResponse: ${akun.username}")
 //                userProfile!!.text=akun.username
 //                emailProfile!!.text=akun.email
 //                notelpProfile!!.text=akun.no_telp
@@ -302,11 +312,7 @@ class profile : AppCompatActivity() {
 //            }
 //        }
 //        queue!!.add(StringRequest)
-                binding.namaProfil.setText(akun.username)
-                binding.emailProfil.setText(akun.email)
-                binding.notelpProfil.setText(akun.no_telp)
-                binding.birthProfil.setText(akun.birth_date)
-                setLoading(false)
+
             }, Response.ErrorListener { error->
                 setLoading(false)
 //                try{
@@ -329,13 +335,13 @@ class profile : AppCompatActivity() {
                 headers["Accept"] = "application/json"
                 return headers
             }
-
-            override fun getParams(): Map<String, String> {
-                val params = HashMap<String, String>()
-                params["username"] = Username
-                params["password"] = Password
-                return params
-            }
+//
+//            override fun getParams(): Map<String, String> {
+//                val params = HashMap<String, String>()
+//                params["username"] = Username
+//                params["password"] = Password
+//                return params
+//            }
         }
         queue!!.add(StringRequest)
     }

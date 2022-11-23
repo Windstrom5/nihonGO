@@ -54,6 +54,7 @@ class RegisterView : AppCompatActivity() , DatePickerDialog.OnDateSetListener{
     private var etEmail:EditText? = null
     private var etTelp:EditText? = null
     private var etDate:EditText? = null
+    private var check:Boolean = false
     lateinit var passworddb :String
     private val calender = Calendar.getInstance()
     private val CHANNEL_ID_1 = "channel_notification_01"
@@ -125,52 +126,56 @@ class RegisterView : AppCompatActivity() , DatePickerDialog.OnDateSetListener{
             }else if(tgl.isEmpty()){
                 tanggalRegister.setError("Tanggal Lahir tidak boleh Kosong")
                 checkLogin = false
-            }
-            if (pass == confirmpass && user.isNotEmpty() && pass.isNotEmpty() && confirmpass.isNotEmpty()){
-                runBlocking(){
-                    val usernameDb = async {
-                        val Account: User? = db.noteDao().getUsername(userRegister.getEditText()?.getText().toString())
-                        if (Account != null) {
-                            Account.username
-                        } else {
-                            null
-                        }
-                    }
-                    usernamedb = usernameDb.await().toString()
-                }
-                if(userRegister.getEditText()?.getText().toString() == usernamedb){
-                    userRegister.setError("Username Sudah Ada")
-                }else{
-                    checkLogin=true
-                }
+            }else if(checkUsername(userRegister.getEditText()?.getText().toString())) {
+                userRegister.setError("Username Sudah Ada")
+                checkLogin = false
             }else if(pass != confirmpass){
                 confirmRegister.setError("Password Tidak Sama")
+                checkLogin = false
+            }else{
+//                runBlocking(){
+//                    val usernameDb = async {
+//                        val Account: User? = db.noteDao().getUsername(userRegister.getEditText()?.getText().toString())
+//                        if (Account != null) {
+//                            Account.username
+//                        } else {
+//                            null
+//                        }
+//                    }
+//                    usernamedb = usernameDb.await().toString()
+//                }
+//                if(userRegister.getEditText()?.getText().toString() == usernamedb){
+//                    userRegister.setError("Username Sudah Ada")
+//                }else{
+//                    checkLogin=true
+//                }
+                checkLogin=true
             }
             if(!checkLogin) {
                 return@OnClickListener
             }else{
-                createAccount()
-                sendNotification1()
-                val userSave: String =
-                    userRegister.getEditText()?.getText().toString().trim()
-                val passSave: String =
-                    passRegister.getEditText()?.getText().toString().trim()
-                sharedPreferences = getSharedPreferences(myPreference,
-                    Context.MODE_PRIVATE)
-                val editor: SharedPreferences.Editor =
-                    sharedPreferences!!.edit()
-                editor.putString(userkey, userSave)
-                editor.putString(passkey, passSave)
-                editor.apply()
-                val intent = Intent(this,MainActivity::class.java)
-                val mBundle = Bundle()
-                mBundle.putString("username",userRegister.getEditText()?.getText().toString())
-                mBundle.putString("password",passRegister.getEditText()?.getText().toString())
-                mBundle.putString("email",emailRegister.getEditText()?.getText().toString())
-                mBundle.putString("notelp",teleponRegister.getEditText()?.getText().toString())
-                mBundle.putString("tanggallahir",tanggalRegister.getEditText()?.getText().toString())
-                intent.putExtra("profile",mBundle)
-                startActivity(intent)
+                    createAccount()
+                    sendNotification1()
+                    val userSave: String =
+                        userRegister.getEditText()?.getText().toString().trim()
+                    val passSave: String =
+                        passRegister.getEditText()?.getText().toString().trim()
+                    sharedPreferences = getSharedPreferences(myPreference,
+                        Context.MODE_PRIVATE)
+                    val editor: SharedPreferences.Editor =
+                        sharedPreferences!!.edit()
+                    editor.putString(userkey, userSave)
+                    editor.putString(passkey, passSave)
+                    editor.apply()
+                    val intent = Intent(this,MainActivity::class.java)
+                    val mBundle = Bundle()
+                    mBundle.putString("username",userRegister.getEditText()?.getText().toString())
+                    mBundle.putString("password",passRegister.getEditText()?.getText().toString())
+                    mBundle.putString("email",emailRegister.getEditText()?.getText().toString())
+                    mBundle.putString("notelp",teleponRegister.getEditText()?.getText().toString())
+                    mBundle.putString("tanggallahir",tanggalRegister.getEditText()?.getText().toString())
+                    intent.putExtra("profile",mBundle)
+                    startActivity(intent)
             }
         })
 
@@ -307,5 +312,89 @@ class RegisterView : AppCompatActivity() , DatePickerDialog.OnDateSetListener{
 //            }
         }
         queue!!.add(StringRequest)
+    }
+
+    private fun checkUsername(Username:String): Boolean{
+        setLoading(true)
+        val StringRequest: StringRequest = object
+            : StringRequest(Method.GET, AkunApi.GET_ALL_URL,
+            Response.Listener { response->
+                val gson = Gson()
+
+                val jsonObject = JSONObject(response)
+                val jsonArray = jsonObject.getJSONArray("data")
+                for (i in 0 until jsonArray.length()) {
+                    val akun = jsonArray.getJSONObject(i)
+                    if(Username == akun.getString("username")){
+                        check = true
+                    }
+                    setLoading(false)
+                }
+//                var akun : Users = gson.fromJson(jsonArray.toString(), Users::class.java)
+//                Log.d("MainActivity","dbResponse: ${akun.username}")
+//                userProfile!!.text=akun.username
+//                emailProfile!!.text=akun.email
+//                notelpProfile!!.text=akun.no_telp
+//                birthProfile!!.text=akun.birth_date
+////                getData(usernamedb.toString(),passworddb.toString(),emaildb.toString(),
+////                    phonedb.toString(),tgldb.toString())
+//                Toast.makeText(this,"Data Berhasil Diambil!", Toast.LENGTH_SHORT).show()
+//                setLoading(false)
+//            }, Response.ErrorListener { error->
+//                setLoading(false)
+//                try{
+//                    val responseBody = String(error.networkResponse.data, StandardCharsets.UTF_8)
+//                    val errors = JSONObject(responseBody)
+//                    Toast.makeText(
+//                        this@profile,
+//                        errors.getString("message"),
+//                        Toast.LENGTH_SHORT
+//                    ).show()
+//                }catch (e: Exception){
+//                    Toast.makeText(this@profile,e.message, Toast.LENGTH_SHORT).show()
+//                }
+//            }
+//        ){
+//            @Throws(AuthFailureError::class)
+//            override fun getHeaders(): Map<String, String> {
+//                val headers = HashMap<String,String>()
+//                headers["Accept"] = "application/json"
+//                return headers
+//            }
+//        }
+//        queue!!.add(StringRequest)
+
+            }, Response.ErrorListener { error->
+                setLoading(false)
+//                try{
+//                    val responseBody = String(error.networkResponse.data, StandardCharsets.UTF_8)
+//                    val errors = JSONObject(responseBody)
+//                    usernameInput.setError("Akun belum Terdaftar")
+//                    Toast.makeText(
+//                        this@MainActivity,
+//                        "Akun Belum Terdaftar",
+//                        Toast.LENGTH_SHORT
+//                    ).show()
+//                }catch (e: Exception){
+//                    Toast.makeText(this@MainActivity,e.message,Toast.LENGTH_SHORT).show()
+//                }
+            }
+        ){
+            @Throws(AuthFailureError::class)
+            override fun getHeaders(): Map<String, String> {
+                val headers = HashMap<String,String>()
+                headers["Accept"] = "application/json"
+                return headers
+            }
+//
+//            override fun getParams(): Map<String, String> {
+//                val params = HashMap<String, String>()
+//                params["username"] = Username
+//                params["password"] = Password
+//                return params
+//            }
+        }
+        queue!!.add(StringRequest)
+        return check
     }
 }

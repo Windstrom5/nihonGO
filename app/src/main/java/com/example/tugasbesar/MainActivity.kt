@@ -264,6 +264,7 @@ class MainActivity : AppCompatActivity() {
             Response.Listener { response->
                 val gson = Gson()
                 val akun = gson.fromJson(response, Users::class.java)
+                Log.d("MainActivity","dbResponse: ${akun.username}")
 //                val usernameDatabase = akun.username
 //                val passwordDatabase = akun.password
 //                val emailDatabase = akun.email
