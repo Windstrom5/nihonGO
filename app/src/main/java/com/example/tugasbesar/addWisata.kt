@@ -18,6 +18,7 @@ import com.example.tugasbesar.api.tempatWisataApi
 import com.example.tugasbesar.models.Event
 import com.example.tugasbesar.models.TempatWisata
 import com.example.tugasbesar.models.Users
+import com.google.android.material.textfield.TextInputLayout
 import com.google.gson.Gson
 import kotlinx.android.synthetic.main.activity_add_tempat_wisata.*
 import org.json.JSONObject
@@ -33,6 +34,9 @@ class addWisata : AppCompatActivity() {
     private var layout_loading: LinearLayout? = null
     private var edCategory:AutoCompleteTextView? = null
     private var queue: RequestQueue? = null
+    private lateinit var ratingLayout : TextInputLayout
+    private lateinit var latitudeLayout : TextInputLayout
+    private lateinit var longtitudeLayout : TextInputLayout
     companion object{
         private val Category_LIST = arrayOf(
             "Tempat Wisata",
@@ -54,7 +58,26 @@ class addWisata : AppCompatActivity() {
         etLong = findViewById(R.id.et_long)
         layout_loading = findViewById(R.id.layout_loading)
         edCategory = findViewById(R.id.ed_jenis)
+        latitudeLayout = findViewById(R.id.layout_lat)
+        longtitudeLayout = findViewById(R.id.layout_long)
+        ratingLayout = findViewById(R.id.layout_rating)
         setExposeDropDownMenu()
+        edCategory!!.setOnClickListener {
+            @Override
+            fun onClick(view: View) {
+                if (edCategory!!.text.toString() == "Event") {
+                    ratingLayout.setHint("Tanggal")
+                    ratingLayout.setStartIconDrawable(R.drawable.ic_baseline_calendar_month_24)
+                    latitudeLayout.visibility = View.GONE
+                    longtitudeLayout.visibility = View.GONE
+                }else{
+                    ratingLayout.setHint("Rating")
+                    ratingLayout.setStartIconDrawable(R.drawable.ic_star)
+                    latitudeLayout.visibility = View.VISIBLE
+                    longtitudeLayout.visibility = View.VISIBLE
+                }
+            }
+        }
         val btnCancel = findViewById<Button>(R.id.btn_cancel)
         btnCancel.setOnClickListener{ finish() }
         val btnSave = findViewById<Button>(R.id.btn_save)
@@ -67,7 +90,7 @@ class addWisata : AppCompatActivity() {
     fun setExposeDropDownMenu() {
         val adapterCategory: ArrayAdapter<String> =
             ArrayAdapter<String>(this, R.layout.item_list, Category_LIST)
-        ed_jenis!!.setAdapter(adapterCategory)
+        edCategory!!.setAdapter(adapterCategory)
     }
 
     private fun createTempat(){

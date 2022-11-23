@@ -1,6 +1,7 @@
 package com.example.tugasbesar
 
-import kotlinx.android.synthetic.main.layout_tooltip.view.*
+//import kotlinx.android.synthetic.main.layout_tooltip.view.*
+import android.widget.TextView
 import org.osmdroid.views.MapView
 import org.osmdroid.views.overlay.Marker
 import org.osmdroid.views.overlay.infowindow.InfoWindow
@@ -14,9 +15,9 @@ class CustomInfoWindow(mapView: MapView?) : InfoWindow(R.layout.layout_tooltip, 
         val marker = item as Marker
         val infoWindowData = marker.relatedObject as ModelMain
 
-        val tvNamaLokasi = mView.tvNamaLokasi
-        val tvAlamat = mView.tvAlamat
-        val imageClose = mView.imageClose
+        val tvNamaLokasi = mView.findViewById<TextView>(R.id.tvNamaLokasi)
+        val tvAlamat = mView.findViewById<TextView>(R.id.tvAlamat)
+        val imageClose = mView.findViewById<TextView>(R.id.imageClose)
 
         tvNamaLokasi.text = infoWindowData.strName
         tvAlamat.text = infoWindowData.strAlamat

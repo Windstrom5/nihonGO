@@ -50,9 +50,10 @@
             android:fontFamily="@font/cyberpunkfont"/>
         <activity
             android:name=".Tokyo"
-            android:exported="false" /> <!-- <activity -->
-        <!-- android:name=".FragmentProfile" -->
-        <!-- android:exported="false" /> -->
+            android:exported="false" />
+        <!-- <activity -->
+            <!-- android:name=".FragmentProfile" -->
+            <!-- android:exported="false" /> -->
         <activity
             android:name=".RegisterView"
             android:exported="false" />

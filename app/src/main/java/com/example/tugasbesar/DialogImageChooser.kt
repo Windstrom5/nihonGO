@@ -8,7 +8,7 @@ import android.view.ViewGroup
 import android.widget.TextView
 import com.example.tugasbesar.camera.CameraActivity
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
-import kotlinx.android.synthetic.main.image_choose_bottom_sheet.*
+//import kotlinx.android.synthetic.main.image_choose_bottom_sheet.*
 
 
 class DialogImageChooser : BottomSheetDialogFragment() {
