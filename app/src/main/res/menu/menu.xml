@@ -15,6 +15,11 @@
         android:enabled="true"
         android:icon="@drawable/ic_user_24"
         android:title="Add Tourist Spot"/>
+    <item
+        android:id="@+id/menuTiket"
+        android:enabled="true"
+        android:icon="@drawable/ic_user_24"
+        android:title="Add Tiket"/>
 <!--    <item-->
 <!--        android:id="@+id/menuSettings"-->
 <!--        android:enabled="true"-->

@@ -57,17 +57,17 @@ class Tokyo : AppCompatActivity() {
                     changeFragment(FragmentTempatWisata())
                     true
                 }R.id.menuAkomodasi-> {
-                changeFragment(FragmentAkomodasi())
-                true
-            }R.id.menuKuliner-> {
-                changeFragment(FragmentKuliner())
-                true
-            }R.id.menuEvent->{
-                changeFragment(FragmentEvent())
-                true
-            }else -> false
+                    changeFragment(FragmentAkomodasi())
+                    true
+                }R.id.menuKuliner-> {
+                    changeFragment(FragmentKuliner())
+                    true
+                }R.id.menuEvent->{
+                    changeFragment(FragmentEvent())
+                    true
+                }else -> false
 
-            }
+                }
         }
 
     }
@@ -125,6 +125,13 @@ class Tokyo : AppCompatActivity() {
             startActivity(intent)
         }else if(item.itemId == R.id.menuWisata){
             val intent = Intent(this, addWisata::class.java)
+            val mBundle = Bundle()
+            mBundle.putString("username",vuser)
+            mBundle.putString("password",vpass)
+            intent.putExtra("profile",mBundle)
+            startActivity(intent)
+        }else if(item.itemId == R.id.menuTiket){
+            val intent = Intent(this, addTiket::class.java)
             val mBundle = Bundle()
             mBundle.putString("username",vuser)
             mBundle.putString("password",vpass)

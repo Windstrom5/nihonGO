@@ -4,10 +4,21 @@
     package="com.example.tugasbesar">
 
     <uses-permission android:name="android.permission.INTERNET" />
-    <uses-permission android:name="android.permission.CAMERA"/>
+    <uses-permission android:name="android.permission.CAMERA" /> <!-- Library PrivacyStreams -->
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
 
-    <!--    Library PrivacyStreams-->
-    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION"/>
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
+    <uses-permission
+        android:name="android.permission.WRITE_EXTERNAL_STORAGE"
+        tools:ignore="ScopedStorage"/>
+    <uses-permission
+        android:name="android.permission.MANAGE_EXTERNAL_STORAGE"
+        tools:ignore="ScopedStorage"/>
+    <uses-permission android:name="android.permission.CAMERA"/>
+    <uses-feature
+        android:name="android.hardware.camera"
+        android:required="false"/>
+
     <application
         android:allowBackup="true"
         android:dataExtractionRules="@xml/data_extraction_rules"
@@ -21,6 +32,13 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.TugasBesar"
         tools:targetApi="31">
+        <activity
+            android:name=".addTiket"
+            android:exported="false">
+            <meta-data
+                android:name="android.app.lib_name"
+                android:value="" />
+        </activity>
         <activity
             android:name=".ForgetPassword"
             android:exported="false" />
@@ -46,14 +64,13 @@
         <activity
             android:name=".kota"
             android:exported="false"
-            android:label="Select Region"
-            android:fontFamily="@font/cyberpunkfont"/>
+            android:fontFamily="@font/cyberpunkfont"
+            android:label="Select Region" />
         <activity
             android:name=".Tokyo"
-            android:exported="false" />
-        <!-- <activity -->
-            <!-- android:name=".FragmentProfile" -->
-            <!-- android:exported="false" /> -->
+            android:exported="false" /> <!-- <activity -->
+        <!-- android:name=".FragmentProfile" -->
+        <!-- android:exported="false" /> -->
         <activity
             android:name=".RegisterView"
             android:exported="false" />
