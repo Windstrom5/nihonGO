@@ -34,4 +34,17 @@ class FragmentAkomodasi : Fragment() {
     companion object {
 
     }
+
+//    LastAdapter(listOfItems, BR.item)
+//    .map<Header>(R.layout.item_header)
+//    .map<Point>(R.layout.item_point)
+//    .into(recyclerView)
+//
+//    LastAdapter(listOfItems, BR.item).layout { item, position ->
+//        when (item) {
+//            is Header -> if (position == 0) R.layout.item_header_first else R.layout.item_header
+//            else -> R.layout.item_point
+//        }
+//    }.into(recyclerView)
+
 }

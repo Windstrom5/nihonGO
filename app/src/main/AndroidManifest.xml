@@ -4,7 +4,9 @@
     package="com.example.tugasbesar">
 
     <uses-permission android:name="android.permission.INTERNET" />
-    <uses-permission android:name="android.permission.CAMERA" /> <!-- Library PrivacyStreams -->
+    <uses-permission android:name="android.permission.CAMERA" />
+    <!-- Library PrivacyStreams -->
+
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
 
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
@@ -32,6 +34,7 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.TugasBesar"
         tools:targetApi="31">
+
         <activity
             android:name=".addTiket"
             android:exported="false">
@@ -39,6 +42,7 @@
                 android:name="android.app.lib_name"
                 android:value="" />
         </activity>
+
         <activity
             android:name=".ForgetPassword"
             android:exported="false" />
@@ -64,13 +68,14 @@
         <activity
             android:name=".kota"
             android:exported="false"
-            android:fontFamily="@font/cyberpunkfont"
-            android:label="Select Region" />
+            android:label="Select Region"
+            android:fontFamily="@font/cyberpunkfont"/>
         <activity
             android:name=".Tokyo"
-            android:exported="false" /> <!-- <activity -->
-        <!-- android:name=".FragmentProfile" -->
-        <!-- android:exported="false" /> -->
+            android:exported="false" />
+        <!-- <activity -->
+            <!-- android:name=".FragmentProfile" -->
+            <!-- android:exported="false" /> -->
         <activity
             android:name=".RegisterView"
             android:exported="false" />
