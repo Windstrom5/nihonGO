@@ -6,6 +6,11 @@
         android:title="List Kota"/>
 
     <item
+        android:id="@+id/menuGambar"
+        android:icon="@drawable/ic_baseline_location_on_24"
+        android:title="Recommended Places"/>
+
+    <item
         android:id="@+id/menuProfile"
         android:enabled="true"
         android:icon="@drawable/ic_user_24"

@@ -7,9 +7,12 @@ import android.util.Log
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.content.res.ResourcesCompat
 import com.example.tugasbesar.RV.RVKotaAdapter
 import com.example.tugasbesar.databinding.ActivityKotaBinding
 import com.example.tugasbesar.entity.kota
+import www.sanju.motiontoast.MotionToast
+import www.sanju.motiontoast.MotionToastStyle
 
 class kota : AppCompatActivity() {
     var binding : ActivityKotaBinding? = null
@@ -21,7 +24,13 @@ class kota : AppCompatActivity() {
         binding = ActivityKotaBinding.inflate(layoutInflater)
         getBundle()
         setContentView(binding?.root)
-        Toast.makeText(this,"Welcome "+vuser,Toast.LENGTH_SHORT).show()
+        MotionToast.Companion.darkToast(this,
+            "Success Enter NihongGo "+vuser,
+            "Successfully Entering!",
+            MotionToastStyle.SUCCESS,
+            MotionToast.GRAVITY_BOTTOM,
+            MotionToast.LONG_DURATION,
+            ResourcesCompat.getFont(this, www.sanju.motiontoast.R.font.helvetica_regular))
         val adapter = RVKotaAdapter(kota.listofnamaKota)
         adapter.getVariable(vuser,vpass)
         binding?.rvKota?.adapter = adapter

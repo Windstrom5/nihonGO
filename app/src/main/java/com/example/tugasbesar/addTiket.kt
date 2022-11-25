@@ -9,6 +9,7 @@ import android.os.Bundle
 import android.os.Environment
 import android.view.View
 import android.widget.Toast
+import androidx.core.content.res.ResourcesCompat
 import com.example.tugasbesar.databinding.ActivityAddTiketBinding
 import com.itextpdf.barcodes.BarcodeQRCode
 import com.itextpdf.io.image.ImageDataFactory
@@ -24,6 +25,8 @@ import com.itextpdf.layout.element.Paragraph
 import com.itextpdf.layout.element.Table
 import com.itextpdf.layout.property.HorizontalAlignment
 import com.itextpdf.layout.property.TextAlignment
+import www.sanju.motiontoast.MotionToast
+import www.sanju.motiontoast.MotionToastStyle
 import java.io.File
 import java.io.FileNotFoundException
 import java.io.FileOutputStream
@@ -126,6 +129,12 @@ class addTiket : AppCompatActivity() {
         document.add(qrCodeImage)
 
         document.close()
-        Toast.makeText(this, "Pdf Created", Toast.LENGTH_LONG).show()
+        MotionToast.Companion.darkToast(this,
+            "Created",
+            "PDF Successfully Create!",
+            MotionToastStyle.SUCCESS,
+            MotionToast.GRAVITY_BOTTOM,
+            MotionToast.LONG_DURATION,
+            ResourcesCompat.getFont(this, www.sanju.motiontoast.R.font.helvetica_regular))
     }
 }
