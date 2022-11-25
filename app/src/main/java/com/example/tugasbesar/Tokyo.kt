@@ -116,6 +116,9 @@ class Tokyo : AppCompatActivity() {
         else if(item.itemId == R.id.menuKota) {
             val intent = Intent(this, kota::class.java)
             startActivity(intent)
+        }else if(item.itemId == R.id.menuGambar) {
+            val intent = Intent(this, LibGlide::class.java)
+            startActivity(intent)
         }else if(item.itemId == R.id.menuProfile){
             val intent = Intent(this, profile::class.java)
             val mBundle = Bundle()
