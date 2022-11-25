@@ -95,6 +95,12 @@ dependencies {
     implementation 'com.github.bumptech.glide:glide:4.14.2'
     annotationProcessor 'com.github.bumptech.glide:compiler:4.14.2'
 
+    //DEPRECATED T - T udah 3 library
+    //    implementation 'uk.co.samuelwall:material-tap-target-prompt:3.3.2'
+
+    //Lottie library
+    implementation "com.airbnb.android:lottie:3.4.0"
+
     //Motion Toast
     implementation 'com.github.Spikeysanju:MotionToast:1.4'
 }
