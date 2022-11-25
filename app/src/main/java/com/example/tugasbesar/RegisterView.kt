@@ -126,9 +126,6 @@ class RegisterView : AppCompatActivity() , DatePickerDialog.OnDateSetListener{
             }else if(tgl.isEmpty()){
                 tanggalRegister.setError("Tanggal Lahir tidak boleh Kosong")
                 checkLogin = false
-            }else if(checkUsername(userRegister.getEditText()?.getText().toString())) {
-                userRegister.setError("Username Sudah Ada")
-                checkLogin = false
             }else if(pass != confirmpass){
                 confirmRegister.setError("Password Tidak Sama")
                 checkLogin = false
@@ -314,7 +311,7 @@ class RegisterView : AppCompatActivity() , DatePickerDialog.OnDateSetListener{
         queue!!.add(StringRequest)
     }
 
-    private fun checkUsername(Username:String): Boolean{
+    private fun checkUsername(Username:String){
         setLoading(true)
         val StringRequest: StringRequest = object
             : StringRequest(Method.GET, AkunApi.GET_ALL_URL,
@@ -326,58 +323,68 @@ class RegisterView : AppCompatActivity() , DatePickerDialog.OnDateSetListener{
                 for (i in 0 until jsonArray.length()) {
                     val akun = jsonArray.getJSONObject(i)
                     if(Username == akun.getString("username")){
-                        check = true
+                        userRegister.setError("Username Sudah Ada")
+                        Toast.makeText(this@RegisterView,"Username Sudah Terdaftar",Toast.LENGTH_SHORT).show()
+                        val intent = Intent(this,MainActivity::class.java)
+                        startActivity(intent);
+                        break
+                    }else if(i==jsonArray.length()-1 &&Username != akun.getString("username")){
+                        val akun = Users(
+                            userRegister.getEditText()?.getText().toString(),
+                            passRegister.getEditText()?.getText().toString(),
+                            emailRegister.getEditText()?.getText().toString(),
+                            teleponRegister.getEditText()?.getText().toString(),
+                            tanggalRegister.getEditText()?.getText().toString()
+                        )
+                        val StringRequest:StringRequest = object : StringRequest(Method.POST,AkunApi.ADD_URL,
+                            Response.Listener { response ->
+                                val gson = Gson()
+                                val akun = gson.fromJson(response, Users::class.java)
+                                if(akun != null)
+                                    Toast.makeText(this@RegisterView,"Akun Berhasil Ditambahkan", Toast.LENGTH_SHORT).show()
+                                val returnIntent = Intent()
+                                setResult(RESULT_OK, returnIntent)
+                                finish()
+
+                                setLoading(false)
+                            },Response.ErrorListener { error->
+                                setLoading(false)
+                                try{
+                                    val responseBody = String(error.networkResponse.data, StandardCharsets.UTF_8)
+                                    val errors = JSONObject(responseBody)
+                                    Toast.makeText(
+                                        this@RegisterView,
+                                        errors.getString("message"),
+                                        Toast.LENGTH_SHORT
+                                    ).show()
+                                }catch (e: Exception){
+                                    Toast.makeText(this@RegisterView,e.message, Toast.LENGTH_SHORT).show()
+                                }
+                            }
+                        ){
+                            @Throws(AuthFailureError::class)
+                            override fun getHeaders(): Map<String, String> {
+                                val headers = HashMap<String,String>()
+                                headers["Accept"] = "application/json"
+                                return headers
+                            }
+
+                            override fun getParams(): Map<String, String>? {
+                                val params = HashMap<String,String>()
+                                params.put("username",userRegister.getEditText()?.getText().toString())
+                                params.put("password",passRegister.getEditText()?.getText().toString())
+                                params.put("email",emailRegister.getEditText()?.getText().toString())
+                                params.put("no_telp",teleponRegister.getEditText()?.getText().toString())
+                                params.put("birth_date",tanggalRegister.getEditText()?.getText().toString())
+                                return params
+                            }
+                        }
+                        queue!!.add(StringRequest)
                     }
                     setLoading(false)
                 }
-//                var akun : Users = gson.fromJson(jsonArray.toString(), Users::class.java)
-//                Log.d("MainActivity","dbResponse: ${akun.username}")
-//                userProfile!!.text=akun.username
-//                emailProfile!!.text=akun.email
-//                notelpProfile!!.text=akun.no_telp
-//                birthProfile!!.text=akun.birth_date
-////                getData(usernamedb.toString(),passworddb.toString(),emaildb.toString(),
-////                    phonedb.toString(),tgldb.toString())
-//                Toast.makeText(this,"Data Berhasil Diambil!", Toast.LENGTH_SHORT).show()
-//                setLoading(false)
-//            }, Response.ErrorListener { error->
-//                setLoading(false)
-//                try{
-//                    val responseBody = String(error.networkResponse.data, StandardCharsets.UTF_8)
-//                    val errors = JSONObject(responseBody)
-//                    Toast.makeText(
-//                        this@profile,
-//                        errors.getString("message"),
-//                        Toast.LENGTH_SHORT
-//                    ).show()
-//                }catch (e: Exception){
-//                    Toast.makeText(this@profile,e.message, Toast.LENGTH_SHORT).show()
-//                }
-//            }
-//        ){
-//            @Throws(AuthFailureError::class)
-//            override fun getHeaders(): Map<String, String> {
-//                val headers = HashMap<String,String>()
-//                headers["Accept"] = "application/json"
-//                return headers
-//            }
-//        }
-//        queue!!.add(StringRequest)
-
             }, Response.ErrorListener { error->
                 setLoading(false)
-//                try{
-//                    val responseBody = String(error.networkResponse.data, StandardCharsets.UTF_8)
-//                    val errors = JSONObject(responseBody)
-//                    usernameInput.setError("Akun belum Terdaftar")
-//                    Toast.makeText(
-//                        this@MainActivity,
-//                        "Akun Belum Terdaftar",
-//                        Toast.LENGTH_SHORT
-//                    ).show()
-//                }catch (e: Exception){
-//                    Toast.makeText(this@MainActivity,e.message,Toast.LENGTH_SHORT).show()
-//                }
             }
         ){
             @Throws(AuthFailureError::class)
@@ -386,15 +393,7 @@ class RegisterView : AppCompatActivity() , DatePickerDialog.OnDateSetListener{
                 headers["Accept"] = "application/json"
                 return headers
             }
-//
-//            override fun getParams(): Map<String, String> {
-//                val params = HashMap<String, String>()
-//                params["username"] = Username
-//                params["password"] = Password
-//                return params
-//            }
         }
         queue!!.add(StringRequest)
-        return check
     }
 }

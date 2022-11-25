@@ -71,11 +71,11 @@ class addTiket : AppCompatActivity() {
         val document = Document(pdfDocument)
         pdfDocument.defaultPageSize = PageSize.A4
         document.setMargins(5f,5f,5f,5f)
-        @SuppressLint("UseCompatLoadingForDrawables") val d = getDrawable(R.drawable.background)
+        @SuppressLint("UseCompatLoadingForDrawables") val d = getDrawable(R.drawable.logo)
 
         val bitmap = (d as BitmapDrawable?)!!.bitmap
         val stream = ByteArrayOutputStream()
-        bitmap.compress(Bitmap.CompressFormat.JPEG,100, stream)
+        bitmap.compress(Bitmap.CompressFormat.PNG,100, stream)
         val bitmapData = stream.toByteArray()
         val imageData = ImageDataFactory.create(bitmapData)
         val image = Image(imageData)
