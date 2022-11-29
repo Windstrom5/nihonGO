@@ -17,7 +17,6 @@ class LibGlide : AppCompatActivity() {
         setContentView(binding.root)
 
         binding.buttonRandomImage.setOnClickListener{
-
             val url = "https://picsum.photos/300"
 
             Glide.with( this)
