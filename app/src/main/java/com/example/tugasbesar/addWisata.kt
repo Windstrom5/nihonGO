@@ -62,22 +62,35 @@ class addWisata : AppCompatActivity() {
         longtitudeLayout = findViewById(R.id.layout_long)
         ratingLayout = findViewById(R.id.layout_rating)
         setExposeDropDownMenu()
-        edCategory!!.setOnClickListener {
-            @Override
-            fun onClick(view: View) {
-                if (edCategory!!.text.toString() == "Event") {
-                    ratingLayout.setHint("Tanggal")
-                    ratingLayout.setStartIconDrawable(R.drawable.ic_baseline_calendar_month_24)
-                    latitudeLayout.visibility = View.GONE
-                    longtitudeLayout.visibility = View.GONE
-                }else{
-                    ratingLayout.setHint("Rating")
-                    ratingLayout.setStartIconDrawable(R.drawable.ic_star)
-                    latitudeLayout.visibility = View.VISIBLE
-                    longtitudeLayout.visibility = View.VISIBLE
-                }
+        edCategory!!.setOnItemClickListener{adapterView, view, position, id ->
+            if (edCategory!!.text.toString() == "Event") {
+                ratingLayout.setHint("Tanggal")
+                ratingLayout.setStartIconDrawable(R.drawable.ic_baseline_calendar_month_24)
+                latitudeLayout.visibility = View.GONE
+                longtitudeLayout.visibility = View.GONE
+            }else{
+                ratingLayout.setHint("Rating")
+                ratingLayout.setStartIconDrawable(R.drawable.ic_star)
+                latitudeLayout.visibility = View.VISIBLE
+                longtitudeLayout.visibility = View.VISIBLE
             }
         }
+//        edCategory!!.setOnClickListener {
+//            @Override
+//            fun onClick(view: View) {
+//                if (edCategory!!.text.toString() == "Event") {
+//                    ratingLayout.setHint("Tanggal")
+//                    ratingLayout.setStartIconDrawable(R.drawable.ic_baseline_calendar_month_24)
+//                    latitudeLayout.visibility = View.GONE
+//                    longtitudeLayout.visibility = View.GONE
+//                }else{
+//                    ratingLayout.setHint("Rating")
+//                    ratingLayout.setStartIconDrawable(R.drawable.ic_star)
+//                    latitudeLayout.visibility = View.VISIBLE
+//                    longtitudeLayout.visibility = View.VISIBLE
+//                }
+//            }
+//        }
         val btnCancel = findViewById<Button>(R.id.btn_cancel)
         btnCancel.setOnClickListener{ finish() }
         val btnSave = findViewById<Button>(R.id.btn_save)
