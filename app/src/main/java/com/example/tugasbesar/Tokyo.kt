@@ -9,7 +9,6 @@ import android.content.Intent
 import android.graphics.BitmapFactory
 import android.graphics.Color
 import android.os.Build
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
 import android.view.Menu
@@ -17,6 +16,7 @@ import android.view.MenuInflater
 import android.view.MenuItem
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
+import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.NotificationCompat
 import androidx.core.app.NotificationManagerCompat
 import androidx.fragment.app.Fragment
@@ -49,17 +49,23 @@ class Tokyo : AppCompatActivity() {
         createNotificationChannel()
         sendNotification1()
         Toast.makeText(this,"Welcome To Tokyo "+vuser, Toast.LENGTH_SHORT).show()
-        changeFragment(FragmentTempatWisata())
+        val bundle = Bundle()
+        bundle.putString("city", "Tokyo")
+        val fragobj = FragmentTempatWisata()
+        fragobj.setArguments(bundle)
+        changeFragment(fragobj)
         botNav = binding.botNav
         botNav.setOnNavigationItemSelectedListener {
             when (it.itemId) {
-                R.id.menuWisata -> {
-                    changeFragment(FragmentTempatWisata())
-                    true
-                }R.id.menuAkomodasi-> {
+                R.id.menuAkomodasi-> {
                     changeFragment(FragmentAkomodasi())
                     true
-                }R.id.menuKuliner-> {
+                }R.id.menuWisata -> {
+                    bundle.putString("city", "Tokyo")
+                    fragobj.setArguments(bundle)
+                    changeFragment(fragobj)
+                    true
+                 }R.id.menuKuliner-> {
                     changeFragment(FragmentKuliner())
                     true
                 }R.id.menuEvent->{
@@ -126,11 +132,12 @@ class Tokyo : AppCompatActivity() {
             mBundle.putString("password",vpass)
             intent.putExtra("profile",mBundle)
             startActivity(intent)
-        }else if(item.itemId == R.id.menuWisata){
+        }else if(item.itemId == R.id.menuAddWisata){
             val intent = Intent(this, addWisata::class.java)
             val mBundle = Bundle()
             mBundle.putString("username",vuser)
             mBundle.putString("password",vpass)
+            mBundle.putString("city","Tokyo")
             intent.putExtra("profile",mBundle)
             startActivity(intent)
         }else if(item.itemId == R.id.menuTiket){
@@ -181,7 +188,7 @@ class Tokyo : AppCompatActivity() {
         val pendingIntent: PendingIntent = PendingIntent.getActivity(this, 0, intent,0)
 
         val broadcastIntent : Intent = Intent(this, NotificationReceiver::class.java)
-        broadcastIntent.putExtra("toastMessage","welcome",)
+        broadcastIntent.putExtra("toastMessage", "welcome")
         val actionIntent = PendingIntent.getBroadcast(this, 0, broadcastIntent, PendingIntent.FLAG_UPDATE_CURRENT)
 
         val notif1 = NotificationCompat.Builder(this, CHANNEL_ID_1)

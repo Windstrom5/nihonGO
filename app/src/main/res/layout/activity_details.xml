@@ -25,9 +25,9 @@
         app:layout_constraintVertical_bias="0.023" />
 
     <TextView
-        android:id="@+id/namaProfil"
+        android:id="@+id/namaWisata"
         android:layout_width="411dp"
-        android:layout_height="66dp"
+        android:layout_height="50dp"
         android:layout_marginTop="36dp"
         android:ellipsize="end"
         android:gravity="center"
@@ -40,10 +40,10 @@
         app:layout_constraintTop_toBottomOf="@+id/textView" />
 
     <TextView
-        android:id="@+id/emailProfil"
+        android:id="@+id/detailsWisata"
         android:layout_width="411dp"
-        android:layout_height="66dp"
-        android:layout_marginTop="72dp"
+        android:layout_height="100dp"
+        android:layout_marginTop="50dp"
         android:ellipsize="end"
         android:gravity="center"
         android:maxLines="1"
@@ -52,13 +52,13 @@
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/namaProfil" />
+        app:layout_constraintTop_toBottomOf="@+id/namaWisata" />
 
     <TextView
-        android:id="@+id/notelpProfil"
+        android:id="@+id/lokasiWisata"
         android:layout_width="411dp"
         android:layout_height="66dp"
-        android:layout_marginTop="96dp"
+        android:layout_marginTop="15dp"
         android:ellipsize="end"
         android:gravity="center"
         android:maxLines="1"
@@ -67,13 +67,13 @@
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/emailProfil" />
+        app:layout_constraintTop_toBottomOf="@+id/detailsWisata" />
 
     <TextView
-        android:id="@+id/birthProfil"
+        android:id="@+id/hargaTiket"
         android:layout_width="411dp"
         android:layout_height="66dp"
-        android:layout_marginTop="60dp"
+        android:layout_marginTop="15dp"
         android:ellipsize="end"
         android:gravity="center"
         android:maxLines="1"
@@ -82,34 +82,33 @@
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/notelpProfil" />
+        app:layout_constraintTop_toBottomOf="@+id/lokasiWisata" />
 
     <Button
         android:id="@+id/button_ticket"
-        android:layout_width="0dp"
+        android:layout_width="190dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="12dp"
+        android:layout_marginTop="156dp"
+        android:layout_marginEnd="15dp"
         android:backgroundTint="@color/baby_pink"
         android:text="BUY TICKET"
-        app:layout_constraintBottom_toTopOf="@+id/button_location"
-        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/button_location"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/birthProfil"
-        app:layout_constraintVertical_bias="0.0" />
+        app:layout_constraintTop_toBottomOf="@+id/hargaTiket" />
 
     <Button
         android:id="@+id/button_location"
-        android:layout_width="0dp"
+        android:layout_width="190dp"
         android:layout_height="wrap_content"
-        android:text="SEE LOCATION"
         android:backgroundTint="@color/dark_green"
+        android:text="SEE LOCATION"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/button_ticket"
-        />
+        app:layout_constraintHorizontal_bias="0.949"
+        app:layout_constraintStart_toEndOf="@+id/button_ticket"
+        app:layout_constraintTop_toBottomOf="@id/hargaTiket"
+        app:layout_constraintVertical_bias="0.687" />
 
     <include
         android:id="@+id/layout_loading"

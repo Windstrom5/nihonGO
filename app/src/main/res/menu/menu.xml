@@ -7,7 +7,7 @@
 
     <item
         android:id="@+id/menuGambar"
-        android:icon="@drawable/ic_baseline_location_on_24"
+        android:icon="@drawable/ic_location"
         android:title="Recommended Places"/>
 
     <item
@@ -16,7 +16,7 @@
         android:icon="@drawable/ic_user_24"
         android:title="Profile"/>
     <item
-        android:id="@+id/menuWisata"
+        android:id="@+id/menuAddWisata"
         android:enabled="true"
         android:icon="@drawable/ic_user_24"
         android:title="Add Tourist Spot"/>
