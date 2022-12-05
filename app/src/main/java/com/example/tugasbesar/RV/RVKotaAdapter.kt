@@ -6,6 +6,7 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.example.tugasbesar.Tokyo
+import com.example.tugasbesar.addWisata
 import com.example.tugasbesar.databinding.RvItemKotaBinding
 import com.example.tugasbesar.entity.kota
 import com.example.tugasbesar.fragment.FragmentTempatWisata
@@ -31,7 +32,7 @@ class RVKotaAdapter(private val data: Array<kota>) : RecyclerView.Adapter<RVKota
         holder.itemView.setOnClickListener(){
             val id = task.id
             if(id == "Tokyo"){
-                val intent = Intent(holder.itemView.context, pariwisata::class.java)
+                val intent = Intent(holder.itemView.context, addWisata::class.java)
                 val mBundle = Bundle()
                 mBundle.putString("username",vuser)
                 mBundle.putString("password",vpass)

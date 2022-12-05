@@ -99,6 +99,12 @@ class RegisterView : AppCompatActivity() , DatePickerDialog.OnDateSetListener{
         })
         teleponRegister = binding.noRegis
         binding.regisButton.setOnClickListener(View.OnClickListener {
+            userRegister.setError(null)
+            passRegister.setError(null)
+            confirmRegister.setError(null)
+            emailRegister.setError(null)
+            tanggalRegister.setError(null)
+            teleponRegister.setError(null)
             var checkLogin = false
             val user : String = userRegister.getEditText()?.getText().toString()
             val pass : String = passRegister.getEditText()?.getText().toString()

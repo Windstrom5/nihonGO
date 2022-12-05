@@ -90,6 +90,8 @@ class MainActivity : AppCompatActivity() {
             var checkLogin = false
             var check = false
             var checkBundle = false
+            usernameInput.setError(null)
+            passwordInput.setError(null)
             val user : String = usernameInput.getEditText()?.getText().toString()
             val pass : String = passwordInput.getEditText()?.getText().toString()
             if(user.isEmpty()){
@@ -97,7 +99,7 @@ class MainActivity : AppCompatActivity() {
                 checkLogin = false
                 return@OnClickListener
             }else if(pass.isEmpty()){
-                passwordInput.setError("Username tidak boleh Kosong")
+                passwordInput.setError("Password tidak boleh Kosong")
                 checkLogin = false
                 return@OnClickListener
             }else if(user.isEmpty()&&pass.isEmpty()){

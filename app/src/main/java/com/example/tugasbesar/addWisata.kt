@@ -11,6 +11,7 @@ import android.view.WindowManager
 import android.widget.*
 import android.widget.AdapterView.OnItemClickListener
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.content.res.ResourcesCompat
 import androidx.core.view.isEmpty
 import com.android.volley.AuthFailureError
 import com.android.volley.RequestQueue
@@ -28,6 +29,8 @@ import com.google.android.material.textfield.TextInputLayout
 import com.google.gson.Gson
 import kotlinx.android.synthetic.main.activity_add_tempat_wisata.*
 import org.json.JSONObject
+import www.sanju.motiontoast.MotionToast
+import www.sanju.motiontoast.MotionToastStyle
 import java.nio.charset.StandardCharsets
 import java.text.NumberFormat
 import java.text.SimpleDateFormat
@@ -51,7 +54,9 @@ class addWisata : AppCompatActivity(), DatePickerDialog.OnDateSetListener {
     private var edCategory:AutoCompleteTextView? = null
     private var queue: RequestQueue? = null
     private lateinit var ratingLayout : TextInputLayout
+    private lateinit var categoryLayout: TextInputLayout
     private lateinit var namaLayout : TextInputLayout
+    private lateinit var alamatLayout: TextInputLayout
     private lateinit var latitudeLayout : TextInputLayout
     private lateinit var longtitudeLayout : TextInputLayout
     private lateinit var priceLayout : TextInputLayout
@@ -83,6 +88,8 @@ class addWisata : AppCompatActivity(), DatePickerDialog.OnDateSetListener {
 //        categoryLayout = findViewById(R.id.jenis_wisata)
         edCategory = findViewById(R.id.ed_jenis)
         latitudeLayout = findViewById(R.id.layout_lat)
+        categoryLayout = findViewById(R.id.jenis_wisata)
+        alamatLayout = findViewById(R.id.layout_alamat)
         priceLayout = findViewById(R.id.layout_harga)
         longtitudeLayout = findViewById(R.id.layout_long)
         ratingLayout = findViewById(R.id.layout_rating)
@@ -157,35 +164,52 @@ class addWisata : AppCompatActivity(), DatePickerDialog.OnDateSetListener {
         val btnSave = findViewById<Button>(R.id.btn_save)
         val tvTitle = findViewById<TextView>(R.id.tv_title)
         btnSave.setOnClickListener(){
+            namaLayout.setError(null)
+            categoryLayout.setError(null)
+            alamatLayout.setError(null)
+            ratingLayout.setError(null)
+            priceLayout.setError(null)
+            latitudeLayout.setError(null)
+            longtitudeLayout.setError(null)
             if(etNama!!.getText().isEmpty()){
                 namaLayout.setError("Nama Tidak Boleh Kosong!")
+                checkInputan = false
+                Toast.makeText(this,"Nama Tidak Boleh Kosong!",Toast.LENGTH_SHORT).show()
+            }else if(edCategory!!.getText().isEmpty()){
+                categoryLayout.setError("Category Tidak Boleh Kosong!")
+                checkInputan = false
+                Toast.makeText(this,"Category Tidak Boleh Kosong!",Toast.LENGTH_SHORT).show()
+            }else if(etAlamat!!.getText().isEmpty()){
+                alamatLayout.setError("Alamat Tidak Boleh Kosong!")
+                checkInputan = false
+            }else if(etRating!!.getText().isEmpty()){
+                if(edCategory!!.getText().toString() == "Event"){
+                    ratingLayout.setError("Tanggal Event Tidak Boleh Kosong!")
+                    Toast.makeText(this,"Tanggal Event Tidak Boleh Kosong!",Toast.LENGTH_SHORT).show()
+                }else{
+                    ratingLayout.setError("Rating Tempat Tidak Boleh Kosong!")
+                    Toast.makeText(this,"Rating Tempat Tidak Boleh Kosong!",Toast.LENGTH_SHORT).show()
+                }
                 checkInputan = false
             }else if(etPrice!!.getText().isEmpty()){
                 priceLayout.setError("Price Tidak Boleh Kosong!")
                 checkInputan = false
-            }else if(edCategory!!.getText().isEmpty()){
-                edCategory!!.setError("Category Tidak Boleh Kosong!")
-                checkInputan = false
-            }else if(etRating!!.getText().isEmpty()){
-                ratingLayout.setError("Rating Tempat Tidak Boleh Kosong!")
-                checkInputan = false
-            }else if(etCity!!.getText().isEmpty()){
-                layoutCity.setError("City Tidak Boleh Kosong!")
-                checkInputan = false
+                Toast.makeText(this,"Price Tidak Boleh Kosong!",Toast.LENGTH_SHORT).show()
             }else if(etLat!!.getText().isEmpty()){
                 latitudeLayout.setError("Latitude Tidak Boleh Kosong!")
                 checkInputan = false
+                Toast.makeText(this,"Latitude Tidak Boleh Kosong!",Toast.LENGTH_SHORT).show()
             }else if(etLong!!.getText().isEmpty()){
                 longtitudeLayout.setError("Longtitude Tidak Boleh Kosong!")
                 checkInputan = false
+                Toast.makeText(this,"Longtitude Tidak Boleh Kosong!",Toast.LENGTH_SHORT).show()
             }else{
                 checkInputan = true
             }
-
-            if(checkInputan){
-                AddTempat()
-            }else{
+            if(!checkInputan){
                 return@setOnClickListener
+            }else{
+                AddTempat()
             }
         }
     }
@@ -215,10 +239,16 @@ class addWisata : AppCompatActivity(), DatePickerDialog.OnDateSetListener {
                     val tempatWisata = gson.fromJson(response, TempatWisata::class.java)
                     if(tempatWisata != null)
                         Toast.makeText(this@addWisata,"Tempat Wisata Berhasil Ditambahkan", Toast.LENGTH_SHORT).show()
-                    val returnIntent = Intent()
-                    setResult(RESULT_OK, returnIntent)
+//                    val returnIntent = Intent()
+//                    setResult(RESULT_OK, returnIntent)
+                    MotionToast.Companion.darkToast(this,
+                        "Added Complete ",
+                        "Added "+etNama!!.getText().toString()+" Complete",
+                        MotionToastStyle.SUCCESS,
+                        MotionToast.GRAVITY_BOTTOM,
+                        MotionToast.LONG_DURATION,
+                        ResourcesCompat.getFont(this, www.sanju.motiontoast.R.font.helvetica_regular))
                     finish()
-
                     setLoading(false)
                 },Response.ErrorListener { error->
                     setLoading(false)
