@@ -6,10 +6,10 @@ class entityPariwisata(var nama : Int, var id :String) {
     companion object{
         @JvmField
         var listnamaPariwisata = arrayOf(
-            entityPariwisata(R.drawable.tokyo,"Tokyo"),
-            entityPariwisata(R.drawable.kyoto,"Kyoto"),
-            entityPariwisata(R.drawable.kobe,"Kobe"),
-            entityPariwisata(R.drawable.hakone,"Hakone"),
+            entityPariwisata(R.drawable.akomodasipbp2,"Akomodasi"),
+            entityPariwisata(R.drawable.kulinerpbp,"Kuliner"),
+            entityPariwisata(R.drawable.wisatapbp,"Wisata"),
+            entityPariwisata(R.drawable.eventpbp,"Event"),
         )
     }
 }

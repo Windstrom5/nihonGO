@@ -18,6 +18,7 @@ class pariwisata : AppCompatActivity() {
     var binding : ActivityPariwisataBinding? = null
     lateinit var vuser : String
     lateinit var vpass : String
+    lateinit var vcity: String
     lateinit var mbunlde : Bundle
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -51,21 +52,27 @@ class pariwisata : AppCompatActivity() {
 
     //    }
     override fun onBackPressed() {
+//        Log.d("CDA", "onBackPressed Called")
+//        val builder: AlertDialog.Builder = AlertDialog.Builder(this@pariwisata)
+//        builder.setMessage("Want to log out?")
+//            .setNegativeButton("No", object : DialogInterface.OnClickListener {
+//                override fun onClick(dialogInterface: DialogInterface, i: Int) {
+//
+//                }
+//            })
+//            .setPositiveButton("YES", object : DialogInterface.OnClickListener {
+//                override fun onClick(dialogInterface: DialogInterface, i: Int) {
+//                    startActivity(Intent(this@pariwisata, MainActivity::class.java))
+//                }
+//            })
+//            .show()
         Log.d("CDA", "onBackPressed Called")
-        val builder: AlertDialog.Builder = AlertDialog.Builder(this@pariwisata)
-        builder.setMessage("Want to log out?")
-            .setNegativeButton("No", object : DialogInterface.OnClickListener {
-                override fun onClick(dialogInterface: DialogInterface, i: Int) {
-
-                }
-            })
-            .setPositiveButton("YES", object : DialogInterface.OnClickListener {
-                override fun onClick(dialogInterface: DialogInterface, i: Int) {
-                    startActivity(Intent(this@pariwisata, MainActivity::class.java))
-                }
-            })
-            .show()
-
+        val intent = Intent(this,kota::class.java)
+        val mBundle = Bundle()
+        mBundle.putString("username",vuser)
+        mBundle.putString("password",vpass)
+        intent.putExtra("profile",mBundle)
+        startActivity(intent)
     }
     fun getBundle(){
         try{
@@ -73,6 +80,7 @@ class pariwisata : AppCompatActivity() {
             if(mbunlde != null){
                 vuser = mbunlde.getString("username")!!
                 vpass = mbunlde.getString("password")!!
+                vcity = mbunlde.getString("city")!!
             }else{
 
             }

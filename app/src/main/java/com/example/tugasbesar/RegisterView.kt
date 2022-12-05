@@ -8,31 +8,34 @@ import android.graphics.BitmapFactory
 import android.graphics.Color
 import android.os.Build
 import android.os.Bundle
+import android.text.TextUtils
 import android.util.Log
+import android.util.Patterns
 import android.view.View
 import android.view.WindowManager
 import android.widget.*
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.NotificationCompat
 import androidx.core.app.NotificationManagerCompat
-import com.android.volley.toolbox.Volley
 import com.android.volley.AuthFailureError
 import com.android.volley.RequestQueue
 import com.android.volley.Response
 import com.android.volley.toolbox.StringRequest
+import com.android.volley.toolbox.Volley
+import com.example.tugasbesar.api.AkunApi
 import com.example.tugasbesar.databinding.ActivityRegisterViewBinding
-import com.example.tugasbesar.room.User
+import com.example.tugasbesar.models.Users
 import com.example.tugasbesar.room.UserDB
 import com.google.android.material.textfield.TextInputEditText
 import com.google.android.material.textfield.TextInputLayout
+import com.google.gson.Gson
 import kotlinx.coroutines.*
 import org.json.JSONObject
 import java.nio.charset.StandardCharsets
 import java.text.SimpleDateFormat
 import java.util.*
-import com.example.tugasbesar.models.Users
-import com.example.tugasbesar.api.AkunApi
-import com.google.gson.Gson
+
+
 //import kotlinx.android.synthetic.main.activity_register_view.*
 
 class RegisterView : AppCompatActivity() , DatePickerDialog.OnDateSetListener{
@@ -126,8 +129,11 @@ class RegisterView : AppCompatActivity() , DatePickerDialog.OnDateSetListener{
             }else if(tgl.isEmpty()){
                 tanggalRegister.setError("Tanggal Lahir tidak boleh Kosong")
                 checkLogin = false
-            }else if(pass != confirmpass){
+            }else if(pass != confirmpass) {
                 confirmRegister.setError("Password Tidak Sama")
+                checkLogin = false
+            }else if(!isValidEmail(email)){
+                emailRegister.setError("Format Email Salah")
                 checkLogin = false
             }else{
 //                runBlocking(){
@@ -151,28 +157,7 @@ class RegisterView : AppCompatActivity() , DatePickerDialog.OnDateSetListener{
             if(!checkLogin) {
                 return@OnClickListener
             }else{
-                    createAccount()
-                    sendNotification1()
-                    val userSave: String =
-                        userRegister.getEditText()?.getText().toString().trim()
-                    val passSave: String =
-                        passRegister.getEditText()?.getText().toString().trim()
-                    sharedPreferences = getSharedPreferences(myPreference,
-                        Context.MODE_PRIVATE)
-                    val editor: SharedPreferences.Editor =
-                        sharedPreferences!!.edit()
-                    editor.putString(userkey, userSave)
-                    editor.putString(passkey, passSave)
-                    editor.apply()
-                    val intent = Intent(this,MainActivity::class.java)
-                    val mBundle = Bundle()
-                    mBundle.putString("username",userRegister.getEditText()?.getText().toString())
-                    mBundle.putString("password",passRegister.getEditText()?.getText().toString())
-                    mBundle.putString("email",emailRegister.getEditText()?.getText().toString())
-                    mBundle.putString("notelp",teleponRegister.getEditText()?.getText().toString())
-                    mBundle.putString("tanggallahir",tanggalRegister.getEditText()?.getText().toString())
-                    intent.putExtra("profile",mBundle)
-                    startActivity(intent)
+                createAccount()
             }
         })
 
@@ -261,10 +246,30 @@ class RegisterView : AppCompatActivity() , DatePickerDialog.OnDateSetListener{
                 val akun = gson.fromJson(response, Users::class.java)
                 if(akun != null)
                     Toast.makeText(this@RegisterView,"Akun Berhasil Ditambahkan", Toast.LENGTH_SHORT).show()
-                val returnIntent = Intent()
-                setResult(RESULT_OK, returnIntent)
+                sendNotification1()
+                val userSave: String =
+                    userRegister.getEditText()?.getText().toString().trim()
+                val passSave: String =
+                    passRegister.getEditText()?.getText().toString().trim()
+                sharedPreferences = getSharedPreferences(myPreference,
+                    Context.MODE_PRIVATE)
+                val editor: SharedPreferences.Editor =
+                    sharedPreferences!!.edit()
+                editor.putString(userkey, userSave)
+                editor.putString(passkey, passSave)
+                editor.apply()
+                val intent = Intent(this,MainActivity::class.java)
+                val mBundle = Bundle()
+                mBundle.putString("username",userRegister.getEditText()?.getText().toString())
+                mBundle.putString("password",passRegister.getEditText()?.getText().toString())
+                mBundle.putString("email",emailRegister.getEditText()?.getText().toString())
+                mBundle.putString("notelp",teleponRegister.getEditText()?.getText().toString())
+                mBundle.putString("tanggallahir",tanggalRegister.getEditText()?.getText().toString())
+                intent.putExtra("profile",mBundle)
+                startActivity(intent)
+//                val returnIntent = Intent()
+//                setResult(RESULT_OK, returnIntent)
                 finish()
-
                 setLoading(false)
             },Response.ErrorListener { error->
                 setLoading(false)
@@ -276,6 +281,7 @@ class RegisterView : AppCompatActivity() , DatePickerDialog.OnDateSetListener{
                         errors.getString("message"),
                         Toast.LENGTH_SHORT
                     ).show()
+                    userRegister.setError("Akun Sudah Ada")
                 }catch (e: Exception){
                     Toast.makeText(this@RegisterView,e.message, Toast.LENGTH_SHORT).show()
                 }
@@ -395,5 +401,9 @@ class RegisterView : AppCompatActivity() , DatePickerDialog.OnDateSetListener{
             }
         }
         queue!!.add(StringRequest)
+    }
+
+    private fun isValidEmail(email: String): Boolean {
+        return Patterns.EMAIL_ADDRESS.matcher(email).matches()
     }
 }

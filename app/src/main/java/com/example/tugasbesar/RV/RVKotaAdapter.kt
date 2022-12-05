@@ -9,6 +9,7 @@ import com.example.tugasbesar.Tokyo
 import com.example.tugasbesar.databinding.RvItemKotaBinding
 import com.example.tugasbesar.entity.kota
 import com.example.tugasbesar.fragment.FragmentTempatWisata
+import com.example.tugasbesar.pariwisata
 
 class RVKotaAdapter(private val data: Array<kota>) : RecyclerView.Adapter<RVKotaAdapter.MainViewHolder>() {
     lateinit var vuser : String
@@ -30,13 +31,11 @@ class RVKotaAdapter(private val data: Array<kota>) : RecyclerView.Adapter<RVKota
         holder.itemView.setOnClickListener(){
             val id = task.id
             if(id == "Tokyo"){
-                val intent = Intent(holder.itemView.context, Tokyo::class.java)
+                val intent = Intent(holder.itemView.context, pariwisata::class.java)
                 val mBundle = Bundle()
                 mBundle.putString("username",vuser)
                 mBundle.putString("password",vpass)
                 mBundle.putString("city", "Tokyo")
-                val fragobj = FragmentTempatWisata()
-                fragobj.setArguments(mBundle)
                 intent.putExtra("profile",mBundle)
                 holder.itemView.context.startActivity(intent)
             }
