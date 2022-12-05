@@ -33,13 +33,14 @@ class FragmentTempatWisata : Fragment() {
     private var layoutLoading: LinearLayout? = null
     private var queue: RequestQueue? = null
     override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
+        inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
         val city = requireArguments().getString("city")!!
         queue= Volley.newRequestQueue(requireContext())
         Log.d("Apa Coba",city)
+        srTempatWisata = view?.findViewById(R.id.sr_tempatwisata)
+        svTempatWisata = view?.findViewById(R.id.rv_tempatWisata)
         srTempatWisata?.setOnRefreshListener(SwipeRefreshLayout.OnRefreshListener { allWisata(city) })
         svTempatWisata?.setOnQueryTextListener(object : SearchView.OnQueryTextListener{
             override fun onQueryTextSubmit(s: String): Boolean {
