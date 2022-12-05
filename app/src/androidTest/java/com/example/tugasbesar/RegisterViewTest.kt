@@ -384,37 +384,53 @@ class RegisterViewTest {
         materialButton8.perform(click())
         onView(isRoot()).perform(waitFor(3000))
 
-        val checkableImageButton = onView(
+//        val checkableImageButton = onView(
+//            allOf(
+//                withId(com.google.android.material.R.id.text_input_start_icon),
+//                childAtPosition(
+//                    childAtPosition(
+//                        withClassName(`is`("android.widget.FrameLayout")),
+//                        1
+//                    ),
+//                    0
+//                ),
+//                isDisplayed()
+//            )
+//        )
+//        checkableImageButton.perform(click())
+//        onView(isRoot()).perform(waitFor(3000))
+
+//        val materialButton9 = onView(
+//            allOf(
+//                withId(android.R.id.button1), withText("OK"),
+//                childAtPosition(
+//                    childAtPosition(
+//                        withClassName(`is`("android.widget.ScrollView")),
+//                        0
+//                    ),
+//                    3
+//                )
+//            )
+//        )
+//        materialButton9.perform(scrollTo(), click())
+//        onView(isRoot()).perform(waitFor(3000))
+
+        val textInputEditText16 = onView(
             allOf(
-                withId(com.google.android.material.R.id.text_input_start_icon),
+                withId(R.id.tgl),
                 childAtPosition(
                     childAtPosition(
-                        withClassName(`is`("android.widget.FrameLayout")),
-                        1
+                        withId(R.id.tglRegis),
+                        0
                     ),
                     0
                 ),
                 isDisplayed()
             )
         )
-        checkableImageButton.perform(click())
+        textInputEditText16.perform(replaceText("05, Dec, 2022"), closeSoftKeyboard())
 
         val materialButton9 = onView(
-            allOf(
-                withId(android.R.id.button1), withText("OK"),
-                childAtPosition(
-                    childAtPosition(
-                        withClassName(`is`("android.widget.ScrollView")),
-                        0
-                    ),
-                    3
-                )
-            )
-        )
-        materialButton9.perform(scrollTo(), click())
-        onView(isRoot()).perform(waitFor(3000))
-
-        val materialButton10 = onView(
             allOf(
                 withId(R.id.regisButton), withText("Register Now"),
                 childAtPosition(
@@ -427,10 +443,10 @@ class RegisterViewTest {
                 isDisplayed()
             )
         )
-        materialButton10.perform(click())
+        materialButton9.perform(click())
         onView(isRoot()).perform(waitFor(3000))
 
-        val textInputEditText16 = onView(
+        val textInputEditText17 = onView(
             allOf(
                 withId(R.id.username),
                 childAtPosition(
@@ -443,7 +459,7 @@ class RegisterViewTest {
                 isDisplayed()
             )
         )
-        textInputEditText16.perform(replaceText("Pandu"), closeSoftKeyboard())
+        textInputEditText17.perform(replaceText("Pandu"), closeSoftKeyboard())
 
         val materialButton11 = onView(
             allOf(

@@ -121,6 +121,9 @@ class RegisterView : AppCompatActivity() , DatePickerDialog.OnDateSetListener{
             }else if(confirmpass.isEmpty()){
                 confirmRegister.setError("Password Tidak Sama")
                 checkLogin = false
+            }else if(pass != confirmpass) {
+                confirmRegister.setError("Password Tidak Sama")
+                checkLogin = false
             }else if(user.isEmpty()&&pass.isEmpty()&&confirmpass.isEmpty()){
                 userRegister.setError("Username tidak boleh Kosong")
                 passRegister.setError("Password tidak boleh Kosong")
@@ -129,17 +132,14 @@ class RegisterView : AppCompatActivity() , DatePickerDialog.OnDateSetListener{
             }else if(email.isEmpty()){
                 emailRegister.setError("Email tidak boleh Kosong")
                 checkLogin = false
+            }else if(!isValidEmail(email)){
+                emailRegister.setError("Format Email Salah")
+                checkLogin = false
             }else if(tlp.isEmpty()) {
                 teleponRegister.setError("Nomor Telepon tidak boleh Kosong")
                 checkLogin = false
             }else if(tgl.isEmpty()){
                 tanggalRegister.setError("Tanggal Lahir tidak boleh Kosong")
-                checkLogin = false
-            }else if(pass != confirmpass) {
-                confirmRegister.setError("Password Tidak Sama")
-                checkLogin = false
-            }else if(!isValidEmail(email)){
-                emailRegister.setError("Format Email Salah")
                 checkLogin = false
             }else{
 //                runBlocking(){
