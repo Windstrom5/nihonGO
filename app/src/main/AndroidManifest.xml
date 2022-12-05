@@ -33,6 +33,13 @@
         android:theme="@style/Theme.TugasBesar"
         tools:targetApi="31">
         <activity
+            android:name=".pariwisata"
+            android:exported="false">
+            <meta-data
+                android:name="android.app.lib_name"
+                android:value="" />
+        </activity>
+        <activity
             android:name=".DetailsActivity"
             android:exported="false">
             <meta-data

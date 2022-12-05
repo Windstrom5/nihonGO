@@ -11,6 +11,7 @@ import android.view.WindowManager
 import android.widget.*
 import android.widget.AdapterView.OnItemClickListener
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.view.isEmpty
 import com.android.volley.AuthFailureError
 import com.android.volley.RequestQueue
 import com.android.volley.Response
@@ -79,6 +80,7 @@ class addWisata : AppCompatActivity(), DatePickerDialog.OnDateSetListener {
         etLat = findViewById(R.id.et_lat)
         etLong = findViewById(R.id.et_long)
         layout_loading = findViewById(R.id.layout_loading)
+//        categoryLayout = findViewById(R.id.jenis_wisata)
         edCategory = findViewById(R.id.ed_jenis)
         latitudeLayout = findViewById(R.id.layout_lat)
         priceLayout = findViewById(R.id.layout_harga)
@@ -147,28 +149,44 @@ class addWisata : AppCompatActivity(), DatePickerDialog.OnDateSetListener {
                 }
             }
         })
-//        edCategory!!.setOnClickListener {
-//            @Override
-//            fun onClick(view: View) {
-//                if (edCategory!!.text.toString() == "Event") {
-//                    ratingLayout.setHint("Tanggal")
-//                    ratingLayout.setStartIconDrawable(R.drawable.ic_baseline_calendar_month_24)
-//                    latitudeLayout.visibility = View.GONE
-//                    longtitudeLayout.visibility = View.GONE
-//                }else{
-//                    ratingLayout.setHint("Rating")
-//                    ratingLayout.setStartIconDrawable(R.drawable.ic_star)
-//                    latitudeLayout.visibility = View.VISIBLE
-//                    longtitudeLayout.visibility = View.VISIBLE
-//                }
-//            }
-//        }
+
+        var checkInputan = false
+
         val btnCancel = findViewById<Button>(R.id.btn_cancel)
         btnCancel.setOnClickListener{ finish() }
         val btnSave = findViewById<Button>(R.id.btn_save)
         val tvTitle = findViewById<TextView>(R.id.tv_title)
         btnSave.setOnClickListener(){
-            AddTempat()
+            if(etNama!!.getText().isEmpty()){
+                namaLayout.setError("Nama Tidak Boleh Kosong!")
+                checkInputan = false
+            }else if(etPrice!!.getText().isEmpty()){
+                priceLayout.setError("Price Tidak Boleh Kosong!")
+                checkInputan = false
+            }else if(edCategory!!.getText().isEmpty()){
+                edCategory!!.setError("Category Tidak Boleh Kosong!")
+                checkInputan = false
+            }else if(etRating!!.getText().isEmpty()){
+                ratingLayout.setError("Rating Tempat Tidak Boleh Kosong!")
+                checkInputan = false
+            }else if(etCity!!.getText().isEmpty()){
+                layoutCity.setError("City Tidak Boleh Kosong!")
+                checkInputan = false
+            }else if(etLat!!.getText().isEmpty()){
+                latitudeLayout.setError("Latitude Tidak Boleh Kosong!")
+                checkInputan = false
+            }else if(etLong!!.getText().isEmpty()){
+                longtitudeLayout.setError("Longtitude Tidak Boleh Kosong!")
+                checkInputan = false
+            }else{
+                checkInputan = true
+            }
+
+            if(checkInputan){
+                AddTempat()
+            }else{
+                return@setOnClickListener
+            }
         }
     }
 
