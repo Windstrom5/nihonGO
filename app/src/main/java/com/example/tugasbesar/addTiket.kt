@@ -43,24 +43,37 @@ class addTiket : AppCompatActivity() {
         val view: View=binding!!.root
         setContentView(view)
         binding!!.buttonSave.setOnClickListener {
-            val namaTempat = binding!!.etNamaTempat.text.toString()
-            val alamat = binding!!.etAlamat.text.toString()
-            val namaPembeli = binding!!.etNamaPembeli.text.toString()
-            try {
-                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-                    if (namaTempat.isEmpty() && alamat.isEmpty() && namaPembeli.isEmpty()) {
-                        Toast.makeText(
-                            applicationContext,
-                            "Semuanya Tidak Boleh Kosong",
-                            Toast.LENGTH_SHORT
-                        ).show()
-                    } else {
-                        createPdf(namaTempat, alamat, namaPembeli)
-                    }
-                }
-            }catch (e: FileNotFoundException){
-                e.printStackTrace()
+            if(binding!!.etNamaTempat.text.toString().isEmpty()){
+                Toast.makeText( this@addTiket, "Nama Tempat Tidak Boleh Kosong [!]", Toast.LENGTH_SHORT).show()
             }
+            else if(binding!!.etAlamat.text.toString().isEmpty()){
+                Toast.makeText( this@addTiket, "Alamat Tidak Boleh Kosong [!]", Toast.LENGTH_SHORT).show()
+            }
+            else if(binding!!.etNamaPembeli.text.toString().isEmpty()){
+                Toast.makeText( this@addTiket, "Nama Pembeli Tidak Boleh Kosong [!]", Toast.LENGTH_SHORT).show()
+            }
+            else {
+                val namaTempat = binding!!.etNamaTempat.text.toString()
+                val alamat = binding!!.etAlamat.text.toString()
+                val namaPembeli = binding!!.etNamaPembeli.text.toString()
+
+                try {
+                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+                        if (namaTempat.isEmpty() && alamat.isEmpty() && namaPembeli.isEmpty()) {
+                            Toast.makeText(
+                                applicationContext,
+                                "Semuanya Tidak Boleh Kosong",
+                                Toast.LENGTH_SHORT
+                            ).show()
+                        } else {
+                            createPdf(namaTempat, alamat, namaPembeli)
+                        }
+                    }
+                }catch (e: FileNotFoundException){
+                    e.printStackTrace()
+                }
+            }
+
         }
     }
 
