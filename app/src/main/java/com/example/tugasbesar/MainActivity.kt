@@ -82,8 +82,8 @@ class MainActivity : AppCompatActivity() {
         queue= Volley.newRequestQueue(this)
         btnLogin = binding.loginButton
         getBundle()
-//        setText()
-//        setTextOpen()
+        setText()
+        setTextOpen()
         etUsername = binding.user
         etPassword = binding.pass
         btnLogin.setOnClickListener(View.OnClickListener{
@@ -283,15 +283,15 @@ class MainActivity : AppCompatActivity() {
 //                Toast.makeText(this,"Data Berhasil Diambil!",Toast.LENGTH_SHORT).show()
 //                setLoading(false)
                 if(akun!=null){
-//                    val userSave: String =
-//                        usernameInput.getEditText()?.getText().toString().trim()
-//                    val passSave: String =
-//                        passwordInput.getEditText()?.getText().toString().trim()
-//                    val editor: SharedPreferences.Editor =
-//                        sharedPreferences!!.edit()
-//                    editor.putString(userkey, userSave)
-//                    editor.putString(passkey, passSave)
-//                    editor.apply()
+                    val userSave: String =
+                        usernameInput.getEditText()?.getText().toString().trim()
+                    val passSave: String =
+                        passwordInput.getEditText()?.getText().toString().trim()
+                    val editor: SharedPreferences.Editor =
+                        sharedPreferences!!.edit()
+                    editor.putString(userkey, userSave)
+                    editor.putString(passkey, passSave)
+                    editor.apply()
                     Toast.makeText(
                         this@MainActivity,
                         "Berhasil Login",

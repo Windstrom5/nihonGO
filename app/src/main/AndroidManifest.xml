@@ -33,6 +33,13 @@
         android:theme="@style/Theme.TugasBesar"
         tools:targetApi="31">
         <activity
+            android:name=".itemActivity"
+            android:exported="false">
+            <meta-data
+                android:name="android.app.lib_name"
+                android:value="" />
+        </activity>
+        <activity
             android:name=".pariwisata"
             android:exported="false">
             <meta-data
@@ -55,7 +62,7 @@
         </activity>
         <activity
             android:name=".addTiket"
-            android:exported="true">
+            android:exported="false">
             <meta-data
                 android:name="android.app.lib_name"
                 android:value="" />
@@ -94,10 +101,10 @@
         <!-- android:exported="false" /> -->
         <activity
             android:name=".RegisterView"
-            android:exported="true" />
+            android:exported="false" />
         <activity
             android:name=".EditActivity"
-            android:exported="true" />
+            android:exported="false" />
         <activity
             android:name=".MainActivity"
             android:exported="true">

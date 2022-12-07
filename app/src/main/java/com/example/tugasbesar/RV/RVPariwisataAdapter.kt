@@ -9,6 +9,7 @@ import com.example.tugasbesar.Tokyo
 import com.example.tugasbesar.databinding.RvItemPariwisataBinding
 import com.example.tugasbesar.fragment.FragmentTempatWisata
 import com.example.tugasbesar.entity.entityPariwisata
+import com.example.tugasbesar.itemActivity
 
 class RVPariwisataAdapter(private val data: Array<entityPariwisata>) : RecyclerView.Adapter<RVPariwisataAdapter.MainViewHolder>() {
     lateinit var vuser : String
@@ -29,14 +30,13 @@ class RVPariwisataAdapter(private val data: Array<entityPariwisata>) : RecyclerV
         holder.bindItem(task)
         holder.itemView.setOnClickListener(){
             val id = task.id
-            if(id == "Tokyo"){
-                val intent = Intent(holder.itemView.context, Tokyo::class.java)
+            if(id == "Akomodasi"){
+                val intent = Intent(holder.itemView.context, itemActivity::class.java)
                 val mBundle = Bundle()
                 mBundle.putString("username",vuser)
                 mBundle.putString("password",vpass)
                 mBundle.putString("city", "Tokyo")
-                val fragobj = FragmentTempatWisata()
-                fragobj.setArguments(mBundle)
+                mBundle.putString("category","Wisata")
                 intent.putExtra("profile",mBundle)
                 holder.itemView.context.startActivity(intent)
             }
