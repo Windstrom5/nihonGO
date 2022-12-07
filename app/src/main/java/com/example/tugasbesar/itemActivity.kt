@@ -21,6 +21,10 @@ import com.example.tugasbesar.entity.itemList
 import com.google.gson.Gson
 import org.json.JSONObject
 import java.nio.charset.StandardCharsets
+import org.json.JSONArray
+
+
+
 
 class itemActivity : AppCompatActivity() {
     private var srItem: SwipeRefreshLayout?= null
@@ -65,7 +69,10 @@ class itemActivity : AppCompatActivity() {
             val StringRequest: StringRequest = object : StringRequest(Method.GET, tempatWisataApi.GET_BY_NAMA_URL + kota,
                 Response.Listener { response->
                     val gson = Gson()
-                    val item: Array<itemList> = gson.fromJson(response,Array<itemList>::class.java)
+
+                    val jsonObject = JSONObject(response)
+                    val jsonArray = jsonObject.getJSONArray("data")
+                    var item : Array<itemList> = gson.fromJson(jsonArray.toString(), Array<itemList>::class.java)
                     adapter!!.setItemList(item)
                     adapter!!.filter.filter(svItem!!.query)
                     srItem!!.isRefreshing=false

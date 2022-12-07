@@ -1,5 +1,6 @@
 package com.example.tugasbesar.RV
 
+import android.annotation.SuppressLint
 import android.content.Context
 import android.content.Intent
 import android.view.LayoutInflater
@@ -66,12 +67,15 @@ class ItemAdapter(private var itemList: List<itemList>, context: Context) :
                 }
                 val filterResults = FilterResults()
                 filterResults.values = filtered
+                for (i in filtered){
+                    println(i.name)
+                }
                 return filterResults
             }
-
-            override fun publishResults(charSequence: CharSequence, filterResults: FilterResults?) {
+            @SuppressLint("NotifyDataSetChanged")
+            override fun publishResults(charSequence: CharSequence, filterResults: FilterResults) {
                 filteredItemList.clear()
-                filteredItemList.addAll(filterResults?.values as List<itemList>)
+                filteredItemList.addAll(filterResults.values as List<itemList>)
                 notifyDataSetChanged()
             }
         }

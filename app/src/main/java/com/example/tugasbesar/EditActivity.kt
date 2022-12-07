@@ -221,7 +221,6 @@ class EditActivity : AppCompatActivity(), DatePickerDialog.OnDateSetListener {
             Method.GET, AkunApi.GET_BY_USERNAME + Username + "/" + Password,
             Response.Listener { response->
                 val gson = Gson()
-
                 val jsonObject = JSONObject(response)
                 val jsonArray = jsonObject.getJSONArray("data")
                 for (i in 0 until jsonArray.length()) {
