@@ -21,6 +21,7 @@ import com.android.volley.toolbox.Volley
 import com.example.tugasbesar.api.AkunApi
 import com.example.tugasbesar.api.EventApi
 import com.example.tugasbesar.api.tempatWisataApi
+import com.example.tugasbesar.entity.itemList
 import com.example.tugasbesar.models.Event
 import com.example.tugasbesar.models.TempatWisata
 import com.example.tugasbesar.models.Users
@@ -227,11 +228,11 @@ class addWisata : AppCompatActivity(), DatePickerDialog.OnDateSetListener {
             val tempatWisata = TempatWisata(
                 etNama!!.getText().toString(),
                 etAlamat!!.getText().toString(),
-                etRating!!.getText().toString().toDouble(),
+                etRating!!.getText().toString(),
                 etPrice!!.getText().toString(),
                 etCity!!.getText().toString(),
-                etLat!!.getText().toString().toDouble(),
-                etLong!!.getText().toString().toDouble()
+                etLat!!.getText().toString(),
+                etLong!!.getText().toString()
             )
             val StringRequest:StringRequest = object : StringRequest(Method.POST, tempatWisataApi.ADD_URL,
                 Response.Listener { response ->
@@ -384,5 +385,15 @@ class addWisata : AppCompatActivity(), DatePickerDialog.OnDateSetListener {
     private fun displayFormattedDate(timestamp: Long){
         findViewById<EditText>(R.id.et_rating).setText(formatter.format(timestamp))
         Log.i("Formatting",timestamp.toString())
+    }
+
+    override fun onBackPressed() {
+        val intent = Intent(this,itemActivity::class.java)
+        val mBundle = Bundle()
+        mBundle.putString("username",vuser)
+        mBundle.putString("password",vpass)
+        mBundle.putString("city",vlokasi)
+        intent.putExtra("profile",mBundle)
+        startActivity(intent)
     }
 }

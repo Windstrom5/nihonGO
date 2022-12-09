@@ -5,7 +5,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
-import com.example.tugasbesar.Tokyo
+//import com.example.tugasbesar.Tokyo
 import com.example.tugasbesar.databinding.RvItemPariwisataBinding
 import com.example.tugasbesar.fragment.FragmentTempatWisata
 import com.example.tugasbesar.entity.entityPariwisata

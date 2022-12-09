@@ -20,6 +20,7 @@ import com.android.volley.toolbox.Volley
 import com.example.tugasbesar.R
 import com.example.tugasbesar.RV.RVTempatWisataAdapter
 import com.example.tugasbesar.api.tempatWisataApi
+import com.example.tugasbesar.entity.itemList
 import com.example.tugasbesar.models.TempatWisata
 import com.google.gson.Gson
 import kotlinx.android.synthetic.main.fragment_tempat_wisata.*
@@ -73,7 +74,9 @@ class FragmentTempatWisata : Fragment() {
         val StringRequest: StringRequest = object : StringRequest(Method.GET,tempatWisataApi.GET_BY_NAMA_URL + city,
             Response.Listener { response->
                 val gson = Gson()
-                val tempatWisata: Array<TempatWisata> = gson.fromJson(response,Array<TempatWisata>::class.java)
+                val jsonObject = JSONObject(response)
+                val jsonArray = jsonObject.getJSONArray("data")
+                var tempatWisata : Array<TempatWisata> = gson.fromJson(jsonArray.toString(), Array<TempatWisata>::class.java)
                 adapter!!.setTempatWisataList(tempatWisata)
                 adapter!!.filter.filter(svTempatWisata!!.query)
                 srTempatWisata!!.isRefreshing=false

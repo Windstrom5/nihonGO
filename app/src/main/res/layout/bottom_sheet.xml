@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:paddingBottom="8dp"
+    >
+    <TextView
+        android:id="@+id/textView"
+        android:layout_marginTop="8dp"
+        android:drawableLeft="@drawable/ic_vector_camera_icon"
+        android:drawableStart="@drawable/ic_vector_camera_icon"
+        android:text="Camera"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        style="@style/ActionItem" />
+    <TextView
+        android:id="@+id/textView2"
+        android:drawableLeft="@drawable/ic_vector_gallery_icon"
+        android:drawableStart="@drawable/ic_vector_gallery_icon"
+        android:text="Gallery"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView"
+        style="@style/ActionItem" />
+</androidx.constraintlayout.widget.ConstraintLayout>

@@ -1,12 +1,19 @@
 package com.example.tugasbesar
 
+import android.app.AlertDialog
+import android.content.DialogInterface
+import android.content.Intent
 import android.os.Bundle
-import android.view.View
-import android.view.WindowManager
+import android.view.*
 import android.widget.LinearLayout
 import android.widget.SearchView
+import android.widget.TextView
 import android.widget.Toast
+import androidx.appcompat.app.ActionBarDrawerToggle
 import androidx.appcompat.app.AppCompatActivity
+import androidx.appcompat.widget.Toolbar
+import androidx.core.view.GravityCompat
+import androidx.drawerlayout.widget.DrawerLayout
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
@@ -18,15 +25,13 @@ import com.android.volley.toolbox.Volley
 import com.example.tugasbesar.RV.ItemAdapter
 import com.example.tugasbesar.api.tempatWisataApi
 import com.example.tugasbesar.entity.itemList
+import com.google.android.material.navigation.NavigationView
 import com.google.gson.Gson
 import org.json.JSONObject
 import java.nio.charset.StandardCharsets
-import org.json.JSONArray
 
 
-
-
-class itemActivity : AppCompatActivity() {
+class itemActivity : AppCompatActivity(),NavigationView.OnNavigationItemSelectedListener {
     private var srItem: SwipeRefreshLayout?= null
     private var adapter: ItemAdapter? = null
     private var svItem: SearchView? = null
@@ -37,11 +42,29 @@ class itemActivity : AppCompatActivity() {
     private lateinit var vcity:String
     private lateinit var vcategory:String
     lateinit var mbunlde : Bundle
+    private lateinit var drawer : DrawerLayout
+    private lateinit var toggle : ActionBarDrawerToggle
+    private lateinit var toolbar: Toolbar
+    private lateinit var navigationView : NavigationView
+    private lateinit var usernameView:TextView
 
-    override fun onCreate(savedInstanceState: Bundle?) {
+    override fun onCreate(savedInstanceState: Bundle?){
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_item)
         getBundle()
+
+        toolbar = findViewById(R.id.toolbar)
+        drawer =findViewById(R.id.drawer_layout)
+        navigationView = findViewById(R.id.nav_view)
+        val headerView = navigationView.getHeaderView(0)
+        val navUsername = headerView.findViewById(R.id.username_show) as TextView
+        navUsername.setText(vuser)
+        navigationView.setNavigationItemSelectedListener(this)
+        setSupportActionBar(toolbar);
+        toggle = ActionBarDrawerToggle(this,drawer,toolbar,
+        R.string.navigation_drawer_open,R.string.navigation_drawer_close)
+        drawer.addDrawerListener(toggle)
+        toggle.syncState()
         queue = Volley.newRequestQueue(this)
         layoutLoading = findViewById(R.id.layout_loading)
         srItem = findViewById(R.id.sr_item)
@@ -176,4 +199,85 @@ class itemActivity : AppCompatActivity() {
             vcategory = ""
         }
     }
+
+    override fun onCreateOptionsMenu(menu: Menu): Boolean {
+        val menuInflater = MenuInflater(this)
+        menuInflater.inflate(R.menu.menu ,menu)
+        return true
+    }
+
+
+//    override fun onBackPressed() {
+//        if(drawer.isDrawerOpen(GravityCompat.START)){
+//            drawer.closeDrawer(GravityCompat.START)
+//        }else{
+//            super.onBackPressed()
+//        }
+//    }
+
+    override fun onBackPressed() {
+        val intent = Intent(this,pariwisata::class.java)
+        val mBundle = Bundle()
+        mBundle.putString("username",vuser)
+        mBundle.putString("password",vpass)
+        mBundle.putString("city",vcity)
+        intent.putExtra("profile",mBundle)
+        startActivity(intent)
+    }
+
+    override fun onNavigationItemSelected(item: MenuItem): Boolean {
+        if (item.itemId == R.id.menulogout) {
+            val builder: AlertDialog.Builder = AlertDialog.Builder(this@itemActivity)
+            builder.setMessage("Want to log out?")
+                .setNegativeButton("No", object : DialogInterface.OnClickListener {
+                    override fun onClick(dialogInterface: DialogInterface, i: Int) {
+
+                    }
+                })
+                .setPositiveButton("YES", object : DialogInterface.OnClickListener {
+                    override fun onClick(dialogInterface: DialogInterface, i: Int) {
+                        startActivity(Intent(this@itemActivity, MapsActivity::class.java))
+                    }
+                })
+                .show()
+        }
+        else if(item.itemId == R.id.menuKota) {
+            val intent = Intent(this, kota::class.java)
+            val mBundle = Bundle()
+            mBundle.putString("username",vuser)
+            mBundle.putString("password",vpass)
+            intent.putExtra("profile",mBundle)
+            startActivity(intent)
+        }else if(item.itemId == R.id.menuGambar) {
+            val intent = Intent(this, LibGlide::class.java)
+            startActivity(intent)
+        }else if(item.itemId == R.id.menuProfile){
+            val intent = Intent(this, profile::class.java)
+            val mBundle = Bundle()
+            mBundle.putString("username",vuser)
+            mBundle.putString("password",vpass)
+            mBundle.putString("city","Tokyo")
+            intent.putExtra("profile",mBundle)
+            startActivity(intent)
+        }else if(item.itemId == R.id.menuAddWisata){
+            val intent = Intent(this, addWisata::class.java)
+            val mBundle = Bundle()
+            mBundle.putString("username",vuser)
+            mBundle.putString("password",vpass)
+            mBundle.putString("city","Tokyo")
+            intent.putExtra("profile",mBundle)
+            startActivity(intent)
+        }else if(item.itemId == R.id.menuTiket){
+            val intent = Intent(this, addTiket::class.java)
+            val mBundle = Bundle()
+            mBundle.putString("username",vuser)
+            mBundle.putString("password",vpass)
+            mBundle.putString("city","Tokyo")
+            intent.putExtra("profile",mBundle)
+            startActivity(intent)
+        }
+        drawer.closeDrawer(GravityCompat.START)
+        return true
+    }
+
 }

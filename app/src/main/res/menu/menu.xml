@@ -1,8 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
-<menu xmlns:android="http://schemas.android.com/apk/res/android">
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools">
     <item
         android:id="@+id/menuKota"
-        android:icon="@drawable/ic_home_24"
+        android:icon="@drawable/ic_baseline_location_city_24"
         android:title="List Kota"/>
 
     <item
@@ -18,12 +19,12 @@
     <item
         android:id="@+id/menuAddWisata"
         android:enabled="true"
-        android:icon="@drawable/ic_user_24"
+        android:icon="@drawable/ic_home_24"
         android:title="Add Tourist Spot"/>
     <item
         android:id="@+id/menuTiket"
         android:enabled="true"
-        android:icon="@drawable/ic_user_24"
+        android:icon="@drawable/ic_baseline_sticky_note_2_24"
         android:title="Add Tiket"/>
 <!--    <item-->
 <!--        android:id="@+id/menuSettings"-->

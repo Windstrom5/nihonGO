@@ -35,6 +35,7 @@ class profile : AppCompatActivity() {
     private lateinit var mbunlde : Bundle
     private lateinit var vuser : String
     private lateinit var vpass : String
+    private lateinit var vcity : String
     private lateinit var passworddb :String
     private var userProfile:TextView? = null
     private var emailProfile:TextView? = null
@@ -70,6 +71,7 @@ class profile : AppCompatActivity() {
             val mBundle = Bundle()
             mBundle.putString("username",vuser)
             mBundle.putString("password",vpass)
+            mBundle.putString("city",vcity)
             intent.putExtra("profile",mBundle)
             startActivity(intent)
         }
@@ -96,22 +98,23 @@ class profile : AppCompatActivity() {
 
     override fun onBackPressed() {
         Log.d("CDA", "onBackPressed Called")
-        val intent = Intent(this,Tokyo::class.java)
+        val intent = Intent(this,itemActivity::class.java)
         val mBundle = Bundle()
         mBundle.putString("username",vuser)
         mBundle.putString("password",vpass)
+        mBundle.putString("city",vcity)
         intent.putExtra("profile",mBundle)
         startActivity(intent)
     }
 
-    fun changeFragment(fragment: Fragment?) {
-        if (fragment != null) {
-            getSupportFragmentManager()
-                .beginTransaction()
-                .replace(R.id.layout_fragment, fragment)
-                .commit()
-        }
-    }
+//    fun changeFragment(fragment: Fragment?) {
+//        if (fragment != null) {
+//            getSupportFragmentManager()
+//                .beginTransaction()
+//                .replace(R.id.layout_fragment, fragment)
+//                .commit()
+//        }
+//    }
 
 //    private fun setupRecyclerView() {
 //        userAdapter = MainAdapterProfile(arrayListOf(), object : MainAdapterProfile.OnAdapterListener{
@@ -174,12 +177,14 @@ class profile : AppCompatActivity() {
             if(mbunlde != null){
                 vuser = mbunlde.getString("username")!!
                 vpass = mbunlde.getString("password")!!
+                vcity = mbunlde.getString("city")!!
             }else{
 
             }
         }catch (e: NullPointerException){
             vuser = ""
             vpass = ""
+            vcity = ""
         }
 
     }

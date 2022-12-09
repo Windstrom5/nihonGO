@@ -1,6 +1,7 @@
 package com.example.tugasbesar
 
 import android.annotation.SuppressLint
+import android.content.Intent
 import android.graphics.Bitmap
 import android.graphics.drawable.BitmapDrawable
 import android.os.Build
@@ -11,6 +12,7 @@ import android.view.View
 import android.widget.Toast
 import androidx.core.content.res.ResourcesCompat
 import com.example.tugasbesar.databinding.ActivityAddTiketBinding
+import com.example.tugasbesar.entity.itemList
 import com.itextpdf.barcodes.BarcodeQRCode
 import com.itextpdf.io.image.ImageDataFactory
 import com.itextpdf.io.source.ByteArrayOutputStream
@@ -36,12 +38,16 @@ import java.time.format.DateTimeFormatter
 
 class addTiket : AppCompatActivity() {
     private var binding: ActivityAddTiketBinding? = null
-
+    private lateinit var mbunlde : Bundle
+    private lateinit var vuser : String
+    private lateinit var vpass : String
+    private lateinit var vcity : String
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityAddTiketBinding.inflate(layoutInflater)
         val view: View=binding!!.root
         setContentView(view)
+        getBundle()
         binding!!.buttonSave.setOnClickListener {
             if(binding!!.etNamaTempat.text.toString().isEmpty()){
                 Toast.makeText( this@addTiket, "Nama Tempat Tidak Boleh Kosong [!]", Toast.LENGTH_SHORT).show()
@@ -149,5 +155,32 @@ class addTiket : AppCompatActivity() {
             MotionToast.GRAVITY_BOTTOM,
             MotionToast.LONG_DURATION,
             ResourcesCompat.getFont(this, www.sanju.motiontoast.R.font.helvetica_regular))
+    }
+
+    fun getBundle(){
+        try{
+            mbunlde = intent?.getBundleExtra("profile")!!
+            if(mbunlde != null){
+                vuser = mbunlde.getString("username")!!
+                vpass = mbunlde.getString("password")!!
+                vcity = mbunlde.getString("city")!!
+            }else{
+
+            }
+        }catch (e: NullPointerException){
+            vuser = ""
+            vpass = ""
+            vcity = ""
+        }
+    }
+
+    override fun onBackPressed() {
+        val intent = Intent(this,itemActivity::class.java)
+        val mBundle = Bundle()
+        mBundle.putString("username",vuser)
+        mBundle.putString("password",vpass)
+        mBundle.putString("city",vcity)
+        intent.putExtra("profile",mBundle)
+        startActivity(intent)
     }
 }
