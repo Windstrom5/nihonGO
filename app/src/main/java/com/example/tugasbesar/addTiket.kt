@@ -175,12 +175,6 @@ class addTiket : AppCompatActivity() {
     }
 
     override fun onBackPressed() {
-        val intent = Intent(this,itemActivity::class.java)
-        val mBundle = Bundle()
-        mBundle.putString("username",vuser)
-        mBundle.putString("password",vpass)
-        mBundle.putString("city",vcity)
-        intent.putExtra("profile",mBundle)
-        startActivity(intent)
+        finish()
     }
 }

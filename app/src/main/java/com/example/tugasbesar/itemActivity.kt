@@ -52,7 +52,6 @@ class itemActivity : AppCompatActivity(),NavigationView.OnNavigationItemSelected
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_item)
         getBundle()
-
         toolbar = findViewById(R.id.toolbar)
         drawer =findViewById(R.id.drawer_layout)
         navigationView = findViewById(R.id.nav_view)
@@ -65,6 +64,7 @@ class itemActivity : AppCompatActivity(),NavigationView.OnNavigationItemSelected
         R.string.navigation_drawer_open,R.string.navigation_drawer_close)
         drawer.addDrawerListener(toggle)
         toggle.syncState()
+        getSupportActionBar()!!.setDisplayHomeAsUpEnabled(true);
         queue = Volley.newRequestQueue(this)
         layoutLoading = findViewById(R.id.layout_loading)
         srItem = findViewById(R.id.sr_item)

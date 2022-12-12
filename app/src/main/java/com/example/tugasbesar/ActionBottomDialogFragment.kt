@@ -26,8 +26,7 @@ class ActionBottomDialogFragment : BottomSheetDialogFragment(), View.OnClickList
 
     override fun onAttach(context: Context) {
         super.onAttach(context)
-        mListener = if (context is ItemClickListener) {
-            context
+        mListener = if (context is ItemClickListener) { context
         } else {
             throw RuntimeException(
                 context.toString()
