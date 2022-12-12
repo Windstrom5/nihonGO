@@ -43,7 +43,7 @@
         android:id="@+id/detailsWisata"
         android:layout_width="411dp"
         android:layout_height="100dp"
-        android:layout_marginTop="50dp"
+        android:layout_marginTop="40dp"
         android:ellipsize="end"
         android:gravity="center"
         android:maxLines="1"
@@ -73,13 +73,13 @@
         android:id="@+id/hargaTiket"
         android:layout_width="411dp"
         android:layout_height="66dp"
-        android:layout_marginTop="15dp"
+        android:layout_marginTop="76dp"
         android:ellipsize="end"
         android:gravity="center"
         android:maxLines="1"
         android:padding="16dp"
         android:textAppearance="?attr/textAppearanceSubtitle1"
-        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/lokasiWisata" />
@@ -88,27 +88,25 @@
         android:id="@+id/button_ticket"
         android:layout_width="190dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="156dp"
-        android:layout_marginEnd="15dp"
+        android:layout_marginTop="84dp"
         android:backgroundTint="@color/baby_pink"
         android:text="BUY TICKET"
-        app:layout_constraintEnd_toStartOf="@+id/button_location"
-        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/hargaTiket" />
+        app:layout_constraintTop_toBottomOf="@+id/hargaTiket"
+        app:layout_constraintVertical_bias="0.0" />
 
     <Button
         android:id="@+id/button_location"
         android:layout_width="190dp"
         android:layout_height="wrap_content"
+        android:layout_marginTop="84dp"
         android:backgroundTint="@color/dark_green"
         android:text="SEE LOCATION"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.949"
-        app:layout_constraintStart_toEndOf="@+id/button_ticket"
-        app:layout_constraintTop_toBottomOf="@id/hargaTiket"
-        app:layout_constraintVertical_bias="0.687" />
+        app:layout_constraintTop_toBottomOf="@+id/hargaTiket"
+        app:layout_constraintVertical_bias="0.0" />
 
     <include
         android:id="@+id/layout_loading"
