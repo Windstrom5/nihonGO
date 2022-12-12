@@ -9,7 +9,9 @@ import android.view.ViewGroup
 import android.widget.*
 import androidx.cardview.widget.CardView
 import androidx.recyclerview.widget.RecyclerView
+import com.example.tugasbesar.DetailsActivity
 import com.example.tugasbesar.R
+import com.example.tugasbesar.addTiket
 import com.example.tugasbesar.entity.itemList
 import java.util.*
 import kotlin.collections.ArrayList
@@ -47,7 +49,8 @@ class ItemAdapter(private var itemList: List<itemList>, context: Context) :
         holder.tvPrice.text = item.price
 
         holder.btnMore.setOnClickListener {
-
+            val intent = Intent(holder.btnMore.context, DetailsActivity::class.java)
+            holder.btnMore.context.startActivity(intent)
         }
     }
 

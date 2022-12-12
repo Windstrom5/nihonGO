@@ -5,6 +5,7 @@ import android.content.DialogInterface
 import android.content.Intent
 import android.os.Bundle
 import android.view.*
+import android.widget.ImageButton
 import android.widget.LinearLayout
 import android.widget.SearchView
 import android.widget.TextView
@@ -27,6 +28,7 @@ import com.example.tugasbesar.api.tempatWisataApi
 import com.example.tugasbesar.entity.itemList
 import com.google.android.material.navigation.NavigationView
 import com.google.gson.Gson
+import kotlinx.android.synthetic.main.item_list.*
 import org.json.JSONObject
 import java.nio.charset.StandardCharsets
 

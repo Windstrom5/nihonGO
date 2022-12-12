@@ -97,14 +97,7 @@ class profile : AppCompatActivity() {
     }
 
     override fun onBackPressed() {
-        Log.d("CDA", "onBackPressed Called")
-        val intent = Intent(this,itemActivity::class.java)
-        val mBundle = Bundle()
-        mBundle.putString("username",vuser)
-        mBundle.putString("password",vpass)
-        mBundle.putString("city",vcity)
-        intent.putExtra("profile",mBundle)
-        startActivity(intent)
+        finish()
     }
 
 //    fun changeFragment(fragment: Fragment?) {
