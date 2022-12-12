@@ -236,7 +236,7 @@ class itemActivity : AppCompatActivity(),NavigationView.OnNavigationItemSelected
                 })
                 .setPositiveButton("YES", object : DialogInterface.OnClickListener {
                     override fun onClick(dialogInterface: DialogInterface, i: Int) {
-                        startActivity(Intent(this@itemActivity, MapsActivity::class.java))
+                        startActivity(Intent(this@itemActivity, MainActivity::class.java))
                     }
                 })
                 .show()
