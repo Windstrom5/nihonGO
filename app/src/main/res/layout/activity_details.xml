@@ -40,7 +40,7 @@
         app:layout_constraintTop_toBottomOf="@+id/textView" />
 
     <TextView
-        android:id="@+id/detailsWisata"
+        android:id="@+id/alamatWisata"
         android:layout_width="411dp"
         android:layout_height="100dp"
         android:layout_marginTop="40dp"
@@ -55,7 +55,7 @@
         app:layout_constraintTop_toBottomOf="@+id/namaWisata" />
 
     <TextView
-        android:id="@+id/lokasiWisata"
+        android:id="@+id/ratingWisata"
         android:layout_width="411dp"
         android:layout_height="66dp"
         android:layout_marginTop="15dp"
@@ -67,7 +67,7 @@
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/detailsWisata" />
+        app:layout_constraintTop_toBottomOf="@+id/alamatWisata" />
 
     <TextView
         android:id="@+id/hargaTiket"
@@ -82,7 +82,7 @@
         app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/lokasiWisata" />
+        app:layout_constraintTop_toBottomOf="@+id/ratingWisata" />
 
     <Button
         android:id="@+id/button_ticket"

@@ -7,7 +7,7 @@
     android:paddingBottom="8dp"
     >
     <TextView
-        android:id="@+id/textView"
+        android:id="@+id/cameraOption"
         android:layout_marginTop="8dp"
         android:drawableLeft="@drawable/ic_vector_camera_icon"
         android:drawableStart="@drawable/ic_vector_camera_icon"
@@ -17,12 +17,12 @@
         app:layout_constraintTop_toTopOf="parent"
         style="@style/ActionItem" />
     <TextView
-        android:id="@+id/textView2"
+        android:id="@+id/galleryOption"
         android:drawableLeft="@drawable/ic_vector_gallery_icon"
         android:drawableStart="@drawable/ic_vector_gallery_icon"
         android:text="Gallery"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView"
+        app:layout_constraintTop_toBottomOf="@+id/cameraOption"
         style="@style/ActionItem" />
 </androidx.constraintlayout.widget.ConstraintLayout>

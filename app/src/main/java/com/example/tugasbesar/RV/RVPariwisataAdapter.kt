@@ -14,6 +14,7 @@ import com.example.tugasbesar.itemActivity
 class RVPariwisataAdapter(private val data: Array<entityPariwisata>) : RecyclerView.Adapter<RVPariwisataAdapter.MainViewHolder>() {
     lateinit var vuser : String
     lateinit var vpass : String
+    lateinit var vcity : String
     inner class MainViewHolder (val itemBinding: RvItemPariwisataBinding)
         :RecyclerView.ViewHolder(itemBinding.root){
         fun bindItem(task: entityPariwisata){
@@ -35,7 +36,7 @@ class RVPariwisataAdapter(private val data: Array<entityPariwisata>) : RecyclerV
                 val mBundle = Bundle()
                 mBundle.putString("username",vuser)
                 mBundle.putString("password",vpass)
-                mBundle.putString("city", "Tokyo")
+                mBundle.putString("city", vcity)
                 mBundle.putString("category","Wisata")
                 intent.putExtra("profile",mBundle)
                 holder.itemView.context.startActivity(intent)
@@ -47,8 +48,9 @@ class RVPariwisataAdapter(private val data: Array<entityPariwisata>) : RecyclerV
         return data.size
     }
 
-    fun getVariable(user : String,pass : String){
+    fun getVariable(user : String,pass : String, city : String){
         vuser = user
         vpass = pass
+        vcity = city
     }
 }

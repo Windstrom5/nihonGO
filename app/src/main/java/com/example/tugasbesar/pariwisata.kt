@@ -33,7 +33,7 @@ class pariwisata : AppCompatActivity() {
             MotionToast.LONG_DURATION,
             ResourcesCompat.getFont(this, www.sanju.motiontoast.R.font.helvetica_regular))
         val adapter = RVPariwisataAdapter(entityPariwisata.listnamaPariwisata)
-        adapter.getVariable(vuser,vpass)
+        adapter.getVariable(vuser,vpass,vcity)
         binding?.rvPariwisata?.adapter = adapter
     }
     override fun onDestroy() {

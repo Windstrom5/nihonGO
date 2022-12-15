@@ -24,6 +24,7 @@ import com.android.volley.Response
 import com.android.volley.toolbox.StringRequest
 import com.android.volley.toolbox.Volley
 import com.example.tugasbesar.RV.ItemAdapter
+import com.example.tugasbesar.api.AkunApi
 import com.example.tugasbesar.api.tempatWisataApi
 import com.example.tugasbesar.entity.itemList
 import com.google.android.material.navigation.NavigationView
@@ -43,6 +44,7 @@ class itemActivity : AppCompatActivity(),NavigationView.OnNavigationItemSelected
     private lateinit var vpass:String
     private lateinit var vcity:String
     private lateinit var vcategory:String
+    private lateinit var vemail : String
     lateinit var mbunlde : Bundle
     private lateinit var drawer : DrawerLayout
     private lateinit var toggle : ActionBarDrawerToggle
@@ -59,7 +61,13 @@ class itemActivity : AppCompatActivity(),NavigationView.OnNavigationItemSelected
         navigationView = findViewById(R.id.nav_view)
         val headerView = navigationView.getHeaderView(0)
         val navUsername = headerView.findViewById(R.id.username_show) as TextView
+        val navEmail = headerView.findViewById(R.id.email_show) as TextView
         navUsername.setText(vuser)
+        if(vuser.equals("Admin")){
+            navEmail.setText("Admin Page")
+        }else{
+            navEmail.setText("Welcome "+vuser)
+        }
         navigationView.setNavigationItemSelectedListener(this)
         setSupportActionBar(toolbar);
         toggle = ActionBarDrawerToggle(this,drawer,toolbar,
@@ -83,6 +91,7 @@ class itemActivity : AppCompatActivity(),NavigationView.OnNavigationItemSelected
         })
         val rvItem = findViewById<RecyclerView>(R.id.rv_item)
         adapter = ItemAdapter(ArrayList(),this)
+        adapter!!.getVariable(vuser,vpass,vcity,vcategory)
         rvItem.layoutManager = LinearLayoutManager(this)
         rvItem.adapter= adapter
         allItem(vcategory,vcity)
@@ -258,7 +267,8 @@ class itemActivity : AppCompatActivity(),NavigationView.OnNavigationItemSelected
             val mBundle = Bundle()
             mBundle.putString("username",vuser)
             mBundle.putString("password",vpass)
-            mBundle.putString("city","Tokyo")
+            mBundle.putString("city",vcity)
+            mBundle.putString("category",vcategory)
             intent.putExtra("profile",mBundle)
             startActivity(intent)
         }else if(item.itemId == R.id.menuAddWisata){
@@ -266,7 +276,8 @@ class itemActivity : AppCompatActivity(),NavigationView.OnNavigationItemSelected
             val mBundle = Bundle()
             mBundle.putString("username",vuser)
             mBundle.putString("password",vpass)
-            mBundle.putString("city","Tokyo")
+            mBundle.putString("city",vcity)
+            mBundle.putString("category",vcategory)
             intent.putExtra("profile",mBundle)
             startActivity(intent)
         }else if(item.itemId == R.id.menuTiket){
@@ -274,12 +285,12 @@ class itemActivity : AppCompatActivity(),NavigationView.OnNavigationItemSelected
             val mBundle = Bundle()
             mBundle.putString("username",vuser)
             mBundle.putString("password",vpass)
-            mBundle.putString("city","Tokyo")
+            mBundle.putString("city",vcity)
+            mBundle.putString("category",vcategory)
             intent.putExtra("profile",mBundle)
             startActivity(intent)
         }
         drawer.closeDrawer(GravityCompat.START)
         return true
     }
-
 }

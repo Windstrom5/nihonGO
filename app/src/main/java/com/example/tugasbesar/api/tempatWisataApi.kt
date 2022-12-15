@@ -2,12 +2,12 @@ package com.example.tugasbesar.api
 
 class tempatWisataApi {
     companion object{
-        val BASE_URL = "https://nihongo12.000webhostapp.com/public/"
+        val BASE_URL = "http://192.168.1.5/server-nihongo/public/"
 
-        val GET_ALL_URL = BASE_URL + "Tempatwisata"
-        val GET_BY_NAMA_URL = BASE_URL + "Tempatwisata/"
-        val ADD_URL = BASE_URL + "Tempatwisata"
-        val UPDATE_URL = BASE_URL + "Tempatwisata/"
-        val DELETE_URL = BASE_URL + "Tempatwisata/"
+        val GET_ALL_URL = BASE_URL + "tempatwisata"
+        val GET_BY_NAMA_URL = BASE_URL + "tempatwisata/"
+        val ADD_URL = BASE_URL + "tempatwisata"
+        val UPDATE_URL = BASE_URL + "tempatwisata/"
+        val DELETE_URL = BASE_URL + "tempatwisata/"
     }
 }

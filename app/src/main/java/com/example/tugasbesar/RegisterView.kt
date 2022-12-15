@@ -329,7 +329,6 @@ class RegisterView : AppCompatActivity() , DatePickerDialog.OnDateSetListener{
             : StringRequest(Method.GET, AkunApi.GET_ALL_URL,
             Response.Listener { response->
                 val gson = Gson()
-
                 val jsonObject = JSONObject(response)
                 val jsonArray = jsonObject.getJSONArray("data")
                 for (i in 0 until jsonArray.length()) {

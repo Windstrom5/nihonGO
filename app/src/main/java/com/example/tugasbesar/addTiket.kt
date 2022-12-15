@@ -42,6 +42,9 @@ class addTiket : AppCompatActivity() {
     private lateinit var vuser : String
     private lateinit var vpass : String
     private lateinit var vcity : String
+    private lateinit var vcategory : String
+    private lateinit var vnama : String
+    private lateinit var valamat : String
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityAddTiketBinding.inflate(layoutInflater)
@@ -164,6 +167,9 @@ class addTiket : AppCompatActivity() {
                 vuser = mbunlde.getString("username")!!
                 vpass = mbunlde.getString("password")!!
                 vcity = mbunlde.getString("city")!!
+                vcategory = mbunlde.getString("category")!!
+                vnama = mbunlde.getString("nama")!!
+                valamat = mbunlde.getString("alamat")!!
             }else{
 
             }
@@ -172,9 +178,17 @@ class addTiket : AppCompatActivity() {
             vpass = ""
             vcity = ""
         }
+
     }
 
     override fun onBackPressed() {
-        finish()
+        val intent = Intent(this,itemActivity::class.java)
+        val mBundle = Bundle()
+        mBundle.putString("username",vuser)
+        mBundle.putString("password",vpass)
+        mBundle.putString("city", vcity)
+        mBundle.putString("category",vcategory)
+        intent.putExtra("profile",mBundle)
+        startActivity(intent)
     }
 }

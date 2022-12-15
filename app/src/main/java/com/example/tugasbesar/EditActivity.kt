@@ -1,16 +1,28 @@
 package com.example.tugasbesar
 
+import android.app.Activity
+import android.app.AlertDialog
 import android.app.DatePickerDialog
+import android.content.ContentValues
+import android.content.Context
 import android.content.Intent
+import android.content.SharedPreferences
+import android.content.pm.PackageManager
+import android.net.Uri
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.provider.MediaStore
 import android.util.Log
 import android.view.View
 import android.view.WindowManager
 import android.widget.DatePicker
 import android.widget.EditText
 import android.widget.LinearLayout
+import android.widget.TextView
 import android.widget.Toast
+import androidx.activity.result.contract.ActivityResultContracts
+import androidx.core.app.ActivityCompat
+import androidx.core.content.ContextCompat
 import com.android.volley.AuthFailureError
 import com.android.volley.RequestQueue
 import com.android.volley.Response
@@ -25,6 +37,7 @@ import com.example.tugasbesar.room.UserDB
 import com.google.android.material.textfield.TextInputEditText
 import com.google.android.material.textfield.TextInputLayout
 import com.google.gson.Gson
+import de.hdodenhof.circleimageview.CircleImageView
 import kotlinx.android.synthetic.main.activity_edit.*
 import kotlinx.coroutines.*
 import org.json.JSONObject
@@ -34,8 +47,16 @@ import java.text.SimpleDateFormat
 import java.util.*
 
 class EditActivity : AppCompatActivity(), DatePickerDialog.OnDateSetListener {
+    companion object{
+        private const val CAMERA_REQUEST_CODE = 100
+        private const val STORAGE_REQUEST_CODE = 101
+        private const val TAG = "MAIN_TAG"
+    }
+    private lateinit var cameraPermission: Array<String>
+    private lateinit var storagePermission: Array<String>
     lateinit var mbunlde : Bundle
     private lateinit var binding: ActivityEditBinding
+    private lateinit var profile_view: CircleImageView
     private lateinit var usernameEdit : TextInputLayout
     private lateinit var passwordEdit : TextInputLayout
     private lateinit var emailEdit : TextInputLayout
@@ -43,6 +64,8 @@ class EditActivity : AppCompatActivity(), DatePickerDialog.OnDateSetListener {
     private lateinit var tanggalEdit : TextInputLayout
     lateinit var vuser : String
     lateinit var vpass : String
+    lateinit var vcity : String
+    private var imageUri: Uri? = null
     lateinit var passworddb :String
     lateinit var usernamedb :String
     lateinit var emaildb :String
@@ -64,6 +87,7 @@ class EditActivity : AppCompatActivity(), DatePickerDialog.OnDateSetListener {
         emailEdit = binding.emailInput
         phoneEdit = binding.phoneInput
         tanggalEdit = binding.tglInput
+        profile_view = binding.profileView
         val user : String = usernameEdit.getEditText()?.getText().toString()
         val pass : String = passwordEdit.getEditText()?.getText().toString()
         val email : String = emailEdit.getEditText()?.getText().toString()
@@ -71,13 +95,17 @@ class EditActivity : AppCompatActivity(), DatePickerDialog.OnDateSetListener {
         val tgl : String = tanggalEdit.getEditText()?.getText().toString()
         queue= Volley.newRequestQueue(this)
         getBundle()
+        getAkun(vuser,vpass)
 //        autofill(vuser ,vpass)
-        getAkun(vuser ,vpass)
         tanggalEdit.setStartIconOnClickListener(View.OnClickListener{
             DatePickerDialog(this,this,calender.get(Calendar.YEAR),calender.get(Calendar.MONTH),calender.get(Calendar.DAY_OF_MONTH)).show()
         })
+        profile_view.setOnClickListener{
+            createDialog()
+        }
         button_update.setOnClickListener {
-            updateUser(user,pass,email,tgl,phone)
+            updateAccount(vuser)
+//            updateUser(user,pass,email,tgl,phone)
 //            runBlocking(){
 //                val usernameDb = async {
 //                    val Account: User? = db.noteDao().getUsername(usernameEdit.getEditText()?.getText().toString())
@@ -100,12 +128,6 @@ class EditActivity : AppCompatActivity(), DatePickerDialog.OnDateSetListener {
 //                    )
 //                    finish()
 //                }
-                val intent = Intent(this,profile::class.java)
-                val mBundle = Bundle()
-                mBundle.putString("username",usernameEdit.getEditText()?.getText().toString())
-                mBundle.putString("password",passwordEdit.getEditText()?.getText().toString())
-                intent.putExtra("profile",mBundle)
-                startActivity(intent)
 //            }
         }
 
@@ -114,6 +136,7 @@ class EditActivity : AppCompatActivity(), DatePickerDialog.OnDateSetListener {
             val mBundle = Bundle()
             mBundle.putString("username",usernameEdit.getEditText()?.getText().toString())
             mBundle.putString("password",passwordEdit.getEditText()?.getText().toString())
+            mBundle.putString("city",vcity)
             intent.putExtra("profile",mBundle)
             startActivity(intent)
         }
@@ -204,12 +227,14 @@ class EditActivity : AppCompatActivity(), DatePickerDialog.OnDateSetListener {
             if(mbunlde != null){
                 vuser = mbunlde.getString("username")!!
                 vpass = mbunlde.getString("password")!!
+                vcity = mbunlde.getString("city")!!
             }else{
 
             }
         }catch (e: NullPointerException){
             vuser = ""
             vpass = ""
+            vcity = ""
         }
 
     }
@@ -278,48 +303,242 @@ class EditActivity : AppCompatActivity(), DatePickerDialog.OnDateSetListener {
         }
     }
 
-    private fun updateUser(username:String,password:String,email:String,
-    no_telp:String,tgl_lahir:String){
-        val user = Users(username,password,email,no_telp,tgl_lahir)
+//    private fun updateUser(username:String,password:String,email:String,
+//    no_telp:String,tgl_lahir:String){
+//        val user = Users(username,password,email,no_telp,tgl_lahir)
+//
+//        val stringRequest: StringRequest =
+//            object: StringRequest(Method.PUT, AkunApi.UPDATE_URL + username, Response.Listener { response ->
+//                val jsonObject = JSONObject(response)
+//                Toast.makeText(this, "Update User Success", Toast.LENGTH_SHORT).show()
+//                    finish()
+//            }, Response.ErrorListener { error ->
+//                try{
+//                    val responseBody = String(error.networkResponse.data, StandardCharsets.UTF_8)
+//                    val errors = JSONObject(responseBody)
+//                    Toast.makeText(
+//                        this,
+//                        errors.getString("message"),
+//                        Toast.LENGTH_SHORT
+//                    ).show()
+//                } catch (e: Exception){
+//                    Toast.makeText(this, e.message, Toast.LENGTH_SHORT).show()
+//                }
+//            }){
+//                @Throws(AuthFailureError::class)
+//                override fun getHeaders(): Map<String, String> {
+//                    val headers = HashMap<String, String>()
+//                    headers["Accept"] = "application/json"
+//                    return headers
+//                }
+//
+//                @Throws(AuthFailureError::class)
+//                override fun getBody(): ByteArray {
+//                    val gson = Gson()
+//                    val requestBody = gson.toJson(user)
+//                    return requestBody.toByteArray(StandardCharsets.UTF_8)
+//                }
+//
+//                override fun getBodyContentType(): String {
+//                    return "application/json"
+//                }
+//            }
+//
+//        queue!!.add(stringRequest)
+//    }
 
-        val stringRequest: StringRequest =
-            object: StringRequest(Method.PUT, AkunApi.UPDATE_URL + username, Response.Listener { response ->
-                val jsonObject = JSONObject(response)
-                Toast.makeText(this, "Update User Success", Toast.LENGTH_SHORT).show()
-                    finish()
-            }, Response.ErrorListener { error ->
+    private fun updateAccount(username : String){
+        setLoading(true)
+        val akun = Users(
+            usernameEdit.getEditText()?.getText().toString(),
+            passwordEdit.getEditText()?.getText().toString(),
+            emailEdit.getEditText()?.getText().toString(),
+            phoneEdit.getEditText()?.getText().toString(),
+            tanggalEdit.getEditText()?.getText().toString()
+        )
+        val StringRequest:StringRequest = object : StringRequest(Method.PUT,AkunApi.UPDATE_URL + username,
+            Response.Listener { response ->
+                val gson = Gson()
+                val akun = gson.fromJson(response, Users::class.java)
+                if(akun != null)
+                    Toast.makeText(this@EditActivity,"Akun Berhasil Diedit", Toast.LENGTH_SHORT).show()
+                    val intent = Intent(this,profile::class.java)
+                    val mBundle = Bundle()
+                    mBundle.putString("username",usernameEdit.getEditText()?.getText().toString())
+                    mBundle.putString("password",passwordEdit.getEditText()?.getText().toString())
+                    mBundle.putString("city",vcity)
+                    intent.putExtra("profile",mBundle)
+                    startActivity(intent)
+//                val returnIntent = Intent()
+//                setResult(RESULT_OK, returnIntent)
+                finish()
+                setLoading(false)
+            },Response.ErrorListener { error->
+                setLoading(false)
                 try{
                     val responseBody = String(error.networkResponse.data, StandardCharsets.UTF_8)
                     val errors = JSONObject(responseBody)
                     Toast.makeText(
-                        this,
+                        this@EditActivity,
                         errors.getString("message"),
                         Toast.LENGTH_SHORT
                     ).show()
-                } catch (e: Exception){
-                    Toast.makeText(this, e.message, Toast.LENGTH_SHORT).show()
-                }
-            }){
-                @Throws(AuthFailureError::class)
-                override fun getHeaders(): Map<String, String> {
-                    val headers = HashMap<String, String>()
-                    headers["Accept"] = "application/json"
-                    return headers
-                }
-
-                @Throws(AuthFailureError::class)
-                override fun getBody(): ByteArray {
-                    val gson = Gson()
-                    val requestBody = gson.toJson(user)
-                    return requestBody.toByteArray(StandardCharsets.UTF_8)
-                }
-
-                override fun getBodyContentType(): String {
-                    return "application/json"
+                    usernameEdit.setError("Akun Sudah Ada")
+                }catch (e: Exception){
+                    Toast.makeText(this@EditActivity,e.message, Toast.LENGTH_SHORT).show()
                 }
             }
+        ){
+            @Throws(AuthFailureError::class)
+            override fun getHeaders(): Map<String, String> {
+                val headers = HashMap<String,String>()
+                headers["Accept"] = "application/json"
+                return headers
+            }
 
-        queue!!.add(stringRequest)
+            override fun getParams(): Map<String, String>? {
+                val params = HashMap<String,String>()
+                params.put("username",usernameEdit.getEditText()?.getText().toString())
+                params.put("password",passwordEdit.getEditText()?.getText().toString())
+                params.put("email",emailEdit.getEditText()?.getText().toString())
+                params.put("no_telp",phoneEdit.getEditText()?.getText().toString())
+                params.put("birth_date",tanggalEdit.getEditText()?.getText().toString())
+                return params
+            }
+//            @Throws(AuthFailureError::class)
+//            override fun getBody(): ByteArray {
+//                val gson = Gson()
+//                val requestBody = gson.toJson(akun)
+//                return requestBody.toByteArray(StandardCharsets.UTF_8)
+//            }
+//
+//            override fun getBodyContentType(): String {
+//                return "application/json"
+//            }
+        }
+        queue!!.add(StringRequest)
     }
 
+    private fun createDialog(){
+        val dialogBuilder = AlertDialog.Builder(this)
+        val popup : View = layoutInflater.inflate(R.layout.bottom_sheet,null)
+        val camera : TextView = popup.findViewById(R.id.cameraOption)
+        val gallery: TextView = popup.findViewById(R.id.galleryOption)
+        dialogBuilder.setView(popup)
+        val dialog = dialogBuilder.create()
+        dialog.show()
+
+        camera.setOnClickListener{
+            if(checkCameraPermission()){
+                pickImageCamera()
+            }else{
+                requestCameraPermission()
+            }
+        }
+        gallery.setOnClickListener{
+            if(checkStoragePermission()){
+                pickImageGallery()
+            }else{
+                requestStoragePermission()
+            }
+        }
+    }
+
+    private fun checkCameraPermission():Boolean{
+        val resultCamera = (ContextCompat.checkSelfPermission(this,android.Manifest.permission.CAMERA)
+                == PackageManager.PERMISSION_GRANTED)
+        val resultStorage = (ContextCompat.checkSelfPermission(this,android.Manifest.permission.WRITE_EXTERNAL_STORAGE)
+                == PackageManager.PERMISSION_GRANTED)
+        return resultCamera && resultStorage
+    }
+
+    private fun requestCameraPermission(){
+        ActivityCompat.requestPermissions(this,cameraPermission, CAMERA_REQUEST_CODE)
+    }
+
+    private fun checkStoragePermission():Boolean{
+        val result = (ContextCompat.checkSelfPermission(this,android.Manifest.permission.WRITE_EXTERNAL_STORAGE)
+                == PackageManager.PERMISSION_GRANTED)
+        return result
+    }
+
+    private fun requestStoragePermission(){
+        ActivityCompat.requestPermissions(this,storagePermission, STORAGE_REQUEST_CODE)
+    }
+
+    override fun onRequestPermissionsResult(
+        requestCode: Int,
+        permissions: Array<out String>,
+        grantResults: IntArray
+    ) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults)
+
+        when(requestCode){
+            CAMERA_REQUEST_CODE ->{
+                if(grantResults.isNotEmpty()){
+                    val cameraAccepted = grantResults[0] == PackageManager.PERMISSION_GRANTED
+                    val storageAccepted = grantResults[1] == PackageManager.PERMISSION_GRANTED
+
+                    if(cameraAccepted&&storageAccepted){
+                        pickImageCamera()
+                    }else{
+                        Toast.makeText(this,"Camera And Storage Permission Are Required",Toast.LENGTH_SHORT).show()
+                    }
+                }
+            }
+            STORAGE_REQUEST_CODE->{
+                val storageAccepted = grantResults[1] == PackageManager.PERMISSION_GRANTED
+                if(storageAccepted){
+                    pickImageGallery()
+                }else{
+                    Toast.makeText(this,"Storage Permission Is Required",Toast.LENGTH_SHORT).show()
+                }
+            }
+        }
+    }
+
+    private fun pickImageCamera(){
+        val contentValues = ContentValues()
+        contentValues.put(MediaStore.Images.Media.TITLE,"Foto Sample")
+        contentValues.put(MediaStore.Images.Media.DESCRIPTION,"Deskripsi Foto Sample")
+
+        imageUri = contentResolver.insert(MediaStore.Images.Media.EXTERNAL_CONTENT_URI,contentValues)
+
+        val intent = Intent(MediaStore.ACTION_IMAGE_CAPTURE)
+        intent.putExtra(MediaStore.EXTRA_OUTPUT,imageUri)
+
+        cameraActivityResultLauncher.launch(intent)
+    }
+
+    private val cameraActivityResultLauncher = registerForActivityResult(
+        ActivityResultContracts.StartActivityForResult()
+    ){result->
+        if(result.resultCode == Activity.RESULT_OK){
+            val data = result.data
+//            imageUri = data!!.data
+//            imageUri = intent.getData();
+            Log.d(TAG,"cameraActivityResultLauncher: imageUri: $imageUri")
+
+            binding.profileView.setImageURI(imageUri)
+        }
+    }
+
+    private fun pickImageGallery(){
+        val intent = Intent(Intent.ACTION_PICK)
+
+        intent.type = "image/*"
+        galleryActivityResultLauncher.launch(intent)
+    }
+
+    private val galleryActivityResultLauncher = registerForActivityResult(
+        ActivityResultContracts.StartActivityForResult()
+    ){result->
+        if(result.resultCode == Activity.RESULT_OK){
+            val data = result.data
+            imageUri = data!!.data
+            Log.d(TAG,"galleryActivityResultLauncher: imageUri: $imageUri")
+
+            binding.profileView.setImageURI(imageUri)
+        }
+    }
 }

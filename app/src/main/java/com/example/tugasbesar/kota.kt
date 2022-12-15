@@ -31,9 +31,9 @@ class kota : AppCompatActivity() {
             MotionToast.GRAVITY_BOTTOM,
             MotionToast.LONG_DURATION,
             ResourcesCompat.getFont(this, www.sanju.motiontoast.R.font.helvetica_regular))
-        val adapter = RVKotaAdapter(kota.listofnamaKota)
-        adapter.getVariable(vuser,vpass)
-        binding?.rvKota?.adapter = adapter
+            val adapter = RVKotaAdapter(kota.listofnamaKota)
+            adapter.getVariable(vuser,vpass)
+            binding?.rvKota?.adapter = adapter
     }
     override fun onDestroy() {
         super.onDestroy()

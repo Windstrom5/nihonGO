@@ -3,6 +3,8 @@ package com.example.tugasbesar.RV
 import android.annotation.SuppressLint
 import android.content.Context
 import android.content.Intent
+import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -20,6 +22,10 @@ class ItemAdapter(private var itemList: List<itemList>, context: Context) :
     RecyclerView.Adapter<ItemAdapter.ViewHolder>(), Filterable {
     private var filteredItemList: MutableList<itemList>
     private val context:Context
+    lateinit var vuser : String
+    lateinit var vpass : String
+    lateinit var vcity : String
+    lateinit var vcategory : String
 
     init {
         filteredItemList = ArrayList(itemList)
@@ -47,9 +53,19 @@ class ItemAdapter(private var itemList: List<itemList>, context: Context) :
         holder.tvAlamat.text = item.alamat
         holder.tvRating.text = item.rating
         holder.tvPrice.text = item.price
-
         holder.btnMore.setOnClickListener {
             val intent = Intent(holder.btnMore.context, DetailsActivity::class.java)
+            val mBundle = Bundle()
+            mBundle.putString("username",vuser)
+            mBundle.putString("password",vpass)
+            mBundle.putString("city", vcity)
+            mBundle.putString("nama",item.name)
+            Log.d("Item",item.name)
+            mBundle.putString("alamat",item.alamat)
+            mBundle.putString("rating",item.rating)
+            mBundle.putString("price",item.price)
+            mBundle.putString("category",vcategory)
+            intent.putExtra("profile",mBundle)
             holder.btnMore.context.startActivity(intent)
         }
     }
@@ -100,5 +116,12 @@ class ItemAdapter(private var itemList: List<itemList>, context: Context) :
             btnMore = itemView.findViewById(R.id.btn_more)
             cvItem = itemView.findViewById(R.id.cv_item)
         }
+    }
+
+    fun getVariable(user : String,pass : String, city : String,category : String){
+        vuser = user
+        vpass = pass
+        vcity = city
+        vcategory = category
     }
 }

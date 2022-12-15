@@ -9,23 +9,17 @@ import android.util.Log
 import android.view.View
 import android.view.WindowManager
 import android.widget.*
-import android.widget.AdapterView.OnItemClickListener
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.res.ResourcesCompat
-import androidx.core.view.isEmpty
 import com.android.volley.AuthFailureError
 import com.android.volley.RequestQueue
 import com.android.volley.Response
 import com.android.volley.toolbox.StringRequest
 import com.android.volley.toolbox.Volley
-import com.example.tugasbesar.api.AkunApi
 import com.example.tugasbesar.api.EventApi
 import com.example.tugasbesar.api.tempatWisataApi
-import com.example.tugasbesar.entity.itemList
 import com.example.tugasbesar.models.Event
 import com.example.tugasbesar.models.TempatWisata
-import com.example.tugasbesar.models.Users
-import com.google.android.material.textfield.TextInputEditText
 import com.google.android.material.textfield.TextInputLayout
 import com.google.gson.Gson
 import kotlinx.android.synthetic.main.activity_add_tempat_wisata.*
@@ -36,7 +30,6 @@ import java.nio.charset.StandardCharsets
 import java.text.NumberFormat
 import java.text.SimpleDateFormat
 import java.util.*
-import kotlin.collections.HashMap
 
 
 class addWisata : AppCompatActivity(), DatePickerDialog.OnDateSetListener {
@@ -50,7 +43,8 @@ class addWisata : AppCompatActivity(), DatePickerDialog.OnDateSetListener {
     private lateinit var mbunlde : Bundle
     private lateinit var vuser : String
     private lateinit var vpass : String
-    private lateinit var vlokasi : String
+    private lateinit var vcity : String
+    private lateinit var vcategory : String
     private var layout_loading: LinearLayout? = null
     private var edCategory:AutoCompleteTextView? = null
     private var queue: RequestQueue? = null
@@ -96,7 +90,7 @@ class addWisata : AppCompatActivity(), DatePickerDialog.OnDateSetListener {
         ratingLayout = findViewById(R.id.layout_rating)
         namaLayout = findViewById(R.id.layout_nama)
         layoutCity = findViewById(R.id.layout_lokasi)
-        etCity!!.setText(vlokasi)
+        etCity!!.setText(vcity)
         etCity!!.setFocusable(false)
         setExposeDropDownMenu()
         edCategory!!.setOnItemClickListener{adapterView, view, position, id ->
@@ -217,7 +211,7 @@ class addWisata : AppCompatActivity(), DatePickerDialog.OnDateSetListener {
 
     fun setExposeDropDownMenu() {
         val adapterCategory: ArrayAdapter<String> =
-            ArrayAdapter<String>(this, R.layout.item_list, Category_LIST)
+            ArrayAdapter<String>(this, R.layout.item_list2,Category_LIST)
         edCategory!!.setAdapter(adapterCategory)
     }
 
@@ -304,8 +298,14 @@ class addWisata : AppCompatActivity(), DatePickerDialog.OnDateSetListener {
                         Toast.makeText(this@addWisata,"Tempat Wisata Berhasil Ditambahkan", Toast.LENGTH_SHORT).show()
                     val returnIntent = Intent()
                     setResult(RESULT_OK, returnIntent)
-                    finish()
-
+                    val intent = Intent(this,itemActivity::class.java)
+                    val mBundle = Bundle()
+                    mBundle.putString("username",vuser)
+                    mBundle.putString("password",vpass)
+                    mBundle.putString("city", vcity)
+                    mBundle.putString("category",vcategory)
+                    intent.putExtra("profile",mBundle)
+                    startActivity(intent)
                     setLoading(false)
                 },Response.ErrorListener { error->
                     setLoading(false)
@@ -351,14 +351,15 @@ class addWisata : AppCompatActivity(), DatePickerDialog.OnDateSetListener {
             if(mbunlde != null){
                 vuser = mbunlde.getString("username")!!
                 vpass = mbunlde.getString("password")!!
-                vlokasi = mbunlde.getString("city")!!
+                vcity = mbunlde.getString("city")!!
+                vcategory = mbunlde.getString("category")!!
             }else{
 
             }
         }catch (e: NullPointerException){
             vuser = ""
             vpass = ""
-            vlokasi = ""
+            vcity = ""
         }
 
     }
@@ -388,6 +389,13 @@ class addWisata : AppCompatActivity(), DatePickerDialog.OnDateSetListener {
     }
 
     override fun onBackPressed() {
-        finish()
+        val intent = Intent(this,itemActivity::class.java)
+        val mBundle = Bundle()
+        mBundle.putString("username",vuser)
+        mBundle.putString("password",vpass)
+        mBundle.putString("city", vcity)
+        mBundle.putString("category",vcategory)
+        intent.putExtra("profile",mBundle)
+        startActivity(intent)
     }
 }

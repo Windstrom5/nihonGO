@@ -36,6 +36,7 @@ class profile : AppCompatActivity() {
     private lateinit var vuser : String
     private lateinit var vpass : String
     private lateinit var vcity : String
+    private lateinit var vcategory : String
     private lateinit var passworddb :String
     private var userProfile:TextView? = null
     private var emailProfile:TextView? = null
@@ -56,7 +57,7 @@ class profile : AppCompatActivity() {
         getBundle()
 //        autofill(vuser ,vpass)
 //        onStart()
-        Toast.makeText(this,"Welcome "+vuser,Toast.LENGTH_SHORT).show()
+//        Toast.makeText(this,"Welcome "+vuser,Toast.LENGTH_SHORT).show()
         loading = findViewById(R.id.layout_loading)
         queue= Volley.newRequestQueue(this)
         //Tampil PROFILE
@@ -97,7 +98,15 @@ class profile : AppCompatActivity() {
     }
 
     override fun onBackPressed() {
-        finish()
+//        finish()
+        val intent = Intent(this,itemActivity::class.java)
+        val mBundle = Bundle()
+        mBundle.putString("username",vuser)
+        mBundle.putString("password",vpass)
+        mBundle.putString("city", vcity)
+        mBundle.putString("category",vcategory)
+        intent.putExtra("profile",mBundle)
+        startActivity(intent)
     }
 
 //    fun changeFragment(fragment: Fragment?) {
@@ -171,6 +180,7 @@ class profile : AppCompatActivity() {
                 vuser = mbunlde.getString("username")!!
                 vpass = mbunlde.getString("password")!!
                 vcity = mbunlde.getString("city")!!
+                vcategory = mbunlde.getString("category")!!
             }else{
 
             }
@@ -343,6 +353,7 @@ class profile : AppCompatActivity() {
         }
         queue!!.add(StringRequest)
     }
+
     fun setLoading(isLoading:Boolean){
         if(isLoading){
             window.setFlags(
