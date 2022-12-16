@@ -4,24 +4,24 @@ import android.app.Activity
 import android.app.AlertDialog
 import android.app.DatePickerDialog
 import android.content.ContentValues
-import android.content.Context
 import android.content.Intent
-import android.content.SharedPreferences
 import android.content.pm.PackageManager
+import android.content.res.ColorStateList
+import android.graphics.Bitmap
+import android.graphics.ImageDecoder
 import android.net.Uri
-import androidx.appcompat.app.AppCompatActivity
+import android.os.Build
 import android.os.Bundle
 import android.provider.MediaStore
+import android.provider.OpenableColumns
 import android.util.Log
 import android.view.View
 import android.view.WindowManager
-import android.widget.DatePicker
-import android.widget.EditText
-import android.widget.LinearLayout
-import android.widget.TextView
-import android.widget.Toast
+import android.widget.*
 import androidx.activity.result.contract.ActivityResultContracts
+import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
+import androidx.core.content.ContentProviderCompat.requireContext
 import androidx.core.content.ContextCompat
 import com.android.volley.AuthFailureError
 import com.android.volley.RequestQueue
@@ -30,21 +30,22 @@ import com.android.volley.toolbox.StringRequest
 import com.android.volley.toolbox.Volley
 import com.example.tugasbesar.api.AkunApi
 import com.example.tugasbesar.databinding.ActivityEditBinding
-import com.example.tugasbesar.room.Constant
-import com.example.tugasbesar.room.User
 import com.example.tugasbesar.models.Users
 import com.example.tugasbesar.room.UserDB
-import com.google.android.material.textfield.TextInputEditText
 import com.google.android.material.textfield.TextInputLayout
 import com.google.gson.Gson
 import de.hdodenhof.circleimageview.CircleImageView
 import kotlinx.android.synthetic.main.activity_edit.*
 import kotlinx.coroutines.*
 import org.json.JSONObject
-import org.w3c.dom.Text
+import java.io.ByteArrayOutputStream
+import java.io.File
+import java.io.FileOutputStream
+import java.io.InputStream
 import java.nio.charset.StandardCharsets
 import java.text.SimpleDateFormat
 import java.util.*
+
 
 class EditActivity : AppCompatActivity(), DatePickerDialog.OnDateSetListener {
     companion object{
@@ -62,6 +63,18 @@ class EditActivity : AppCompatActivity(), DatePickerDialog.OnDateSetListener {
     private lateinit var emailEdit : TextInputLayout
     private lateinit var phoneEdit : TextInputLayout
     private lateinit var tanggalEdit : TextInputLayout
+    private lateinit var vergil : CircleImageView
+    private lateinit var reaper : CircleImageView
+    private lateinit var indihome : CircleImageView
+    private lateinit var cassidy : CircleImageView
+    private lateinit var goro : CircleImageView
+    private lateinit var kiryu : CircleImageView
+    private lateinit var amongus : CircleImageView
+    private lateinit var armstrong : CircleImageView
+    private lateinit var cj : CircleImageView
+    private lateinit var lucy : CircleImageView
+    private lateinit var dva : CircleImageView
+    private lateinit var sam : CircleImageView
     lateinit var vuser : String
     lateinit var vpass : String
     lateinit var vcity : String
@@ -71,7 +84,10 @@ class EditActivity : AppCompatActivity(), DatePickerDialog.OnDateSetListener {
     lateinit var emaildb :String
     lateinit var telpdb :String
     lateinit var tgldb :String
+    private var profilePicture : String ?= null
+    private lateinit var bitmap: Bitmap
     private lateinit var loading : LinearLayout
+    private var blob:ByteArray ?=null
     private var queue: RequestQueue? = null
     private val calender = Calendar.getInstance()
     private val formatter = SimpleDateFormat("dd, MMM, yyyy", Locale.US)
@@ -424,10 +440,10 @@ class EditActivity : AppCompatActivity(), DatePickerDialog.OnDateSetListener {
         val popup : View = layoutInflater.inflate(R.layout.bottom_sheet,null)
         val camera : TextView = popup.findViewById(R.id.cameraOption)
         val gallery: TextView = popup.findViewById(R.id.galleryOption)
+        val default : TextView = popup.findViewById(R.id.defaultOption)
         dialogBuilder.setView(popup)
         val dialog = dialogBuilder.create()
         dialog.show()
-
         camera.setOnClickListener{
             if(checkCameraPermission()){
                 pickImageCamera()
@@ -440,6 +456,133 @@ class EditActivity : AppCompatActivity(), DatePickerDialog.OnDateSetListener {
                 pickImageGallery()
             }else{
                 requestStoragePermission()
+            }
+        }
+        default.setOnClickListener{
+            dialog.dismiss()
+            createDialogProfile()
+        }
+        dialog.closeOptionsMenu()
+    }
+
+    private fun createDialogProfile(){
+        val dialogBuilder = AlertDialog.Builder(this)
+        val popup : View = layoutInflater.inflate(R.layout.profilepic_sheet,null)
+        vergil = popup.findViewById(R.id.vergilView)
+        val reaper : CircleImageView = popup.findViewById(R.id.reaperView)
+        val indihome : CircleImageView = popup.findViewById(R.id.indihomeView)
+        val cassidy : CircleImageView = popup.findViewById(R.id.cassidyView)
+        val goro : CircleImageView = popup.findViewById(R.id.goroView)
+        val kiryu : CircleImageView = popup.findViewById(R.id.kiryuView)
+        val amongus : CircleImageView = popup.findViewById(R.id.amogusView)
+        val armstrong : CircleImageView = popup.findViewById(R.id.nanomachineView)
+        val cj : CircleImageView = popup.findViewById(R.id.cjView)
+        val lucy : CircleImageView = popup.findViewById(R.id.lucyView)
+        val dva : CircleImageView = popup.findViewById(R.id.dvaView)
+        val sam : CircleImageView = popup.findViewById(R.id.sammgsView)
+        val save : Button = popup.findViewById(R.id.button_saveImage)
+        val cancel : Button = popup.findViewById(R.id.button_cancelImage)
+        save.isEnabled = false
+        dialogBuilder.setView(popup)
+        val dialog = dialogBuilder.create()
+        dialog.show()
+        cancel.setOnClickListener{
+            dialog.dismiss()
+        }
+        vergil.setOnClickListener{
+            profilePicture = "vergil"
+            save.isEnabled = true
+            save.setOnClickListener{
+                binding.profileView.setImageResource(R.drawable.ppvergil)
+                dialog.dismiss()
+            }
+        }
+        armstrong.setOnClickListener{
+            profilePicture = "nanomachine"
+            save.isEnabled = true
+            save.setOnClickListener{
+                binding.profileView.setImageResource(R.drawable.ppnanomachine)
+                dialog.dismiss()
+            }
+        }
+        reaper.setOnClickListener{
+            profilePicture = "reaper"
+            save.isEnabled = true
+            save.setOnClickListener{
+                binding.profileView.setImageResource(R.drawable.ppreaper)
+                dialog.dismiss()
+            }
+        }
+        indihome.setOnClickListener{
+            profilePicture = "indihome"
+            save.isEnabled = true
+            save.setOnClickListener{
+                binding.profileView.setImageResource(R.drawable.ppindihome)
+                dialog.dismiss()
+            }
+        }
+        cassidy.setOnClickListener{
+            profilePicture = "cassidy"
+            save.isEnabled = true
+            save.setOnClickListener{
+                binding.profileView.setImageResource(R.drawable.ppcassidy)
+                dialog.dismiss()
+            }
+        }
+        goro.setOnClickListener{
+            profilePicture = "goro"
+            save.isEnabled = true
+            save.setOnClickListener{
+                binding.profileView.setImageResource(R.drawable.ppgoro)
+                dialog.dismiss()
+            }
+        }
+        kiryu.setOnClickListener{
+            profilePicture = "kiryu"
+            save.isEnabled = true
+            save.setOnClickListener{
+                binding.profileView.setImageResource(R.drawable.ppkiryu)
+                dialog.dismiss()
+            }
+        }
+        amongus.setOnClickListener{
+            profilePicture = "amogus"
+            save.isEnabled = true
+            save.setOnClickListener{
+                binding.profileView.setImageResource(R.drawable.ppamogus)
+                dialog.dismiss()
+            }
+        }
+        cj.setOnClickListener{
+            profilePicture = "carljohnson"
+            save.isEnabled = true
+            save.setOnClickListener{
+                binding.profileView.setImageResource(R.drawable.ppcarljohnson)
+                dialog.dismiss()
+            }
+        }
+        lucy.setOnClickListener{
+            profilePicture = "lucy"
+            save.isEnabled = true
+            save.setOnClickListener{
+                binding.profileView.setImageResource(R.drawable.pplucy)
+                dialog.dismiss()
+            }
+        }
+        dva.setOnClickListener{
+            profilePicture = "dva"
+            save.isEnabled = true
+            save.setOnClickListener{
+                binding.profileView.setImageResource(R.drawable.ppdva)
+                dialog.dismiss()
+            }
+        }
+        sam.setOnClickListener{
+            profilePicture = "sammgs"
+            save.isEnabled = true
+            save.setOnClickListener{
+                binding.profileView.setImageResource(R.drawable.ppsammgs)
+                dialog.dismiss()
             }
         }
     }
@@ -472,13 +615,11 @@ class EditActivity : AppCompatActivity(), DatePickerDialog.OnDateSetListener {
         grantResults: IntArray
     ) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults)
-
         when(requestCode){
             CAMERA_REQUEST_CODE ->{
                 if(grantResults.isNotEmpty()){
                     val cameraAccepted = grantResults[0] == PackageManager.PERMISSION_GRANTED
                     val storageAccepted = grantResults[1] == PackageManager.PERMISSION_GRANTED
-
                     if(cameraAccepted&&storageAccepted){
                         pickImageCamera()
                     }else{
@@ -518,14 +659,12 @@ class EditActivity : AppCompatActivity(), DatePickerDialog.OnDateSetListener {
 //            imageUri = data!!.data
 //            imageUri = intent.getData();
             Log.d(TAG,"cameraActivityResultLauncher: imageUri: $imageUri")
-
             binding.profileView.setImageURI(imageUri)
         }
     }
 
     private fun pickImageGallery(){
         val intent = Intent(Intent.ACTION_PICK)
-
         intent.type = "image/*"
         galleryActivityResultLauncher.launch(intent)
     }
@@ -537,8 +676,16 @@ class EditActivity : AppCompatActivity(), DatePickerDialog.OnDateSetListener {
             val data = result.data
             imageUri = data!!.data
             Log.d(TAG,"galleryActivityResultLauncher: imageUri: $imageUri")
-
             binding.profileView.setImageURI(imageUri)
         }
+    }
+
+    fun getBytesFromBitmap(bitmap: Bitmap): ByteArray? {
+        if (bitmap != null) {
+            val stream = ByteArrayOutputStream()
+            bitmap.compress(Bitmap.CompressFormat.JPEG, 70, stream)
+            return stream.toByteArray()
+        }
+        return null
     }
 }
