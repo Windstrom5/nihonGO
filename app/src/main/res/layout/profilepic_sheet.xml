@@ -1,0 +1,227 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:tools="http://schemas.android.com/tools"
+    >
+
+
+    <de.hdodenhof.circleimageview.CircleImageView
+        android:id="@+id/reaperView"
+        android:layout_width="122dp"
+        android:layout_height="135dp"
+        android:elevation="5dp"
+        android:src="@drawable/ppreaper"
+        app:civ_border_color="#FFF"
+        app:civ_border_width="5dp"
+        app:civ_circle_background_color="@color/white"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.013"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.026" />
+
+    <de.hdodenhof.circleimageview.CircleImageView
+        android:id="@+id/cassidyView"
+        android:layout_width="122dp"
+        android:layout_height="135dp"
+        android:elevation="5dp"
+        android:src="@drawable/ppcassidy"
+        app:civ_border_color="#FFF"
+        app:civ_border_width="5dp"
+        app:civ_circle_background_color="@color/white"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.013"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.253" />
+
+    <de.hdodenhof.circleimageview.CircleImageView
+        android:id="@+id/cjView"
+        android:layout_width="122dp"
+        android:layout_height="135dp"
+        android:elevation="5dp"
+        android:src="@drawable/ppcarljohnson"
+        app:civ_border_color="#FFF"
+        app:civ_border_width="5dp"
+        app:civ_circle_background_color="@color/white"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.498"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.706" />
+
+    <de.hdodenhof.circleimageview.CircleImageView
+        android:id="@+id/amogusView"
+        android:layout_width="122dp"
+        android:layout_height="135dp"
+        android:elevation="5dp"
+        android:src="@drawable/ppamogus"
+        app:civ_border_color="#FFF"
+        app:civ_border_width="5dp"
+        app:civ_circle_background_color="@color/white"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.013"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.706" />
+
+    <de.hdodenhof.circleimageview.CircleImageView
+        android:id="@+id/dvaView"
+        android:layout_width="122dp"
+        android:layout_height="135dp"
+        android:elevation="5dp"
+        android:src="@drawable/ppdva"
+        app:civ_border_color="#FFF"
+        app:civ_border_width="5dp"
+        app:civ_circle_background_color="@color/white"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.982"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.026" />
+
+    <de.hdodenhof.circleimageview.CircleImageView
+        android:id="@+id/sammgsView"
+        android:layout_width="122dp"
+        android:layout_height="135dp"
+        android:elevation="5dp"
+        android:src="@drawable/ppsammgs"
+        app:civ_border_color="#FFF"
+        app:civ_border_width="5dp"
+        app:civ_circle_background_color="@color/white"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.498"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.253" />
+
+    <de.hdodenhof.circleimageview.CircleImageView
+        android:id="@+id/lucyView"
+        android:layout_width="122dp"
+        android:layout_height="135dp"
+        android:elevation="5dp"
+        android:src="@drawable/pplucy"
+        app:civ_border_color="#FFF"
+        app:civ_border_width="5dp"
+        app:civ_circle_background_color="@color/white"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.982"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.253" />
+
+    <de.hdodenhof.circleimageview.CircleImageView
+        android:id="@+id/vergilView"
+        android:layout_width="122dp"
+        android:layout_height="135dp"
+        android:elevation="5dp"
+        android:src="@drawable/ppvergil"
+        app:civ_border_color="#FFF"
+        app:civ_border_width="5dp"
+        app:civ_circle_background_color="@color/white"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.498"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.026" />
+
+    <de.hdodenhof.circleimageview.CircleImageView
+        android:id="@+id/goroView"
+        android:layout_width="122dp"
+        android:layout_height="135dp"
+        android:elevation="5dp"
+        android:src="@drawable/ppgoro"
+        app:civ_border_color="#FFF"
+        app:civ_border_width="5dp"
+        app:civ_circle_background_color="@color/white"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.982"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.479" />
+
+    <de.hdodenhof.circleimageview.CircleImageView
+        android:id="@+id/indihomeView"
+        android:layout_width="122dp"
+        android:layout_height="135dp"
+        android:elevation="5dp"
+        android:src="@drawable/ppindihome"
+        app:civ_border_color="#FFF"
+        app:civ_border_width="5dp"
+        app:civ_circle_background_color="@color/white"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.013"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.479" />
+
+    <de.hdodenhof.circleimageview.CircleImageView
+        android:id="@+id/nanomachineView"
+        android:layout_width="122dp"
+        android:layout_height="135dp"
+        android:elevation="5dp"
+        android:src="@drawable/ppnanomachine"
+        app:civ_border_color="#FFF"
+        app:civ_border_width="5dp"
+        app:civ_circle_background_color="@color/white"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.498"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.479" />
+
+    <de.hdodenhof.circleimageview.CircleImageView
+        android:id="@+id/kiryuView"
+        android:layout_width="122dp"
+        android:layout_height="135dp"
+        android:elevation="5dp"
+        android:src="@drawable/ppkiryu"
+        app:civ_border_color="#FFF"
+        app:civ_border_width="5dp"
+        app:civ_circle_background_color="@color/white"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.982"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.706" />
+
+    <Button
+        android:id="@+id/button_update"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="36dp"
+        android:backgroundTint="@color/dark_green"
+        android:text="SAVE"
+        android:textColor="@color/dark_blue"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/cjView" />
+
+    <Button
+        android:id="@+id/button_cancel"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:backgroundTint="@color/dark_red"
+        android:text="CANCEL"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/button_update" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>
