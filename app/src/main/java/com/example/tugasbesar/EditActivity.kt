@@ -462,7 +462,7 @@ class EditActivity : AppCompatActivity(), DatePickerDialog.OnDateSetListener {
             dialog.dismiss()
             createDialogProfile()
         }
-        dialog.closeOptionsMenu()
+        dialog.dismiss()
     }
 
     private fun createDialogProfile(){

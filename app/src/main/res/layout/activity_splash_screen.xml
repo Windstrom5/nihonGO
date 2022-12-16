@@ -31,16 +31,19 @@
         app:layout_constraintVertical_bias="0.993"
         app:srcCompat="@drawable/logo3" />
 
-    <ImageView
-        android:id="@+id/imagekyoto"
+    <com.airbnb.lottie.LottieAnimationView
+        android:id="@+id/animation"
         android:layout_width="117dp"
         android:layout_height="111dp"
+        app:lottie_rawRes="@raw/fan"
+        app:lottie_autoPlay="true"
+        app:lottie_loop="true"
         app:layout_constraintBottom_toBottomOf="@+id/imageView5"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.054"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.032"
-        app:srcCompat="@drawable/logo4" />
+        />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

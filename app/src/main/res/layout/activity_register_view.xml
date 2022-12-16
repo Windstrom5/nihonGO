@@ -17,7 +17,7 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/vergilView">
+        app:layout_constraintTop_toTopOf="@+id/profileView">
 
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/userRegis"
@@ -176,7 +176,7 @@
         app:srcCompat="@drawable/logo2" />
 
     <de.hdodenhof.circleimageview.CircleImageView
-        android:id="@+id/vergilView"
+        android:id="@+id/profileView"
         android:layout_width="122dp"
         android:layout_height="135dp"
         android:elevation="5dp"

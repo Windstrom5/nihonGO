@@ -1,22 +1,29 @@
 package com.example.tugasbesar
 
 import android.app.*
+import android.content.ContentValues
 import android.content.Context
 import android.content.Intent
 import android.content.SharedPreferences
+import android.content.pm.PackageManager
 import android.graphics.BitmapFactory
 import android.graphics.Color
+import android.net.Uri
 import android.os.Build
 import android.os.Bundle
+import android.provider.MediaStore
 import android.text.TextUtils
 import android.util.Log
 import android.util.Patterns
 import android.view.View
 import android.view.WindowManager
 import android.widget.*
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.app.ActivityCompat
 import androidx.core.app.NotificationCompat
 import androidx.core.app.NotificationManagerCompat
+import androidx.core.content.ContextCompat
 import com.android.volley.AuthFailureError
 import com.android.volley.RequestQueue
 import com.android.volley.Response
@@ -29,6 +36,7 @@ import com.example.tugasbesar.room.UserDB
 import com.google.android.material.textfield.TextInputEditText
 import com.google.android.material.textfield.TextInputLayout
 import com.google.gson.Gson
+import de.hdodenhof.circleimageview.CircleImageView
 import kotlinx.coroutines.*
 import org.json.JSONObject
 import java.nio.charset.StandardCharsets
@@ -39,6 +47,14 @@ import java.util.*
 //import kotlinx.android.synthetic.main.activity_register_view.*
 
 class RegisterView : AppCompatActivity() , DatePickerDialog.OnDateSetListener{
+    companion object{
+        private const val CAMERA_REQUEST_CODE = 100
+        private const val STORAGE_REQUEST_CODE = 101
+        private const val TAG = "MAIN_TAG"
+    }
+    private lateinit var cameraPermission: Array<String>
+    private lateinit var storagePermission: Array<String>
+    private lateinit var profileview: CircleImageView
     private lateinit var register : TextView
     private lateinit var btnRegister : Button
     private lateinit var btnlogin : TextView
@@ -50,8 +66,22 @@ class RegisterView : AppCompatActivity() , DatePickerDialog.OnDateSetListener{
     private lateinit var confirmRegister : TextInputLayout
     private lateinit var tglView : TextInputEditText
     private lateinit var loading :LinearLayout
+    private lateinit var vergil : CircleImageView
+    private lateinit var reaper : CircleImageView
+    private lateinit var indihome : CircleImageView
+    private lateinit var cassidy : CircleImageView
+    private lateinit var goro : CircleImageView
+    private lateinit var kiryu : CircleImageView
+    private lateinit var amongus : CircleImageView
+    private lateinit var armstrong : CircleImageView
+    private lateinit var cj : CircleImageView
+    private lateinit var lucy : CircleImageView
+    private lateinit var dva : CircleImageView
+    private lateinit var sam : CircleImageView
+    private var profilePicture : String ?= null
     lateinit var usernamedb :String
     var sharedPreferences: SharedPreferences? = null
+    private var imageUri: Uri? = null
     private var etUser:EditText? = null
     private var etPass:EditText? = null
     private var etEmail:EditText? = null
@@ -93,10 +123,14 @@ class RegisterView : AppCompatActivity() , DatePickerDialog.OnDateSetListener{
         emailRegister = binding.emailRegis
         tanggalRegister = binding.tglRegis
         tglView = binding.tgl
+        profileview = binding.profileView
         loading = findViewById(R.id.layout_loading)
         tanggalRegister.setStartIconOnClickListener(View.OnClickListener{
             DatePickerDialog(this,this,calender.get(Calendar.YEAR),calender.get(Calendar.MONTH),calender.get(Calendar.DAY_OF_MONTH)).show()
         })
+        binding.profileView.setOnClickListener{
+            createDialog()
+        }
         teleponRegister = binding.noRegis
         binding.regisButton.setOnClickListener(View.OnClickListener {
             userRegister.setError(null)
@@ -410,5 +444,250 @@ class RegisterView : AppCompatActivity() , DatePickerDialog.OnDateSetListener{
 
     private fun isValidEmail(email: String): Boolean {
         return Patterns.EMAIL_ADDRESS.matcher(email).matches()
+    }
+
+    private fun createDialog(){
+        val dialogBuilder = AlertDialog.Builder(this)
+        val popup : View = layoutInflater.inflate(R.layout.bottom_sheet,null)
+        val camera : TextView = popup.findViewById(R.id.cameraOption)
+        val gallery: TextView = popup.findViewById(R.id.galleryOption)
+        val default : TextView = popup.findViewById(R.id.defaultOption)
+        dialogBuilder.setView(popup)
+        val dialog = dialogBuilder.create()
+        dialog.show()
+        camera.setOnClickListener{
+            if(checkCameraPermission()){
+                pickImageCamera()
+            }else{
+                requestCameraPermission()
+            }
+        }
+        gallery.setOnClickListener{
+            if(checkStoragePermission()){
+                pickImageGallery()
+            }else{
+                requestStoragePermission()
+            }
+        }
+        default.setOnClickListener{
+            dialog.dismiss()
+            createDialogProfile()
+        }
+        dialog.dismiss()
+    }
+
+    private fun createDialogProfile(){
+        val dialogBuilder = AlertDialog.Builder(this)
+        val popup : View = layoutInflater.inflate(R.layout.profilepic_sheet,null)
+        vergil = popup.findViewById(R.id.vergilView)
+        reaper = popup.findViewById(R.id.reaperView)
+        indihome = popup.findViewById(R.id.indihomeView)
+        cassidy = popup.findViewById(R.id.cassidyView)
+        goro = popup.findViewById(R.id.goroView)
+        kiryu = popup.findViewById(R.id.kiryuView)
+        amongus = popup.findViewById(R.id.amogusView)
+        armstrong = popup.findViewById(R.id.nanomachineView)
+        cj = popup.findViewById(R.id.cjView)
+        lucy = popup.findViewById(R.id.lucyView)
+        dva = popup.findViewById(R.id.dvaView)
+        sam = popup.findViewById(R.id.sammgsView)
+        val save : Button = popup.findViewById(R.id.button_saveImage)
+        val cancel : Button = popup.findViewById(R.id.button_cancelImage)
+        save.isEnabled = false
+        dialogBuilder.setView(popup)
+        val dialog = dialogBuilder.create()
+        dialog.show()
+        cancel.setOnClickListener{
+            dialog.dismiss()
+        }
+        vergil.setOnClickListener{
+            profilePicture = "vergil"
+            save.isEnabled = true
+            save.setOnClickListener{
+                binding.profileView.setImageResource(R.drawable.ppvergil)
+                dialog.dismiss()
+            }
+        }
+        armstrong.setOnClickListener{
+            profilePicture = "nanomachine"
+            save.isEnabled = true
+            save.setOnClickListener{
+                binding.profileView.setImageResource(R.drawable.ppnanomachine)
+                dialog.dismiss()
+            }
+        }
+        reaper.setOnClickListener{
+            profilePicture = "reaper"
+            save.isEnabled = true
+            save.setOnClickListener{
+                binding.profileView.setImageResource(R.drawable.ppreaper)
+                dialog.dismiss()
+            }
+        }
+        indihome.setOnClickListener{
+            profilePicture = "indihome"
+            save.isEnabled = true
+            save.setOnClickListener{
+                binding.profileView.setImageResource(R.drawable.ppindihome)
+                dialog.dismiss()
+            }
+        }
+        cassidy.setOnClickListener{
+            profilePicture = "cassidy"
+            save.isEnabled = true
+            save.setOnClickListener{
+                binding.profileView.setImageResource(R.drawable.ppcassidy)
+                dialog.dismiss()
+            }
+        }
+        goro.setOnClickListener{
+            profilePicture = "goro"
+            save.isEnabled = true
+            save.setOnClickListener{
+                binding.profileView.setImageResource(R.drawable.ppgoro)
+                dialog.dismiss()
+            }
+        }
+        kiryu.setOnClickListener{
+            profilePicture = "kiryu"
+            save.isEnabled = true
+            save.setOnClickListener{
+                binding.profileView.setImageResource(R.drawable.ppkiryu)
+                dialog.dismiss()
+            }
+        }
+        amongus.setOnClickListener{
+            profilePicture = "amogus"
+            save.isEnabled = true
+            save.setOnClickListener{
+                binding.profileView.setImageResource(R.drawable.ppamogus)
+                dialog.dismiss()
+            }
+        }
+        cj.setOnClickListener{
+            profilePicture = "carljohnson"
+            save.isEnabled = true
+            save.setOnClickListener{
+                binding.profileView.setImageResource(R.drawable.ppcarljohnson)
+                dialog.dismiss()
+            }
+        }
+        lucy.setOnClickListener{
+            profilePicture = "lucy"
+            save.isEnabled = true
+            save.setOnClickListener{
+                binding.profileView.setImageResource(R.drawable.pplucy)
+                dialog.dismiss()
+            }
+        }
+        dva.setOnClickListener{
+            profilePicture = "dva"
+            save.isEnabled = true
+            save.setOnClickListener{
+                binding.profileView.setImageResource(R.drawable.ppdva)
+                dialog.dismiss()
+            }
+        }
+        sam.setOnClickListener{
+            profilePicture = "sammgs"
+            save.isEnabled = true
+            save.setOnClickListener{
+                binding.profileView.setImageResource(R.drawable.ppsammgs)
+                dialog.dismiss()
+            }
+        }
+    }
+
+    private fun checkCameraPermission():Boolean{
+        val resultCamera = (ContextCompat.checkSelfPermission(this,android.Manifest.permission.CAMERA)
+                == PackageManager.PERMISSION_GRANTED)
+        val resultStorage = (ContextCompat.checkSelfPermission(this,android.Manifest.permission.WRITE_EXTERNAL_STORAGE)
+                == PackageManager.PERMISSION_GRANTED)
+        return resultCamera && resultStorage
+    }
+
+    private fun requestCameraPermission(){
+        ActivityCompat.requestPermissions(this,cameraPermission, RegisterView.CAMERA_REQUEST_CODE)
+    }
+
+    private fun checkStoragePermission():Boolean{
+        val result = (ContextCompat.checkSelfPermission(this,android.Manifest.permission.WRITE_EXTERNAL_STORAGE)
+                == PackageManager.PERMISSION_GRANTED)
+        return result
+    }
+
+    private fun requestStoragePermission(){
+        ActivityCompat.requestPermissions(this,storagePermission, RegisterView.STORAGE_REQUEST_CODE)
+    }
+
+    override fun onRequestPermissionsResult(
+        requestCode: Int,
+        permissions: Array<out String>,
+        grantResults: IntArray
+    ) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults)
+        when(requestCode){
+            RegisterView.CAMERA_REQUEST_CODE ->{
+                if(grantResults.isNotEmpty()){
+                    val cameraAccepted = grantResults[0] == PackageManager.PERMISSION_GRANTED
+                    val storageAccepted = grantResults[1] == PackageManager.PERMISSION_GRANTED
+                    if(cameraAccepted&&storageAccepted){
+                        pickImageCamera()
+                    }else{
+                        Toast.makeText(this,"Camera And Storage Permission Are Required",Toast.LENGTH_SHORT).show()
+                    }
+                }
+            }
+            RegisterView.STORAGE_REQUEST_CODE ->{
+                val storageAccepted = grantResults[1] == PackageManager.PERMISSION_GRANTED
+                if(storageAccepted){
+                    pickImageGallery()
+                }else{
+                    Toast.makeText(this,"Storage Permission Is Required",Toast.LENGTH_SHORT).show()
+                }
+            }
+        }
+    }
+
+    private fun pickImageCamera(){
+        val contentValues = ContentValues()
+        contentValues.put(MediaStore.Images.Media.TITLE,"Foto Sample")
+        contentValues.put(MediaStore.Images.Media.DESCRIPTION,"Deskripsi Foto Sample")
+
+        imageUri = contentResolver.insert(MediaStore.Images.Media.EXTERNAL_CONTENT_URI,contentValues)
+
+        val intent = Intent(MediaStore.ACTION_IMAGE_CAPTURE)
+        intent.putExtra(MediaStore.EXTRA_OUTPUT,imageUri)
+
+        cameraActivityResultLauncher.launch(intent)
+    }
+
+    private val cameraActivityResultLauncher = registerForActivityResult(
+        ActivityResultContracts.StartActivityForResult()
+    ){result->
+        if(result.resultCode == Activity.RESULT_OK){
+            val data = result.data
+//            imageUri = data!!.data
+//            imageUri = intent.getData();
+            Log.d(RegisterView.TAG,"cameraActivityResultLauncher: imageUri: $imageUri")
+            binding.profileView.setImageURI(imageUri)
+        }
+    }
+
+    private fun pickImageGallery(){
+        val intent = Intent(Intent.ACTION_PICK)
+        intent.type = "image/*"
+        galleryActivityResultLauncher.launch(intent)
+    }
+
+    private val galleryActivityResultLauncher = registerForActivityResult(
+        ActivityResultContracts.StartActivityForResult()
+    ){result->
+        if(result.resultCode == Activity.RESULT_OK){
+            val data = result.data
+            imageUri = data!!.data
+            Log.d(RegisterView.TAG,"galleryActivityResultLauncher: imageUri: $imageUri")
+            binding.profileView.setImageURI(imageUri)
+        }
     }
 }
