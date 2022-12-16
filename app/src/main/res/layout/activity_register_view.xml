@@ -11,19 +11,19 @@
         android:id="@+id/LinearLayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginEnd="16dp"
+        android:layout_marginStart="14dp"
+        android:layout_marginEnd="14dp"
         android:orientation="vertical"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
+        app:layout_constraintTop_toTopOf="@+id/vergilView">
 
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/userRegis"
             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
             android:layout_width="match_parent"
-            android:layout_height="80dp"
+            android:layout_height="56dp"
             app:errorEnabled="true"
             app:startIconDrawable="@drawable/ic_baseline_person_24">
 
@@ -39,7 +39,7 @@
             android:id="@+id/passwordRegis"
             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
             android:layout_width="match_parent"
-            android:layout_height="80dp"
+            android:layout_height="56dp"
             app:errorEnabled="true"
             app:startIconDrawable="@drawable/ic_baseline_lock_24">
 
@@ -55,7 +55,7 @@
             android:id="@+id/confirmRegis"
             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
             android:layout_width="match_parent"
-            android:layout_height="80dp"
+            android:layout_height="56dp"
             app:errorEnabled="true"
             app:startIconDrawable="@drawable/ic_baseline_lock_24">
 
@@ -64,15 +64,14 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:hint="Confirm Password"
-                android:inputType="textPassword"
-                />
+                android:inputType="textPassword" />
         </com.google.android.material.textfield.TextInputLayout>
 
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/emailRegis"
             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
             android:layout_width="match_parent"
-            android:layout_height="80dp"
+            android:layout_height="56dp"
             app:errorEnabled="true"
             app:startIconDrawable="@drawable/ic_baseline_email_24">
 
@@ -87,7 +86,7 @@
             android:id="@+id/noRegis"
             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
             android:layout_width="match_parent"
-            android:layout_height="80dp"
+            android:layout_height="56dp"
             app:errorEnabled="true"
             app:startIconDrawable="@drawable/ic_baseline_phone_24">
 
@@ -102,7 +101,7 @@
             android:id="@+id/tglRegis"
             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
             android:layout_width="match_parent"
-            android:layout_height="80dp"
+            android:layout_height="56dp"
             app:errorEnabled="true"
             app:startIconDrawable="@drawable/ic_baseline_calendar_month_24">
 
@@ -110,14 +109,14 @@
                 android:id="@+id/tgl"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="Date of Birth"
+                android:cursorVisible="false"
                 android:focusable="false"
-                android:cursorVisible="false"/>
+                android:hint="Date of Birth" />
 
             <CalendarView
                 android:id="@+id/calendarView"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_height="28dp"
                 android:layout_weight="1" />
         </com.google.android.material.textfield.TextInputLayout>
 
@@ -128,6 +127,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Register Now"
+        android:backgroundTint="@color/purple_500"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.465"
@@ -175,8 +175,26 @@
         app:layout_constraintStart_toStartOf="parent"
         app:srcCompat="@drawable/logo2" />
 
+    <de.hdodenhof.circleimageview.CircleImageView
+        android:id="@+id/vergilView"
+        android:layout_width="122dp"
+        android:layout_height="135dp"
+        android:elevation="5dp"
+        android:src="@drawable/ppdefault"
+        app:civ_border_color="#FFF"
+        app:civ_border_width="5dp"
+        app:civ_circle_background_color="@color/white"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.512"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.149" />
+
     <include
         android:id="@+id/layout_loading"
         layout="@layout/layout_loading"
         android:visibility="gone"/>
+
+
 </androidx.constraintlayout.widget.ConstraintLayout>
