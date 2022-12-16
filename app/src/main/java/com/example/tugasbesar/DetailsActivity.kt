@@ -82,7 +82,7 @@ class DetailsActivity : AppCompatActivity() {
         Log.d("Apa Coba",vnama)
 //        getData(vnama)
         button_ticket.setOnClickListener(){
-            createPdf(vnama,valamat,vuser)
+            createPdf(vnama,valamat,vuser,vcategory)
         }
 
         button_location.setOnClickListener(){
@@ -179,7 +179,7 @@ class DetailsActivity : AppCompatActivity() {
         }
     }
 
-    private fun createPdf(namaTempat: String, alamat: String, namaPembeli: String) {
+    private fun createPdf(namaTempat: String, alamat: String, namaPembeli: String,category : String) {
         val pdfPath =
             Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS).toString()
         val file = File(pdfPath, "Tiket.pdf")
@@ -213,11 +213,11 @@ class DetailsActivity : AppCompatActivity() {
         table.setHorizontalAlignment(HorizontalAlignment.CENTER)
         table.addCell(Cell().add(Paragraph("Nama Tempat Wisata")))
         table.addCell(Cell().add(Paragraph(namaTempat)))
-        table.addCell(Cell().add(Paragraph("Alamat Destiasi")))
-        table.addCell(Cell().add(Paragraph(alamat)))
+        table.addCell(Cell().add(Paragraph("Jenis Wisata")))
+        table.addCell(Cell().add(Paragraph(category)))
         table.addCell(Cell().add(Paragraph("Nama Pembeli")))
         table.addCell(Cell().add(Paragraph(namaPembeli)))
-        table.addCell(Cell().add(Paragraph("Alamat Domisili")))
+        table.addCell(Cell().add(Paragraph("Alamat Destinasi")))
         table.addCell(Cell().add(Paragraph(alamat)))
         val dateTimeFormatter = DateTimeFormatter.ofPattern("dd/MM/yyyy")
         table.addCell(Cell().add(Paragraph("Tanggal Tiket Dibuat")))
@@ -247,7 +247,7 @@ class DetailsActivity : AppCompatActivity() {
         document.close()
         MotionToast.Companion.darkToast(this,
             "Created",
-            "PDF Successfully Create!",
+            "Ticket Have Been Generate!",
             MotionToastStyle.SUCCESS,
             MotionToast.GRAVITY_BOTTOM,
             MotionToast.LONG_DURATION,

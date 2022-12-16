@@ -172,6 +172,10 @@ class MainActivity : AppCompatActivity() {
         btnGuest = findViewById(R.id.textguest)
         btnGuest.setOnClickListener(){
             val intent = Intent(this,kota::class.java)
+            val mBundle = Bundle()
+            mBundle.putString("username","guest")
+            mBundle.putString("password","guest")
+            intent.putExtra("profile",mBundle)
             startActivity(intent)
         }
     }
