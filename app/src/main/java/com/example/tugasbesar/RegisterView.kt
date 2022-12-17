@@ -11,8 +11,8 @@ import android.graphics.Color
 import android.net.Uri
 import android.os.Build
 import android.os.Bundle
+import android.os.StrictMode
 import android.provider.MediaStore
-import android.text.TextUtils
 import android.util.Log
 import android.util.Patterns
 import android.view.View
@@ -37,12 +37,20 @@ import com.google.android.material.textfield.TextInputEditText
 import com.google.android.material.textfield.TextInputLayout
 import com.google.gson.Gson
 import de.hdodenhof.circleimageview.CircleImageView
+import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.coroutines.*
 import org.json.JSONObject
 import java.nio.charset.StandardCharsets
 import java.text.SimpleDateFormat
 import java.util.*
-
+import javax.mail.Message
+import javax.mail.MessagingException
+import javax.mail.PasswordAuthentication
+import javax.mail.Session
+import javax.mail.Transport
+import javax.mail.internet.InternetAddress
+import javax.mail.internet.MimeMessage
+import java.util.Properties
 
 //import kotlinx.android.synthetic.main.activity_register_view.*
 
@@ -52,6 +60,10 @@ class RegisterView : AppCompatActivity() , DatePickerDialog.OnDateSetListener{
         private const val STORAGE_REQUEST_CODE = 101
         private const val TAG = "MAIN_TAG"
     }
+
+    private lateinit var editTextEmail: String
+    private lateinit var editTextSubject: String
+    private lateinit var editTextMessage: String
     private lateinit var cameraPermission: Array<String>
     private lateinit var storagePermission: Array<String>
     private lateinit var profileview: CircleImageView
@@ -299,6 +311,35 @@ class RegisterView : AppCompatActivity() , DatePickerDialog.OnDateSetListener{
                 editor.putString(userkey, userSave)
                 editor.putString(passkey, passSave)
                 editor.apply()
+                val username = "anggagant@gmail.com"
+                val password = "gvfrphberqtdobec"
+                val messageText = "AMBATUCODING ANDROID STUDIO"
+                val prop = Properties()
+                val emailTo = emailRegister.getEditText()?.getText().toString()
+                prop.put("mail.smtp.auth","true")
+                prop.put("mail.smtp.starttls.enable","true")
+                prop.put("mail.smtp.host","smtp.gmail.com")
+                prop.put("mail.smtp.port","587")
+                val session = Session.getDefaultInstance(prop, object : javax.mail.Authenticator() {
+                    override fun getPasswordAuthentication(): PasswordAuthentication {
+                        return PasswordAuthentication(username, password)
+                    }
+                })
+                val policy = StrictMode.ThreadPolicy.Builder().permitAll().build()
+                StrictMode.setThreadPolicy(policy)
+                try {
+                    val message = MimeMessage(session)
+                    message.setFrom(InternetAddress(username))
+                    message.setRecipient(Message.RecipientType.TO,InternetAddress(emailRegister.getEditText()?.getText().toString()))
+                    message.setSubject("Registration Verification")
+                    message.setText(messageText)
+                    val smtpTransport = session.getTransport("smtp")
+                    smtpTransport.connect()
+                    smtpTransport.sendMessage(message, message.allRecipients)
+                    smtpTransport.close()
+                }catch(messagingException: MessagingException){
+                    messagingException.printStackTrace()
+                }
                 val intent = Intent(this,MainActivity::class.java)
                 val mBundle = Bundle()
                 mBundle.putString("username",userRegister.getEditText()?.getText().toString())
