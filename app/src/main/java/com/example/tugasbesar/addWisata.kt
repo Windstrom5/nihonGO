@@ -276,8 +276,8 @@ class addWisata : AppCompatActivity(), DatePickerDialog.OnDateSetListener {
                     params.put("rating",etRating!!.getText().toString())
                     params.put("price",etPrice!!.getText().toString())
                     params.put("city",etCity!!.getText().toString())
-                    params.put("lat",etLat!!.getText().toString())
-                    params.put("longi",etLong!!.getText().toString())
+                    params.put("latitude",etLat!!.getText().toString())
+                    params.put("longtitude",etLong!!.getText().toString())
                     return params
                 }
             }

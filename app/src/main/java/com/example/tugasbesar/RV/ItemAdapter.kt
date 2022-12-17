@@ -57,34 +57,34 @@ class ItemAdapter(private var itemList: List<itemList>, context: Context) :
             holder.btn_edit.setVisibility(View.GONE)
         }
         holder.btn_edit.setOnClickListener(View.OnClickListener {
-                val popup = PopupMenu(context, holder.btn_edit)
-                popup.inflate(R.menu.menu3)
-                popup.show()
-                popup.setOnMenuItemClickListener(object : PopupMenu.OnMenuItemClickListener{
-                    override fun onMenuItemClick(item: MenuItem): Boolean {
-                        if (item.itemId == R.id.menuDeleteItem) {
+            val popup = PopupMenu(context, holder.btn_edit)
+            popup.inflate(R.menu.menu3)
+            popup.show()
 
-                        }else if (item.itemId == R.id.menuEditItem){
-                            val intent = Intent(holder.btn_edit.context, editItem::class.java)
-                            val mBundle = Bundle()
-                            mBundle.putString("username",vuser)
-                            mBundle.putString("password",vpass)
-                            mBundle.putString("city", vcity)
-                            mBundle.putString("nama",item.name)
-                            mBundle.putString("user",item.user)
-                            Log.d("Item",item.latitude)
-                            mBundle.putString("alamat",item.alamat)
-                            mBundle.putString("rating",item.rating)
-                            mBundle.putString("price",item.price)
-                            mBundle.putString("category",vcategory)
-                            mBundle.putString("latitude",item.latitude)
-                            mBundle.putString("longtitude",item.longtitude)
-                            intent.putExtra("profile",mBundle)
-                            holder.btnMore.context.startActivity(intent)
-                        }
-                        return true
+            popup.setOnMenuItemClickListener(object : PopupMenu.OnMenuItemClickListener{
+                override fun onMenuItemClick(menu: MenuItem): Boolean {
+                    if (menu.itemId == R.id.menuDeleteItem) {
+                    }else if (menu.itemId == R.id.menuEditItem){
+                        val intent = Intent(holder.btn_edit.context, editItem::class.java)
+                        val mBundle = Bundle()
+                        mBundle.putString("username",vuser)
+                        mBundle.putString("password",vpass)
+                        mBundle.putString("city", vcity)
+                        mBundle.putString("nama",item.name)
+                        mBundle.putString("user",item.user)
+                        Log.d("Item",item.latitude)
+                        mBundle.putString("alamat",item.alamat)
+                        mBundle.putString("rating",item.rating)
+                        mBundle.putString("price",item.price)
+                        mBundle.putString("category",vcategory)
+                        mBundle.putString("latitude",item.latitude)
+                        mBundle.putString("longtitude",item.longtitude)
+                        intent.putExtra("profile",mBundle)
+                        holder.btnMore.context.startActivity(intent)
                     }
-                })
+                    return true
+                }
+            })
         })
 
         holder.btnMore.setOnClickListener {
