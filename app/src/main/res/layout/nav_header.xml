@@ -21,14 +21,6 @@
         app:lottie_loop="true"
         app:lottie_rawRes="@raw/fuji" />
 
-<!--    <ImageView-->
-<!--        android:id="@+id/imageuser"-->
-<!--        android:layout_width="wrap_content"-->
-<!--        android:layout_height="100dp"-->
-<!--        android:contentDescription="@string/nav_header_desc"-->
-<!--        android:paddingTop="@dimen/nav_header_vertical_spacing"-->
-<!--        app:srcCompat="@drawable/logo"/>-->
-
     <TextView
         android:layout_width="match_parent"
         android:layout_height="24dp"

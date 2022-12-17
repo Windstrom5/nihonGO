@@ -25,6 +25,7 @@ import com.example.tugasbesar.models.TempatWisata
 import com.google.android.material.textfield.TextInputLayout
 import com.google.gson.Gson
 import kotlinx.android.synthetic.main.activity_add_tempat_wisata.*
+import kotlinx.android.synthetic.main.activity_edit.*
 import org.json.JSONObject
 import www.sanju.motiontoast.MotionToast
 import www.sanju.motiontoast.MotionToastStyle
