@@ -221,6 +221,7 @@ class addWisata : AppCompatActivity(), DatePickerDialog.OnDateSetListener {
         if(edCategory!!.text.toString() == "Tempat Wisata"){
             val tempatWisata = TempatWisata(
                 etNama!!.getText().toString(),
+                vuser,
                 etAlamat!!.getText().toString(),
                 etRating!!.getText().toString(),
                 etPrice!!.getText().toString(),
@@ -269,7 +270,8 @@ class addWisata : AppCompatActivity(), DatePickerDialog.OnDateSetListener {
 
                 override fun getParams(): Map<String, String>? {
                     val params = java.util.HashMap<String, String>()
-                    params.put("nama",etNama!!.getText().toString())
+                    params.put("name",etNama!!.getText().toString())
+                    params.put("user",vuser)
                     params.put("alamat",etAlamat!!.getText().toString())
                     params.put("rating",etRating!!.getText().toString())
                     params.put("price",etPrice!!.getText().toString())

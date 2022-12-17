@@ -23,8 +23,15 @@ class MapsActivity : AppCompatActivity() {
     lateinit var vnama : String
     lateinit var valamat : String
     lateinit var mbunlde : Bundle
-    var vlatitude:Double = 0.0
-    var vlongtitude:Double = 0.0
+    lateinit var vakun :String
+    lateinit var vuser : String
+    lateinit var vpass : String
+    lateinit var vcity : String
+    lateinit var vrating : String
+    lateinit var vcategory : String
+    lateinit var vprice : String
+    lateinit var vlatitude : String
+    lateinit var vlongtitude : String
     var modelMainList: MutableList<ModelMain> = ArrayList()
     lateinit var mapController: MapController
     lateinit var overlayItem: ArrayList<OverlayItem>
@@ -33,7 +40,7 @@ class MapsActivity : AppCompatActivity() {
         setContentView(R.layout.activity_maps)
         getBundle()
         Configuration.getInstance().load(this,PreferenceManager.getDefaultSharedPreferences(this))
-        val geoPoint = GeoPoint(vlatitude,vlongtitude)
+        val geoPoint = GeoPoint(vlatitude.toDouble(),vlongtitude.toDouble())
         val startPoint = GeoPoint(x, y)
         mapView.setMultiTouchControls(true)
         mapView.controller.animateTo(geoPoint)
@@ -84,9 +91,9 @@ class MapsActivity : AppCompatActivity() {
             getBundle()
             val modelMain = ModelMain()
             modelMain.strName = vnama
-            modelMain.strAlamat=valamat
-            modelMain.latLoc = vlatitude
-            modelMain.longLoc = vlongtitude
+            modelMain.strAlamat = valamat
+            modelMain.latLoc = vlatitude.toDouble()
+            modelMain.longLoc = vlongtitude.toDouble()
 
             modelMainList.add(modelMain)
             initMarker(modelMainList)
@@ -148,20 +155,32 @@ class MapsActivity : AppCompatActivity() {
 
     fun getBundle(){
         try{
-            mbunlde = intent?.getBundleExtra("Location")!!
+            mbunlde = intent?.getBundleExtra("profile")!!
             if(mbunlde != null){
-                vnama = mbunlde.getString("Nama")!!
-                valamat = mbunlde.getString("Alamat")!!
-                vlatitude = mbunlde.getDouble("latitude")!!
-                vlongtitude = mbunlde.getDouble("longtitude")!!
+                vuser = mbunlde.getString("username")!!
+                vpass = mbunlde.getString("password")!!
+                vcity = mbunlde.getString("city")!!
+                vnama = mbunlde.getString("nama")!!
+                vakun = mbunlde.getString("user")!!
+                valamat = mbunlde.getString("alamat")!!
+                vrating = mbunlde.getString("rating")!!
+                vprice = mbunlde.getString("price")!!
+                vcategory = mbunlde.getString("category")!!
+                vlatitude = mbunlde.getString("latitude")!!
+                vlongtitude = mbunlde.getString("longtitude")!!
             }else{
 
             }
         }catch (e: NullPointerException){
+            vuser = ""
+            vpass = ""
+            vcity = ""
             vnama = ""
             valamat = ""
-            vlatitude = 0.0
-            vlongtitude = 0.0
+            vrating = ""
+            vprice = ""
+            vcategory=""
+            vlatitude=""
         }
     }
 }

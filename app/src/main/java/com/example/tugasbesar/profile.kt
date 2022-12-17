@@ -3,15 +3,12 @@ package com.example.tugasbesar
 import android.content.DialogInterface
 import android.content.Intent
 import android.os.Bundle
-import android.util.Log
 import android.view.View
 import android.view.WindowManager
 import android.widget.LinearLayout
 import android.widget.TextView
-import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
-import androidx.fragment.app.Fragment
 import com.android.volley.AuthFailureError
 import com.android.volley.RequestQueue
 import com.android.volley.Response
@@ -20,13 +17,11 @@ import com.android.volley.toolbox.Volley
 import com.example.tugasbesar.api.AkunApi
 import com.example.tugasbesar.camera.CameraActivity
 import com.example.tugasbesar.databinding.ActivityProfileBinding
-import com.example.tugasbesar.models.Users
 import com.example.tugasbesar.room.User
 import com.example.tugasbesar.room.UserDB
 import com.google.gson.Gson
 import kotlinx.android.synthetic.main.activity_profile.*
 import kotlinx.coroutines.*
-import org.json.JSONArray
 import org.json.JSONObject
 
 class profile : AppCompatActivity() {
@@ -73,6 +68,7 @@ class profile : AppCompatActivity() {
             mBundle.putString("username",vuser)
             mBundle.putString("password",vpass)
             mBundle.putString("city",vcity)
+            mBundle.putString("category",vcategory)
             intent.putExtra("profile",mBundle)
             startActivity(intent)
         }
@@ -276,7 +272,6 @@ class profile : AppCompatActivity() {
             : StringRequest(Method.GET, AkunApi.GET_BY_USERNAME + Username + "/" + Password,
             Response.Listener { response->
                 val gson = Gson()
-
                 val jsonObject = JSONObject(response)
                 val jsonArray = jsonObject.getJSONArray("data")
                 for (i in 0 until jsonArray.length()) {
@@ -285,6 +280,12 @@ class profile : AppCompatActivity() {
                     binding.emailProfil.setText(akun.getString("email"))
                     binding.notelpProfil.setText(akun.getString("no_telp"))
                     binding.birthProfil.setText(akun.getString("birth_date"))
+                    val image:String = "pp"+akun.getString("photo_profile")
+                    val resID = resources.getIdentifier(
+                        image, "drawable",
+                        packageName
+                    )
+                    binding.profileView.setImageResource(resID)
                     setLoading(false)
                 }
 //                var akun : Users = gson.fromJson(jsonArray.toString(), Users::class.java)

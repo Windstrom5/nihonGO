@@ -78,7 +78,7 @@ class RegisterView : AppCompatActivity() , DatePickerDialog.OnDateSetListener{
     private lateinit var lucy : CircleImageView
     private lateinit var dva : CircleImageView
     private lateinit var sam : CircleImageView
-    private var profilePicture : String ?= null
+    private lateinit var profilePicture : String
     lateinit var usernamedb :String
     var sharedPreferences: SharedPreferences? = null
     private var imageUri: Uri? = null
@@ -278,7 +278,8 @@ class RegisterView : AppCompatActivity() , DatePickerDialog.OnDateSetListener{
             passRegister.getEditText()?.getText().toString(),
             emailRegister.getEditText()?.getText().toString(),
             teleponRegister.getEditText()?.getText().toString(),
-            tanggalRegister.getEditText()?.getText().toString()
+            tanggalRegister.getEditText()?.getText().toString(),
+            profilePicture
         )
         val StringRequest:StringRequest = object : StringRequest(Method.POST,AkunApi.ADD_URL,
             Response.Listener { response ->
@@ -341,6 +342,7 @@ class RegisterView : AppCompatActivity() , DatePickerDialog.OnDateSetListener{
                 params.put("email",emailRegister.getEditText()?.getText().toString())
                 params.put("no_telp",teleponRegister.getEditText()?.getText().toString())
                 params.put("birth_date",tanggalRegister.getEditText()?.getText().toString())
+                params.put("photo_profile",profilePicture)
                 return params
             }
 //            @Throws(AuthFailureError::class)
@@ -379,7 +381,8 @@ class RegisterView : AppCompatActivity() , DatePickerDialog.OnDateSetListener{
                             passRegister.getEditText()?.getText().toString(),
                             emailRegister.getEditText()?.getText().toString(),
                             teleponRegister.getEditText()?.getText().toString(),
-                            tanggalRegister.getEditText()?.getText().toString()
+                            tanggalRegister.getEditText()?.getText().toString(),
+                            profilePicture
                         )
                         val StringRequest:StringRequest = object : StringRequest(Method.POST,AkunApi.ADD_URL,
                             Response.Listener { response ->
@@ -421,6 +424,7 @@ class RegisterView : AppCompatActivity() , DatePickerDialog.OnDateSetListener{
                                 params.put("email",emailRegister.getEditText()?.getText().toString())
                                 params.put("no_telp",teleponRegister.getEditText()?.getText().toString())
                                 params.put("birth_date",tanggalRegister.getEditText()?.getText().toString())
+                                params.put("photo_profile",profilePicture)
                                 return params
                             }
                         }
@@ -473,7 +477,6 @@ class RegisterView : AppCompatActivity() , DatePickerDialog.OnDateSetListener{
             dialog.dismiss()
             createDialogProfile()
         }
-
     }
 
     private fun createDialogProfile(){
@@ -498,6 +501,11 @@ class RegisterView : AppCompatActivity() , DatePickerDialog.OnDateSetListener{
         val dialog = dialogBuilder.create()
         dialog.show()
         cancel.setOnClickListener{
+            if(profilePicture=="null"){
+
+            }else{
+                profilePicture = "null"
+            }
             dialog.dismiss()
         }
         vergil.setOnClickListener{

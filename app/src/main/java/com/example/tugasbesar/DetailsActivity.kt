@@ -48,6 +48,7 @@ import java.time.format.DateTimeFormatter
 class DetailsActivity : AppCompatActivity() {
     private lateinit var mbunlde : Bundle
     private lateinit var namaWisata : String
+    private lateinit var vakun: String
     private lateinit var nama: TextView
     private lateinit var rating: TextView
     private lateinit var alamat: TextView
@@ -62,6 +63,8 @@ class DetailsActivity : AppCompatActivity() {
     lateinit var vrating : String
     lateinit var vcategory : String
     lateinit var vprice : String
+    lateinit var vlatitude : String
+    lateinit var vlongtitude : String
     lateinit var binding: ActivityDetailsBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -87,6 +90,19 @@ class DetailsActivity : AppCompatActivity() {
 
         button_location.setOnClickListener(){
             val intent = Intent(this,MapsActivity::class.java)
+            val mBundle = Bundle()
+            mBundle.putString("username",vuser)
+            mBundle.putString("password",vpass)
+            mBundle.putString("city", vcity)
+            mBundle.putString("nama",vnama)
+            mBundle.putString("user",vakun)
+            mBundle.putString("alamat",valamat)
+            mBundle.putString("rating",vrating)
+            mBundle.putString("price",vprice)
+            mBundle.putString("category",vcategory)
+            mBundle.putString("latitude",vlatitude)
+            mBundle.putString("longtitude",vlongtitude)
+            intent.putExtra("profile",mBundle)
             startActivity(intent)
         }
     }
@@ -161,10 +177,13 @@ class DetailsActivity : AppCompatActivity() {
                 vpass = mbunlde.getString("password")!!
                 vcity = mbunlde.getString("city")!!
                 vnama = mbunlde.getString("nama")!!
+                vakun = mbunlde.getString("user")!!
                 valamat = mbunlde.getString("alamat")!!
                 vrating = mbunlde.getString("rating")!!
                 vprice = mbunlde.getString("price")!!
                 vcategory = mbunlde.getString("category")!!
+                vlatitude = mbunlde.getString("latitude")!!
+                vlongtitude = mbunlde.getString("longtitude")!!
             }else{
 
             }
@@ -176,6 +195,8 @@ class DetailsActivity : AppCompatActivity() {
             valamat = ""
             vrating = ""
             vprice = ""
+            vcategory=""
+            vlatitude=""
         }
     }
 

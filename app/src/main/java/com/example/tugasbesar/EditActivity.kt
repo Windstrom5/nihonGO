@@ -62,6 +62,7 @@ class EditActivity : AppCompatActivity(), DatePickerDialog.OnDateSetListener {
     private lateinit var passwordEdit : TextInputLayout
     private lateinit var emailEdit : TextInputLayout
     private lateinit var phoneEdit : TextInputLayout
+    private lateinit var vcategory : String
     private lateinit var tanggalEdit : TextInputLayout
     private lateinit var vergil : CircleImageView
     private lateinit var reaper : CircleImageView
@@ -84,7 +85,7 @@ class EditActivity : AppCompatActivity(), DatePickerDialog.OnDateSetListener {
     lateinit var emaildb :String
     lateinit var telpdb :String
     lateinit var tgldb :String
-    private var profilePicture : String ?= null
+    private lateinit var profilePicture : String
     private lateinit var bitmap: Bitmap
     private lateinit var loading : LinearLayout
     private var blob:ByteArray ?=null
@@ -244,6 +245,7 @@ class EditActivity : AppCompatActivity(), DatePickerDialog.OnDateSetListener {
                 vuser = mbunlde.getString("username")!!
                 vpass = mbunlde.getString("password")!!
                 vcity = mbunlde.getString("city")!!
+                vcategory = mbunlde.getString("category")!!
             }else{
 
             }
@@ -271,6 +273,13 @@ class EditActivity : AppCompatActivity(), DatePickerDialog.OnDateSetListener {
                     binding.emailInput.getEditText()!!.setText(akun.getString("email"))
                     binding.phoneInput.getEditText()!!.setText(akun.getString("no_telp"))
                     binding.tglInput.getEditText()!!.setText(akun.getString("birth_date"))
+                    val image:String = "pp"+akun.getString("photo_profile")
+                    val resID = resources.getIdentifier(
+                        image, "drawable",
+                        packageName
+                    )
+                    profilePicture = akun.getString("photo_profile")
+                    binding.profileView.setImageResource(resID)
                     setLoading(false)
                 }
             }, Response.ErrorListener { error->
@@ -370,8 +379,10 @@ class EditActivity : AppCompatActivity(), DatePickerDialog.OnDateSetListener {
             passwordEdit.getEditText()?.getText().toString(),
             emailEdit.getEditText()?.getText().toString(),
             phoneEdit.getEditText()?.getText().toString(),
-            tanggalEdit.getEditText()?.getText().toString()
+            tanggalEdit.getEditText()?.getText().toString(),
+            profilePicture
         )
+        Log.d("apa coba",profilePicture)
         val StringRequest:StringRequest = object : StringRequest(Method.PUT,AkunApi.UPDATE_URL + username,
             Response.Listener { response ->
                 val gson = Gson()
@@ -383,6 +394,7 @@ class EditActivity : AppCompatActivity(), DatePickerDialog.OnDateSetListener {
                     mBundle.putString("username",usernameEdit.getEditText()?.getText().toString())
                     mBundle.putString("password",passwordEdit.getEditText()?.getText().toString())
                     mBundle.putString("city",vcity)
+                    mBundle.putString("category",vcategory)
                     intent.putExtra("profile",mBundle)
                     startActivity(intent)
 //                val returnIntent = Intent()
@@ -419,6 +431,7 @@ class EditActivity : AppCompatActivity(), DatePickerDialog.OnDateSetListener {
                 params.put("email",emailEdit.getEditText()?.getText().toString())
                 params.put("no_telp",phoneEdit.getEditText()?.getText().toString())
                 params.put("birth_date",tanggalEdit.getEditText()?.getText().toString())
+                params.put("photo_profile",profilePicture)
                 return params
             }
 //            @Throws(AuthFailureError::class)
@@ -468,17 +481,17 @@ class EditActivity : AppCompatActivity(), DatePickerDialog.OnDateSetListener {
         val dialogBuilder = AlertDialog.Builder(this)
         val popup : View = layoutInflater.inflate(R.layout.profilepic_sheet,null)
         vergil = popup.findViewById(R.id.vergilView)
-        val reaper : CircleImageView = popup.findViewById(R.id.reaperView)
-        val indihome : CircleImageView = popup.findViewById(R.id.indihomeView)
-        val cassidy : CircleImageView = popup.findViewById(R.id.cassidyView)
-        val goro : CircleImageView = popup.findViewById(R.id.goroView)
-        val kiryu : CircleImageView = popup.findViewById(R.id.kiryuView)
-        val amongus : CircleImageView = popup.findViewById(R.id.amogusView)
-        val armstrong : CircleImageView = popup.findViewById(R.id.nanomachineView)
-        val cj : CircleImageView = popup.findViewById(R.id.cjView)
-        val lucy : CircleImageView = popup.findViewById(R.id.lucyView)
-        val dva : CircleImageView = popup.findViewById(R.id.dvaView)
-        val sam : CircleImageView = popup.findViewById(R.id.sammgsView)
+        reaper =popup.findViewById(R.id.reaperView)
+        indihome =popup.findViewById(R.id.indihomeView)
+        cassidy =popup.findViewById(R.id.cassidyView)
+        goro = popup.findViewById(R.id.goroView)
+        kiryu  = popup.findViewById(R.id.kiryuView)
+        amongus  = popup.findViewById(R.id.amogusView)
+        armstrong  = popup.findViewById(R.id.nanomachineView)
+        cj  = popup.findViewById(R.id.cjView)
+        lucy  = popup.findViewById(R.id.lucyView)
+        dva  = popup.findViewById(R.id.dvaView)
+        sam  = popup.findViewById(R.id.sammgsView)
         val save : Button = popup.findViewById(R.id.button_saveImage)
         val cancel : Button = popup.findViewById(R.id.button_cancelImage)
         save.isEnabled = false

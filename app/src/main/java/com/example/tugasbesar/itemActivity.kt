@@ -103,7 +103,6 @@ class itemActivity : AppCompatActivity(),NavigationView.OnNavigationItemSelected
             val StringRequest: StringRequest = object : StringRequest(Method.GET, tempatWisataApi.GET_BY_NAMA_URL + kota,
                 Response.Listener { response->
                     val gson = Gson()
-
                     val jsonObject = JSONObject(response)
                     val jsonArray = jsonObject.getJSONArray("data")
                     var item : Array<itemList> = gson.fromJson(jsonArray.toString(), Array<itemList>::class.java)
