@@ -14,6 +14,7 @@ import androidx.cardview.widget.CardView
 import androidx.recyclerview.widget.RecyclerView
 import com.example.tugasbesar.DetailsActivity
 import com.example.tugasbesar.R
+import com.example.tugasbesar.editItem
 import com.example.tugasbesar.entity.itemList
 import java.util.*
 
@@ -64,7 +65,22 @@ class ItemAdapter(private var itemList: List<itemList>, context: Context) :
                         if (item.itemId == R.id.menuDeleteItem) {
 
                         }else if (item.itemId == R.id.menuEditItem){
-
+                            val intent = Intent(holder.btn_edit.context, editItem::class.java)
+                            val mBundle = Bundle()
+                            mBundle.putString("username",vuser)
+                            mBundle.putString("password",vpass)
+                            mBundle.putString("city", vcity)
+                            mBundle.putString("nama",item.name)
+                            mBundle.putString("user",item.user)
+                            Log.d("Item",item.latitude)
+                            mBundle.putString("alamat",item.alamat)
+                            mBundle.putString("rating",item.rating)
+                            mBundle.putString("price",item.price)
+                            mBundle.putString("category",vcategory)
+                            mBundle.putString("latitude",item.latitude)
+                            mBundle.putString("longtitude",item.longtitude)
+                            intent.putExtra("profile",mBundle)
+                            holder.btnMore.context.startActivity(intent)
                         }
                         return true
                     }
