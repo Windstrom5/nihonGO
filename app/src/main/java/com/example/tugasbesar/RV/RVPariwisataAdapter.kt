@@ -37,7 +37,7 @@ class RVPariwisataAdapter(private val data: Array<entityPariwisata>) : RecyclerV
                 mBundle.putString("username",vuser)
                 mBundle.putString("password",vpass)
                 mBundle.putString("city", vcity)
-                mBundle.putString("category","Wisata")
+                mBundle.putString("category","Tempat Wisata")
                 intent.putExtra("profile",mBundle)
                 holder.itemView.context.startActivity(intent)
             }

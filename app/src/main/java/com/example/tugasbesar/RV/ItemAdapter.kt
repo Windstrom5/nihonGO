@@ -11,11 +11,22 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.*
 import androidx.cardview.widget.CardView
+import androidx.fragment.app.FragmentTransaction
 import androidx.recyclerview.widget.RecyclerView
+import com.android.volley.AuthFailureError
+import com.android.volley.RequestQueue
+import com.android.volley.Response
+import com.android.volley.toolbox.StringRequest
+import com.android.volley.toolbox.Volley
 import com.example.tugasbesar.DetailsActivity
 import com.example.tugasbesar.R
+import com.example.tugasbesar.api.tempatWisataApi
 import com.example.tugasbesar.editItem
 import com.example.tugasbesar.entity.itemList
+import com.example.tugasbesar.models.TempatWisata
+import com.google.gson.Gson
+import org.json.JSONObject
+import java.nio.charset.StandardCharsets
 import java.util.*
 
 class ItemAdapter(private var itemList: List<itemList>, context: Context) :
@@ -26,10 +37,12 @@ class ItemAdapter(private var itemList: List<itemList>, context: Context) :
     lateinit var vpass : String
     lateinit var vcity : String
     lateinit var vcategory : String
+    private var queue: RequestQueue? = null
 
     init {
         filteredItemList = ArrayList(itemList)
         this.context = context
+        queue = Volley.newRequestQueue(context)
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
@@ -64,6 +77,7 @@ class ItemAdapter(private var itemList: List<itemList>, context: Context) :
             popup.setOnMenuItemClickListener(object : PopupMenu.OnMenuItemClickListener{
                 override fun onMenuItemClick(menu: MenuItem): Boolean {
                     if (menu.itemId == R.id.menuDeleteItem) {
+                        deleteItem(item.name)
                     }else if (menu.itemId == R.id.menuEditItem){
                         val intent = Intent(holder.btn_edit.context, editItem::class.java)
                         val mBundle = Bundle()
@@ -161,5 +175,40 @@ class ItemAdapter(private var itemList: List<itemList>, context: Context) :
         vpass = pass
         vcity = city
         vcategory = category
+    }
+
+    private fun deleteItem(nama : String) {
+        val stringRequest: StringRequest =
+            object : StringRequest(Method.DELETE, tempatWisataApi.DELETE_URL + nama,
+                Response.Listener { response ->
+//                    val gson = Gson()
+//                    val jsonObject = JSONObject(response)
+//                    val jsonArray = jsonObject.getJSONObject("data")
+//                    val experience = gson.fromJson(jsonArray.toString(), TempatWisata::class.java)
+//                    if (experience != null)
+                      Toast.makeText(context, "Success Delete", Toast.LENGTH_SHORT).show()
+                },
+                Response.ErrorListener { error ->
+                    try {
+                        val responseBody =
+                            String(error.networkResponse.data, StandardCharsets.UTF_8)
+                        val errors = JSONObject(responseBody)
+                        Toast.makeText(
+                            context,
+                            errors.getString("message"),
+                            Toast.LENGTH_SHORT
+                        ).show()
+                    } catch (e: Exception) {
+                        Toast.makeText(context, e.message, Toast.LENGTH_SHORT).show()
+                    }
+                }) {
+                @Throws(AuthFailureError::class)
+                override fun getHeaders(): Map<String, String> {
+                    val headers = HashMap<String, String>()
+                    headers["Accept"] = "application/json"
+                    return headers
+                }
+            }
+        queue!!.add(stringRequest)
     }
 }

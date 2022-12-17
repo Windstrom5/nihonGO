@@ -98,9 +98,9 @@ class itemActivity : AppCompatActivity(),NavigationView.OnNavigationItemSelected
     }
 
     private fun allItem(category:String,kota : String){
-        if(category == "Wisata"){
+        if(category == "Tempat Wisata"){
             srItem!!.isRefreshing=true
-            val StringRequest: StringRequest = object : StringRequest(Method.GET, tempatWisataApi.GET_BY_NAMA_URL + kota,
+            val StringRequest: StringRequest = object : StringRequest(Method.GET, tempatWisataApi.GET_BY_NAMA_URL + kota + "/" + "city",
                 Response.Listener { response->
                     val gson = Gson()
                     val jsonObject = JSONObject(response)

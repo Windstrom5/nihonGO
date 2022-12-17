@@ -19,6 +19,7 @@ import com.android.volley.toolbox.Volley
 import com.example.tugasbesar.api.AkunApi
 import com.example.tugasbesar.api.EventApi
 import com.example.tugasbesar.api.tempatWisataApi
+import com.example.tugasbesar.databinding.ActivityEditItemBinding
 import com.example.tugasbesar.models.Event
 import com.example.tugasbesar.models.TempatWisata
 import com.google.android.material.textfield.TextInputLayout
@@ -45,6 +46,13 @@ class editItem : AppCompatActivity(), DatePickerDialog.OnDateSetListener {
     private lateinit var vuser : String
     private lateinit var vpass : String
     private lateinit var vcity : String
+    private lateinit var vakun : String
+    private lateinit var valamat : String
+    private lateinit var vnama : String
+    private lateinit var vprice : String
+    private lateinit var vrating : String
+    private lateinit var vlatitude :String
+    private lateinit var vlongtitude : String
     private lateinit var vcategory : String
     private var layout_loading: LinearLayout? = null
     private var edCategory:AutoCompleteTextView? = null
@@ -67,10 +75,11 @@ class editItem : AppCompatActivity(), DatePickerDialog.OnDateSetListener {
             "Event"
         )
     }
-
+    private lateinit var binding: ActivityEditItemBinding
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_add_tempat_wisata)
+        binding = ActivityEditItemBinding.inflate(layoutInflater)
+        setContentView(binding.root)
         getBundle()
         etCity = findViewById(R.id.et_lokasi)
         queue= Volley.newRequestQueue(this)
@@ -81,10 +90,12 @@ class editItem : AppCompatActivity(), DatePickerDialog.OnDateSetListener {
         etLat = findViewById(R.id.et_lat)
         etLong = findViewById(R.id.et_long)
         layout_loading = findViewById(R.id.layout_loading)
+        getItem(vnama)
 //        categoryLayout = findViewById(R.id.jenis_wisata)
         edCategory = findViewById(R.id.ed_jenis)
         latitudeLayout = findViewById(R.id.layout_lat)
         categoryLayout = findViewById(R.id.jenis_wisata)
+        categoryLayout.getEditText()!!.setText(vcategory)!!
         alamatLayout = findViewById(R.id.layout_alamat)
         priceLayout = findViewById(R.id.layout_harga)
         longtitudeLayout = findViewById(R.id.layout_long)
@@ -94,41 +105,11 @@ class editItem : AppCompatActivity(), DatePickerDialog.OnDateSetListener {
         etCity!!.setText(vcity)
         etCity!!.setFocusable(false)
         setExposeDropDownMenu()
+        checkDropDown()
         edCategory!!.setOnItemClickListener{adapterView, view, position, id ->
-            if (edCategory!!.text.toString() == "Event") {
-                namaLayout.setHint("Nama Event")
-                ratingLayout.setHint("Tanggal")
-                ratingLayout.setStartIconDrawable(R.drawable.ic_baseline_calendar_month_24)
-                ratingLayout.setStartIconOnClickListener(View.OnClickListener{
-                    DatePickerDialog(this,this,calender.get(Calendar.YEAR),calender.get(Calendar.MONTH),calender.get(Calendar.DAY_OF_MONTH)).show()
-                })
-                etRating!!.setFocusable(false)
-                latitudeLayout.visibility = View.VISIBLE
-                longtitudeLayout.visibility = View.VISIBLE
-            }else if(edCategory!!.text.toString() == "Tempat Wisata"){
-                namaLayout.setHint("Nama Tempat Wisata")
-                ratingLayout.setHint("Rating Tempat Wisata")
-                ratingLayout.setStartIconDrawable(R.drawable.ic_star)
-                ratingLayout.setStartIconOnClickListener(null);
-                etRating!!.setFocusable(true)
-                latitudeLayout.visibility = View.VISIBLE
-                longtitudeLayout.visibility = View.VISIBLE
-            }else if(edCategory!!.text.toString() == "Akomodasi"){
-                namaLayout.setHint("Nama Tempat Akomodasi")
-                ratingLayout.setHint("Rating Tempat Akomodasi")
-                ratingLayout.setStartIconOnClickListener(null);
-                etRating!!.setFocusable(true)
-                ratingLayout.setStartIconDrawable(R.drawable.ic_star)
-            }else{
-                namaLayout.setHint("Nama Tempat Kuliner")
-                ratingLayout.setHint("Rating Tempat Kuliner")
-                ratingLayout.setStartIconOnClickListener(null);
-                etRating!!.setFocusable(true)
-                ratingLayout.setStartIconDrawable(R.drawable.ic_star)
-            }
+            checkDropDown()
         }
         var current = ""
-
         etPrice!!.addTextChangedListener(object: TextWatcher {
             override fun afterTextChanged(s: Editable?) {}
             override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
@@ -205,8 +186,42 @@ class editItem : AppCompatActivity(), DatePickerDialog.OnDateSetListener {
             if(!checkInputan){
                 return@setOnClickListener
             }else{
-                EditTempat()
+                EditTempat(vnama)
             }
+        }
+    }
+
+    fun checkDropDown(){
+        if (edCategory!!.text.toString() == "Event") {
+            namaLayout.setHint("Nama Event")
+            ratingLayout.setHint("Tanggal")
+            ratingLayout.setStartIconDrawable(R.drawable.ic_baseline_calendar_month_24)
+            ratingLayout.setStartIconOnClickListener(View.OnClickListener{
+                DatePickerDialog(this,this,calender.get(Calendar.YEAR),calender.get(Calendar.MONTH),calender.get(Calendar.DAY_OF_MONTH)).show()
+            })
+            etRating!!.setFocusable(false)
+            latitudeLayout.visibility = View.VISIBLE
+            longtitudeLayout.visibility = View.VISIBLE
+        }else if(edCategory!!.text.toString() == "Tempat Wisata"){
+            namaLayout.setHint("Nama Tempat Wisata")
+            ratingLayout.setHint("Rating Tempat Wisata")
+            ratingLayout.setStartIconDrawable(R.drawable.ic_star)
+            ratingLayout.setStartIconOnClickListener(null);
+            etRating!!.setFocusable(true)
+            latitudeLayout.visibility = View.VISIBLE
+            longtitudeLayout.visibility = View.VISIBLE
+        }else if(edCategory!!.text.toString() == "Akomodasi"){
+            namaLayout.setHint("Nama Tempat Akomodasi")
+            ratingLayout.setHint("Rating Tempat Akomodasi")
+            ratingLayout.setStartIconOnClickListener(null);
+            etRating!!.setFocusable(true)
+            ratingLayout.setStartIconDrawable(R.drawable.ic_star)
+        }else{
+            namaLayout.setHint("Nama Tempat Kuliner")
+            ratingLayout.setHint("Rating Tempat Kuliner")
+            ratingLayout.setStartIconOnClickListener(null);
+            etRating!!.setFocusable(true)
+            ratingLayout.setStartIconDrawable(R.drawable.ic_star)
         }
     }
 
@@ -216,7 +231,7 @@ class editItem : AppCompatActivity(), DatePickerDialog.OnDateSetListener {
         edCategory!!.setAdapter(adapterCategory)
     }
 
-    private fun EditTempat(){
+    private fun EditTempat(nama: String){
         setLoading(true)
         if(edCategory!!.text.toString() == "Tempat Wisata"){
             val tempatWisata = TempatWisata(
@@ -229,21 +244,12 @@ class editItem : AppCompatActivity(), DatePickerDialog.OnDateSetListener {
                 etLat!!.getText().toString(),
                 etLong!!.getText().toString()
             )
-            val StringRequest:StringRequest = object : StringRequest(Method.PUT, tempatWisataApi.UPDATE_URL,
+            val StringRequest:StringRequest = object : StringRequest(Method.PUT, tempatWisataApi.UPDATE_URL + nama,
                 Response.Listener { response ->
                     val gson = Gson()
                     val tempatWisata = gson.fromJson(response, TempatWisata::class.java)
                     if(tempatWisata != null)
-                        Toast.makeText(this@editItem,"Tempat Wisata Berhasil Ditambahkan", Toast.LENGTH_SHORT).show()
-//                    val returnIntent = Intent()
-//                    setResult(RESULT_OK, returnIntent)
-                    MotionToast.Companion.darkToast(this,
-                        "Added Complete ",
-                        "Added "+etNama!!.getText().toString()+" Complete",
-                        MotionToastStyle.SUCCESS,
-                        MotionToast.GRAVITY_BOTTOM,
-                        MotionToast.LONG_DURATION,
-                        ResourcesCompat.getFont(this, www.sanju.motiontoast.R.font.helvetica_regular))
+                        Toast.makeText(this@editItem,"Tempat Wisata Berhasil Diedit", Toast.LENGTH_SHORT).show()
                     finish()
                     setLoading(false)
                 },Response.ErrorListener { error->
@@ -263,13 +269,13 @@ class editItem : AppCompatActivity(), DatePickerDialog.OnDateSetListener {
             ){
                 @Throws(AuthFailureError::class)
                 override fun getHeaders(): Map<String, String> {
-                    val headers = java.util.HashMap<String, String>()
+                    val headers = HashMap<String, String>()
                     headers["Accept"] = "application/json"
                     return headers
                 }
 
                 override fun getParams(): Map<String, String>? {
-                    val params = java.util.HashMap<String, String>()
+                    val params = HashMap<String, String>()
                     params.put("name",etNama!!.getText().toString())
                     params.put("user",vuser)
                     params.put("alamat",etAlamat!!.getText().toString())
@@ -354,7 +360,14 @@ class editItem : AppCompatActivity(), DatePickerDialog.OnDateSetListener {
                 vuser = mbunlde.getString("username")!!
                 vpass = mbunlde.getString("password")!!
                 vcity = mbunlde.getString("city")!!
+                vnama = mbunlde.getString("nama")!!
+                vakun = mbunlde.getString("user")!!
+                valamat = mbunlde.getString("alamat")!!
+                vrating = mbunlde.getString("rating")!!
+                vprice = mbunlde.getString("price")!!
                 vcategory = mbunlde.getString("category")!!
+                vlatitude = mbunlde.getString("latitude")!!
+                vlongtitude = mbunlde.getString("longtitude")!!
             }else{
 
             }
@@ -400,45 +413,29 @@ class editItem : AppCompatActivity(), DatePickerDialog.OnDateSetListener {
         intent.putExtra("profile",mBundle)
         startActivity(intent)
     }
-    private fun getItem(Username:String,Password:String){
+
+    private fun getItem(Name:String){
         setLoading(true)
         val StringRequest: StringRequest = object
             : StringRequest(
-            Method.GET, AkunApi.GET_BY_USERNAME + Username + "/" + Password,
+            Method.GET, tempatWisataApi.GET_BY_NAMA_URL + Name + "/" + "item",
             Response.Listener { response->
                 val gson = Gson()
                 val jsonObject = JSONObject(response)
                 val jsonArray = jsonObject.getJSONArray("data")
                 for (i in 0 until jsonArray.length()) {
-                    val akun = jsonArray.getJSONObject(i)
-                    binding.userInput.getEditText()!!.setText(akun.getString("username"))
-                    binding.passInput.getEditText()!!.setText(akun.getString("password"))
-                    binding.emailInput.getEditText()!!.setText(akun.getString("email"))
-                    binding.phoneInput.getEditText()!!.setText(akun.getString("no_telp"))
-                    binding.tglInput.getEditText()!!.setText(akun.getString("birth_date"))
-                    val image:String = "pp"+akun.getString("photo_profile")
-                    val resID = resources.getIdentifier(
-                        image, "drawable",
-                        packageName
-                    )
-                    profilePicture = akun.getString("photo_profile")
-                    binding.profileView.setImageResource(resID)
+                    val tempat= jsonArray.getJSONObject(i)
+                    binding.layoutNama.getEditText()!!.setText(tempat.getString("name"))
+                    binding.layoutAlamat.getEditText()!!.setText(tempat.getString("alamat"))
+                    binding.layoutHarga.getEditText()!!.setText(tempat.getString("price"))
+                    binding.layoutRating.getEditText()!!.setText(tempat.getString("rating"))
+                    binding.layoutLokasi.getEditText()!!.setText(tempat.getString("city"))
+                    binding.layoutLat.getEditText()!!.setText(tempat.getString("latitude"))
+                    binding.layoutLong.getEditText()!!.setText(tempat.getString("longtitude"))
                     setLoading(false)
                 }
             }, Response.ErrorListener { error->
                 setLoading(false)
-//                try{
-//                    val responseBody = String(error.networkResponse.data, StandardCharsets.UTF_8)
-//                    val errors = JSONObject(responseBody)
-//                    usernameInput.setError("Akun belum Terdaftar")
-//                    Toast.makeText(
-//                        this@MainActivity,
-//                        "Akun Belum Terdaftar",
-//                        Toast.LENGTH_SHORT
-//                    ).show()
-//                }catch (e: Exception){
-//                    Toast.makeText(this@MainActivity,e.message,Toast.LENGTH_SHORT).show()
-//                }
             }
         ){
             @Throws(AuthFailureError::class)
@@ -447,13 +444,6 @@ class editItem : AppCompatActivity(), DatePickerDialog.OnDateSetListener {
                 headers["Accept"] = "application/json"
                 return headers
             }
-//
-//            override fun getParams(): Map<String, String> {
-//                val params = HashMap<String, String>()
-//                params["username"] = Username
-//                params["password"] = Password
-//                return params
-//            }
         }
         queue!!.add(StringRequest)
     }
