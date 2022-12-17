@@ -313,7 +313,9 @@ class RegisterView : AppCompatActivity() , DatePickerDialog.OnDateSetListener{
                 editor.apply()
                 val username = "anggagant@gmail.com"
                 val password = "gvfrphberqtdobec"
-                val messageText = "AMBATUCODING ANDROID STUDIO"
+                val otp = generateOTP()
+                val messageText = "Welcome To NihinGo"
+                val messageText2 = "To Activate Your Accout, Enter This Verification Code In YOur APP"
                 val prop = Properties()
                 val emailTo = emailRegister.getEditText()?.getText().toString()
                 prop.put("mail.smtp.auth","true")
@@ -333,6 +335,8 @@ class RegisterView : AppCompatActivity() , DatePickerDialog.OnDateSetListener{
                     message.setRecipient(Message.RecipientType.TO,InternetAddress(emailRegister.getEditText()?.getText().toString()))
                     message.setSubject("Registration Verification")
                     message.setText(messageText)
+                    message.setText(messageText2)
+                    message.setText(otp)
                     val smtpTransport = session.getTransport("smtp")
                     smtpTransport.connect()
                     smtpTransport.sendMessage(message, message.allRecipients)
@@ -400,6 +404,10 @@ class RegisterView : AppCompatActivity() , DatePickerDialog.OnDateSetListener{
         queue!!.add(StringRequest)
     }
 
+    private fun generateOTP(): String {
+        val randomPin = (Math.random() * 9000).toInt() + 1000
+        return randomPin.toString()
+    }
     private fun checkUsername(Username:String){
         setLoading(true)
         val StringRequest: StringRequest = object

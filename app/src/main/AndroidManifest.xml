@@ -37,13 +37,19 @@
         android:theme="@style/Theme.TugasBesar"
         tools:targetApi="31">
         <activity
-            android:name=".editItem"
+            android:name=".verificationActivity"
             android:exported="false">
             <meta-data
                 android:name="android.app.lib_name"
                 android:value="" />
         </activity>
-        <!-- <activity -->
+        <activity
+            android:name=".editItem"
+            android:exported="false">
+            <meta-data
+                android:name="android.app.lib_name"
+                android:value="" />
+        </activity> <!-- <activity -->
         <!-- android:name=".navActivity" -->
         <!-- android:exported="false" -->
         <!-- android:label="@string/title_activity_nav" -->
