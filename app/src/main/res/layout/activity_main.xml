@@ -4,9 +4,18 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/background"
+    android:background="@drawable/bgeveningsky"
     tools:context=".MapsActivity">
 
+    <pl.droidsonroids.gif.GifImageView
+        android:layout_width="409dp"
+        android:layout_height="736dp"
+        android:layout_marginBottom="0dp"
+        android:src="@drawable/bgeveningsky"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent" />
 
     <com.airbnb.lottie.LottieAnimationView
         android:id="@+id/animation"
@@ -80,6 +89,7 @@
         android:fontFamily="sans-serif-condensed-medium"
         android:text="Need an account? "
         android:textSize="15dp"
+        android:textColor="@color/white"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.209"
@@ -95,7 +105,7 @@
         android:fontFamily="sans-serif-condensed-medium"
         android:text="  Click Here To Register"
         android:textSize="15dp"
-        android:textColor="@color/purple_700"
+        android:textColor="@color/baby_pink"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.77"
@@ -189,8 +199,8 @@
         app:layout_constraintStart_toStartOf="parent" />
 
     <pl.droidsonroids.gif.GifImageView
-        android:layout_width="86dp"
-        android:layout_height="81dp"
+        android:layout_width="63dp"
+        android:layout_height="58dp"
         android:layout_marginBottom="44dp"
         android:src="@drawable/gurahi"
         app:layout_constraintBottom_toBottomOf="parent"
