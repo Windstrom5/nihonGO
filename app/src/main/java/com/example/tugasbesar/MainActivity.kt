@@ -4,6 +4,7 @@ import android.content.Context
 import android.content.Intent
 import android.content.SharedPreferences
 import android.graphics.Color
+import android.media.MediaPlayer
 import android.os.Bundle
 import android.util.Log
 import android.view.View
@@ -76,6 +77,10 @@ class MainActivity : AppCompatActivity() {
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
         getSupportActionBar()?.hide();
+        val mediaPlayer = MediaPlayer.create(this@MainActivity,R.raw.bakamitai)
+        mediaPlayer.prepare()
+        mediaPlayer.isLooping=true
+        mediaPlayer.start()
         setTitle("User Login")
         setRegister()
         forgetpass = binding.forgetpassword
@@ -159,6 +164,7 @@ class MainActivity : AppCompatActivity() {
 //                    passworddb = ""
 //                }
 //            }
+            mediaPlayer.stop()
             getAkun(user,pass)
 //            if (check == true){
 //                checkLogin=true
@@ -173,11 +179,13 @@ class MainActivity : AppCompatActivity() {
         })
         btnRegister = findViewById(R.id.registerText)
         btnRegister.setOnClickListener(){
+            mediaPlayer.stop()
             val intent = Intent(this,RegisterView::class.java)
             startActivity(intent)
         }
         btnGuest = findViewById(R.id.textguest)
         btnGuest.setOnClickListener(){
+            mediaPlayer.stop()
             val intent = Intent(this,kota::class.java)
             val mBundle = Bundle()
             mBundle.putString("username","guest")
