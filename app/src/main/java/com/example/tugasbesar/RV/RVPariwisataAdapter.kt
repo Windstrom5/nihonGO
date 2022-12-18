@@ -31,13 +31,40 @@ class RVPariwisataAdapter(private val data: Array<entityPariwisata>) : RecyclerV
         holder.bindItem(task)
         holder.itemView.setOnClickListener(){
             val id = task.id
-            if(id == "Akomodasi"){
+            if(id == "Wisata"){
                 val intent = Intent(holder.itemView.context, itemActivity::class.java)
                 val mBundle = Bundle()
                 mBundle.putString("username",vuser)
                 mBundle.putString("password",vpass)
                 mBundle.putString("city", vcity)
                 mBundle.putString("category","Tempat Wisata")
+                intent.putExtra("profile",mBundle)
+                holder.itemView.context.startActivity(intent)
+            }else if(id== "Event"){
+                val intent = Intent(holder.itemView.context, itemActivity::class.java)
+                val mBundle = Bundle()
+                mBundle.putString("username",vuser)
+                mBundle.putString("password",vpass)
+                mBundle.putString("city", vcity)
+                mBundle.putString("category","Event")
+                intent.putExtra("profile",mBundle)
+                holder.itemView.context.startActivity(intent)
+            }else if(id=="Akomodasi"){
+                val intent = Intent(holder.itemView.context, itemActivity::class.java)
+                val mBundle = Bundle()
+                mBundle.putString("username",vuser)
+                mBundle.putString("password",vpass)
+                mBundle.putString("city", vcity)
+                mBundle.putString("category","Akomodasi")
+                intent.putExtra("profile",mBundle)
+                holder.itemView.context.startActivity(intent)
+            }else{
+                val intent = Intent(holder.itemView.context, itemActivity::class.java)
+                val mBundle = Bundle()
+                mBundle.putString("username",vuser)
+                mBundle.putString("password",vpass)
+                mBundle.putString("city", vcity)
+                mBundle.putString("category","Culinary")
                 intent.putExtra("profile",mBundle)
                 holder.itemView.context.startActivity(intent)
             }

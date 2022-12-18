@@ -79,16 +79,16 @@ class RegisterView : AppCompatActivity() , DatePickerDialog.OnDateSetListener{
     private lateinit var tglView : TextInputEditText
     private lateinit var loading :LinearLayout
     private lateinit var vergil : CircleImageView
-    private lateinit var reaper : CircleImageView
+    private lateinit var bingchilling : CircleImageView
     private lateinit var indihome : CircleImageView
-    private lateinit var cassidy : CircleImageView
+    private lateinit var squidward : CircleImageView
     private lateinit var goro : CircleImageView
     private lateinit var kiryu : CircleImageView
     private lateinit var amongus : CircleImageView
     private lateinit var armstrong : CircleImageView
     private lateinit var cj : CircleImageView
-    private lateinit var lucy : CircleImageView
-    private lateinit var dva : CircleImageView
+    private lateinit var saul : CircleImageView
+    private lateinit var gigachad : CircleImageView
     private lateinit var sam : CircleImageView
     private lateinit var profilePicture : String
     lateinit var usernamedb :String
@@ -543,17 +543,17 @@ class RegisterView : AppCompatActivity() , DatePickerDialog.OnDateSetListener{
         val dialogBuilder = AlertDialog.Builder(this)
         val popup : View = layoutInflater.inflate(R.layout.profilepic_sheet,null)
         vergil = popup.findViewById(R.id.vergilView)
-        reaper = popup.findViewById(R.id.reaperView)
-        indihome = popup.findViewById(R.id.indihomeView)
-        cassidy = popup.findViewById(R.id.cassidyView)
+        bingchilling =popup.findViewById(R.id.bingchillingView)
+        indihome =popup.findViewById(R.id.indihomeView)
+        squidward =popup.findViewById(R.id.squidwardView)
         goro = popup.findViewById(R.id.goroView)
-        kiryu = popup.findViewById(R.id.kiryuView)
-        amongus = popup.findViewById(R.id.amogusView)
-        armstrong = popup.findViewById(R.id.nanomachineView)
-        cj = popup.findViewById(R.id.cjView)
-        lucy = popup.findViewById(R.id.lucyView)
-        dva = popup.findViewById(R.id.dvaView)
-        sam = popup.findViewById(R.id.sammgsView)
+        kiryu  = popup.findViewById(R.id.kiryuView)
+        amongus  = popup.findViewById(R.id.amogusView)
+        armstrong  = popup.findViewById(R.id.nanomachineView)
+        cj  = popup.findViewById(R.id.cjView)
+        saul  = popup.findViewById(R.id.saulView)
+        gigachad  = popup.findViewById(R.id.gigachadView)
+        sam  = popup.findViewById(R.id.sammgsView)
         val save : Button = popup.findViewById(R.id.button_saveImage)
         val cancel : Button = popup.findViewById(R.id.button_cancelImage)
         save.isEnabled = false
@@ -561,11 +561,6 @@ class RegisterView : AppCompatActivity() , DatePickerDialog.OnDateSetListener{
         val dialog = dialogBuilder.create()
         dialog.show()
         cancel.setOnClickListener{
-            if(profilePicture=="null"){
-
-            }else{
-                profilePicture = "null"
-            }
             dialog.dismiss()
         }
         vergil.setOnClickListener{
@@ -584,11 +579,11 @@ class RegisterView : AppCompatActivity() , DatePickerDialog.OnDateSetListener{
                 dialog.dismiss()
             }
         }
-        reaper.setOnClickListener{
-            profilePicture = "reaper"
+        bingchilling.setOnClickListener{
+            profilePicture = "bingchilling"
             save.isEnabled = true
             save.setOnClickListener{
-                binding.profileView.setImageResource(R.drawable.ppreaper)
+                binding.profileView.setImageResource(R.drawable.ppbingchilling)
                 dialog.dismiss()
             }
         }
@@ -600,11 +595,11 @@ class RegisterView : AppCompatActivity() , DatePickerDialog.OnDateSetListener{
                 dialog.dismiss()
             }
         }
-        cassidy.setOnClickListener{
-            profilePicture = "cassidy"
+        squidward.setOnClickListener{
+            profilePicture = "squidward"
             save.isEnabled = true
             save.setOnClickListener{
-                binding.profileView.setImageResource(R.drawable.ppcassidy)
+                binding.profileView.setImageResource(R.drawable.ppsquidward)
                 dialog.dismiss()
             }
         }
@@ -640,19 +635,19 @@ class RegisterView : AppCompatActivity() , DatePickerDialog.OnDateSetListener{
                 dialog.dismiss()
             }
         }
-        lucy.setOnClickListener{
-            profilePicture = "lucy"
+        saul.setOnClickListener{
+            profilePicture = "saul"
             save.isEnabled = true
             save.setOnClickListener{
-                binding.profileView.setImageResource(R.drawable.pplucy)
+                binding.profileView.setImageResource(R.drawable.ppsaul)
                 dialog.dismiss()
             }
         }
-        dva.setOnClickListener{
-            profilePicture = "dva"
+        gigachad.setOnClickListener{
+            profilePicture = "gigachad"
             save.isEnabled = true
             save.setOnClickListener{
-                binding.profileView.setImageResource(R.drawable.ppdva)
+                binding.profileView.setImageResource(R.drawable.ppgigachad)
                 dialog.dismiss()
             }
         }

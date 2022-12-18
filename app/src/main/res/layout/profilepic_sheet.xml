@@ -8,11 +8,11 @@
 
 
     <de.hdodenhof.circleimageview.CircleImageView
-        android:id="@+id/reaperView"
+        android:id="@+id/bingchillingView"
         android:layout_width="122dp"
         android:layout_height="135dp"
         android:elevation="5dp"
-        android:src="@drawable/ppreaper"
+        android:src="@drawable/ppbingchilling"
         app:civ_border_color="#FFF"
         app:civ_border_width="5dp"
         app:civ_circle_background_color="@color/white"
@@ -24,11 +24,11 @@
         app:layout_constraintVertical_bias="0.026" />
 
     <de.hdodenhof.circleimageview.CircleImageView
-        android:id="@+id/cassidyView"
+        android:id="@+id/squidwardView"
         android:layout_width="122dp"
         android:layout_height="135dp"
         android:elevation="5dp"
-        android:src="@drawable/ppcassidy"
+        android:src="@drawable/ppsquidward"
         app:civ_border_color="#FFF"
         app:civ_border_width="5dp"
         app:civ_circle_background_color="@color/white"
@@ -72,11 +72,11 @@
         app:layout_constraintVertical_bias="0.706" />
 
     <de.hdodenhof.circleimageview.CircleImageView
-        android:id="@+id/dvaView"
+        android:id="@+id/gigachadView"
         android:layout_width="122dp"
         android:layout_height="135dp"
         android:elevation="5dp"
-        android:src="@drawable/ppdva"
+        android:src="@drawable/ppgigachad"
         app:civ_border_color="#FFF"
         app:civ_border_width="5dp"
         app:civ_circle_background_color="@color/white"
@@ -104,11 +104,11 @@
         app:layout_constraintVertical_bias="0.253" />
 
     <de.hdodenhof.circleimageview.CircleImageView
-        android:id="@+id/lucyView"
+        android:id="@+id/saulView"
         android:layout_width="122dp"
         android:layout_height="135dp"
         android:elevation="5dp"
-        android:src="@drawable/pplucy"
+        android:src="@drawable/ppsaul"
         app:civ_border_color="#FFF"
         app:civ_border_width="5dp"
         app:civ_circle_background_color="@color/white"
