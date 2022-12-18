@@ -326,20 +326,21 @@ class addWisata : AppCompatActivity(), DatePickerDialog.OnDateSetListener {
             ){
                 @Throws(AuthFailureError::class)
                 override fun getHeaders(): Map<String, String> {
-                    val headers = java.util.HashMap<String, String>()
+                    val headers = HashMap<String, String>()
                     headers["Accept"] = "application/json"
                     return headers
                 }
 
                 override fun getParams(): Map<String, String>? {
-                    val params = java.util.HashMap<String, String>()
-                    params.put("namaEvent",etNama!!.getText().toString())
+                    val params = HashMap<String, String>()
+                    params.put("name",etNama!!.getText().toString())
+                    params.put("user",vuser)
                     params.put("alamat",etAlamat!!.getText().toString())
                     params.put("tgl",etRating!!.getText().toString())
                     params.put("price",etPrice!!.getText().toString())
                     params.put("city",etCity!!.getText().toString())
-                    params.put("lat",etLat!!.getText().toString())
-                    params.put("longi",etLong!!.getText().toString())
+                    params.put("latitude",etLat!!.getText().toString())
+                    params.put("longtitude",etLong!!.getText().toString())
                     return params
                 }
             }

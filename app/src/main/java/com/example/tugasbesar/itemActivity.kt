@@ -25,6 +25,7 @@ import com.android.volley.toolbox.StringRequest
 import com.android.volley.toolbox.Volley
 import com.example.tugasbesar.RV.ItemAdapter
 import com.example.tugasbesar.api.AkunApi
+import com.example.tugasbesar.api.EventApi
 import com.example.tugasbesar.api.tempatWisataApi
 import com.example.tugasbesar.entity.itemList
 import com.google.android.material.navigation.NavigationView
@@ -139,10 +140,12 @@ class itemActivity : AppCompatActivity(),NavigationView.OnNavigationItemSelected
             queue!!.add(StringRequest)
         }else if(category == "Event"){
             srItem!!.isRefreshing=true
-            val StringRequest: StringRequest = object : StringRequest(Method.GET,tempatWisataApi.GET_BY_NAMA_URL + kota,
+            val StringRequest: StringRequest = object : StringRequest(Method.GET,EventApi.GET_BY_NAMA_URL + kota + "/" + "city",
                 Response.Listener { response->
                     val gson = Gson()
-                    val item: Array<itemList> = gson.fromJson(response,Array<itemList>::class.java)
+                    val jsonObject = JSONObject(response)
+                    val jsonArray = jsonObject.getJSONArray("data")
+                    var item : Array<itemList> = gson.fromJson(jsonArray.toString(), Array<itemList>::class.java)
                     adapter!!.setItemList(item)
                     adapter!!.filter.filter(svItem!!.query)
                     srItem!!.isRefreshing=false

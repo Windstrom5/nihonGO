@@ -4,6 +4,7 @@ import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.recyclerview.widget.RecyclerView
 //import com.example.tugasbesar.Tokyo
 import com.example.tugasbesar.addWisata
@@ -39,6 +40,16 @@ class RVKotaAdapter(private val data: Array<kota>) : RecyclerView.Adapter<RVKota
                 mBundle.putString("city", "Tokyo")
                 intent.putExtra("profile",mBundle)
                 holder.itemView.context.startActivity(intent)
+            }else if(id == "Osaka"){
+                val intent = Intent(holder.itemView.context, pariwisata::class.java)
+                val mBundle = Bundle()
+                mBundle.putString("username",vuser)
+                mBundle.putString("password",vpass)
+                mBundle.putString("city", "Osaka")
+                intent.putExtra("profile",mBundle)
+                holder.itemView.context.startActivity(intent)
+            }else{
+                Toast.makeText(holder.itemView.context,"Under Development",Toast.LENGTH_SHORT).show()
             }
         }
     }
