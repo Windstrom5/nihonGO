@@ -78,7 +78,6 @@ class MainActivity : AppCompatActivity() {
         setContentView(binding.root)
         getSupportActionBar()?.hide();
         val mediaPlayer = MediaPlayer.create(this@MainActivity,R.raw.bakamitai)
-        mediaPlayer.prepare()
         mediaPlayer.isLooping=true
         mediaPlayer.start()
         setTitle("User Login")
