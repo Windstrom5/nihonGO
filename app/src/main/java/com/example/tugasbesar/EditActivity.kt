@@ -380,10 +380,11 @@ class EditActivity : AppCompatActivity(), DatePickerDialog.OnDateSetListener {
             emailEdit.getEditText()?.getText().toString(),
             phoneEdit.getEditText()?.getText().toString(),
             tanggalEdit.getEditText()?.getText().toString(),
-            profilePicture
+            profilePicture,
+            "verified"
         )
         Log.d("apa coba",profilePicture)
-        val StringRequest:StringRequest = object : StringRequest(Method.PUT,AkunApi.UPDATE_URL + username,
+        val StringRequest:StringRequest = object : StringRequest(Method.PUT,AkunApi.UPDATE_URL + username+ "/" +"update",
             Response.Listener { response ->
                 val gson = Gson()
                 val akun = gson.fromJson(response, Users::class.java)

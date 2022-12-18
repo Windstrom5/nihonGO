@@ -283,15 +283,53 @@ class RegisterView : AppCompatActivity() , DatePickerDialog.OnDateSetListener{
         }
     }
 
+    private fun sendEmai(otp:String){
+        val username = "anggagant@gmail.com"
+        val password = "gvfrphberqtdobec"
+
+        val messageText = "Welcome To NihinGo"
+        val messageText2 = "To Activate Your Accout, Enter This Verification Code In YOur APP"
+        val prop = Properties()
+        val emailTo = emailRegister.getEditText()?.getText().toString()
+        prop.put("mail.smtp.auth","true")
+        prop.put("mail.smtp.starttls.enable","true")
+        prop.put("mail.smtp.host","smtp.gmail.com")
+        prop.put("mail.smtp.port","587")
+        val session = Session.getDefaultInstance(prop, object : javax.mail.Authenticator() {
+            override fun getPasswordAuthentication(): PasswordAuthentication {
+                return PasswordAuthentication(username, password)
+            }
+        })
+        val policy = StrictMode.ThreadPolicy.Builder().permitAll().build()
+        StrictMode.setThreadPolicy(policy)
+        try {
+            val message = MimeMessage(session)
+            message.setFrom(InternetAddress(username))
+            message.setRecipient(Message.RecipientType.TO,InternetAddress(emailRegister.getEditText()?.getText().toString()))
+            message.setSubject("Registration Verification")
+            message.setText(messageText)
+            message.setText(messageText2)
+            message.setText(otp)
+            val smtpTransport = session.getTransport("smtp")
+            smtpTransport.connect()
+            smtpTransport.sendMessage(message, message.allRecipients)
+            smtpTransport.close()
+        }catch(messagingException: MessagingException){
+            messagingException.printStackTrace()
+        }
+    }
+
     private fun createAccount(){
         setLoading(true)
+        val otp = generateOTP()
         val akun = Users(
             userRegister.getEditText()?.getText().toString(),
             passRegister.getEditText()?.getText().toString(),
             emailRegister.getEditText()?.getText().toString(),
             teleponRegister.getEditText()?.getText().toString(),
             tanggalRegister.getEditText()?.getText().toString(),
-            profilePicture
+            profilePicture,
+            otp
         )
         val StringRequest:StringRequest = object : StringRequest(Method.POST,AkunApi.ADD_URL,
             Response.Listener { response ->
@@ -300,6 +338,7 @@ class RegisterView : AppCompatActivity() , DatePickerDialog.OnDateSetListener{
                 if(akun != null)
                     Toast.makeText(this@RegisterView,"Akun Berhasil Ditambahkan", Toast.LENGTH_SHORT).show()
                 sendNotification1()
+                sendEmai(otp)
                 val userSave: String =
                     userRegister.getEditText()?.getText().toString().trim()
                 val passSave: String =
@@ -311,46 +350,15 @@ class RegisterView : AppCompatActivity() , DatePickerDialog.OnDateSetListener{
                 editor.putString(userkey, userSave)
                 editor.putString(passkey, passSave)
                 editor.apply()
-                val username = "anggagant@gmail.com"
-                val password = "gvfrphberqtdobec"
-                val otp = generateOTP()
-                val messageText = "Welcome To NihinGo"
-                val messageText2 = "To Activate Your Accout, Enter This Verification Code In YOur APP"
-                val prop = Properties()
-                val emailTo = emailRegister.getEditText()?.getText().toString()
-                prop.put("mail.smtp.auth","true")
-                prop.put("mail.smtp.starttls.enable","true")
-                prop.put("mail.smtp.host","smtp.gmail.com")
-                prop.put("mail.smtp.port","587")
-                val session = Session.getDefaultInstance(prop, object : javax.mail.Authenticator() {
-                    override fun getPasswordAuthentication(): PasswordAuthentication {
-                        return PasswordAuthentication(username, password)
-                    }
-                })
-                val policy = StrictMode.ThreadPolicy.Builder().permitAll().build()
-                StrictMode.setThreadPolicy(policy)
-                try {
-                    val message = MimeMessage(session)
-                    message.setFrom(InternetAddress(username))
-                    message.setRecipient(Message.RecipientType.TO,InternetAddress(emailRegister.getEditText()?.getText().toString()))
-                    message.setSubject("Registration Verification")
-                    message.setText(messageText)
-                    message.setText(messageText2)
-                    message.setText(otp)
-                    val smtpTransport = session.getTransport("smtp")
-                    smtpTransport.connect()
-                    smtpTransport.sendMessage(message, message.allRecipients)
-                    smtpTransport.close()
-                }catch(messagingException: MessagingException){
-                    messagingException.printStackTrace()
-                }
-                val intent = Intent(this,MainActivity::class.java)
+                val intent = Intent(this,verificationActivity::class.java)
                 val mBundle = Bundle()
                 mBundle.putString("username",userRegister.getEditText()?.getText().toString())
                 mBundle.putString("password",passRegister.getEditText()?.getText().toString())
                 mBundle.putString("email",emailRegister.getEditText()?.getText().toString())
                 mBundle.putString("notelp",teleponRegister.getEditText()?.getText().toString())
                 mBundle.putString("tanggallahir",tanggalRegister.getEditText()?.getText().toString())
+                mBundle.putString("profilepic",profilePicture)
+                mBundle.putString("otp",otp)
                 intent.putExtra("profile",mBundle)
                 startActivity(intent)
 //                val returnIntent = Intent()
@@ -388,6 +396,7 @@ class RegisterView : AppCompatActivity() , DatePickerDialog.OnDateSetListener{
                 params.put("no_telp",teleponRegister.getEditText()?.getText().toString())
                 params.put("birth_date",tanggalRegister.getEditText()?.getText().toString())
                 params.put("photo_profile",profilePicture)
+                params.put("otp_status",otp)
                 return params
             }
 //            @Throws(AuthFailureError::class)
@@ -408,12 +417,13 @@ class RegisterView : AppCompatActivity() , DatePickerDialog.OnDateSetListener{
         val randomPin = (Math.random() * 9000).toInt() + 1000
         return randomPin.toString()
     }
+
     private fun checkUsername(Username:String){
         setLoading(true)
         val StringRequest: StringRequest = object
-            : StringRequest(Method.GET, AkunApi.GET_ALL_URL,
-            Response.Listener { response->
+            : StringRequest(Method.GET, AkunApi.GET_ALL_URL, Response.Listener { response->
                 val gson = Gson()
+                val otp = generateOTP()
                 val jsonObject = JSONObject(response)
                 val jsonArray = jsonObject.getJSONArray("data")
                 for (i in 0 until jsonArray.length()) {
@@ -431,7 +441,8 @@ class RegisterView : AppCompatActivity() , DatePickerDialog.OnDateSetListener{
                             emailRegister.getEditText()?.getText().toString(),
                             teleponRegister.getEditText()?.getText().toString(),
                             tanggalRegister.getEditText()?.getText().toString(),
-                            profilePicture
+                            profilePicture,
+                            otp
                         )
                         val StringRequest:StringRequest = object : StringRequest(Method.POST,AkunApi.ADD_URL,
                             Response.Listener { response ->
