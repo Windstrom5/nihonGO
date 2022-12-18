@@ -9,7 +9,7 @@ class entityPariwisata(var nama : Int, var id :String) {
             entityPariwisata(R.drawable.txtaccomodation,"Akomodasi"),
             entityPariwisata(R.drawable.txtcullinary,"Kuliner"),
             entityPariwisata(R.drawable.txttourist,"Wisata"),
-            entityPariwisata(R.drawable.txtevent,"Event"),
+            entityPariwisata(R.drawable.txtcurrentevent,"Event"),
         )
     }
 }
