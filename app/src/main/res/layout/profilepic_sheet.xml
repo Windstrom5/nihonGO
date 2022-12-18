@@ -4,6 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:tools="http://schemas.android.com/tools"
+    android:background="@drawable/fujisheet"
     >
 
 
@@ -21,7 +22,7 @@
         app:layout_constraintHorizontal_bias="0.013"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.026" />
+        app:layout_constraintVertical_bias="0.253" />
 
     <de.hdodenhof.circleimageview.CircleImageView
         android:id="@+id/squidwardView"
@@ -37,7 +38,7 @@
         app:layout_constraintHorizontal_bias="0.013"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.253" />
+        app:layout_constraintVertical_bias="0.026" />
 
     <de.hdodenhof.circleimageview.CircleImageView
         android:id="@+id/cjView"
@@ -204,9 +205,9 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="36dp"
-        android:backgroundTint="@color/dark_green"
+        android:backgroundTint="@color/green"
         android:text="SAVE"
-        android:textColor="@color/dark_blue"
+        android:textColor="@color/black"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
