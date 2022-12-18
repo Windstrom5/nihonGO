@@ -9,67 +9,77 @@
 
     <TextView
         android:id="@+id/namaProfil"
-        android:layout_width="411dp"
+        android:layout_width="300dp"
         android:layout_height="66dp"
-        android:layout_marginTop="36dp"
-        android:gravity="center"
+        android:layout_marginTop="32dp"
+        android:background="@drawable/bgtv"
         android:ellipsize="end"
+        android:gravity="center"
         android:maxLines="1"
         android:padding="16dp"
+        android:text="username"
         android:textAppearance="?attr/textAppearanceSubtitle1"
-        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.495"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/profileView"
-        android:text="username"/>
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/profileView" />
 
     <TextView
         android:id="@+id/emailProfil"
-        android:layout_width="411dp"
+        android:layout_width="300dp"
         android:layout_height="66dp"
-        android:layout_marginTop="36dp"
+        android:layout_marginTop="20dp"
         android:ellipsize="end"
         android:gravity="center"
         android:maxLines="1"
         android:padding="16dp"
+        android:text="email"
         android:textAppearance="?attr/textAppearanceSubtitle1"
-        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.495"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/namaProfil"
-        android:text="email"/>
+        app:layout_constraintStart_toStartOf="parent"
+        android:background="@drawable/bgtv"
+        app:layout_constraintTop_toBottomOf="@+id/namaProfil" />
 
     <TextView
         android:id="@+id/notelpProfil"
-        android:layout_width="411dp"
+        android:layout_width="300dp"
         android:layout_height="66dp"
-        android:layout_marginTop="36dp"
+        android:layout_marginTop="20dp"
         android:ellipsize="end"
         android:gravity="center"
         android:maxLines="1"
         android:padding="16dp"
+        android:text="phone"
         android:textAppearance="?attr/textAppearanceSubtitle1"
-        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.495"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/emailProfil"
-        android:text="phone"/>
+        android:background="@drawable/bgtv"/>
 
     <TextView
         android:id="@+id/birthProfil"
-        android:layout_width="411dp"
+        android:layout_width="300dp"
         android:layout_height="66dp"
-        android:layout_marginTop="36dp"
+        android:layout_marginTop="20dp"
         android:ellipsize="end"
         android:gravity="center"
         android:maxLines="1"
         android:padding="16dp"
         android:textAppearance="?attr/textAppearanceSubtitle1"
-        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintHorizontal_bias="0.495"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/notelpProfil"
-        android:text="date"/>
+        android:text="date"
+        android:background="@drawable/bgtv"/>
 
 <!--    <androidx.recyclerview.widget.RecyclerView-->
 <!--        android:id="@+id/list_note"-->
@@ -134,8 +144,8 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintTop_toBottomOf="@+id/button_delete"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/button_delete" />
 
     <include
         android:id="@+id/layout_loading"
