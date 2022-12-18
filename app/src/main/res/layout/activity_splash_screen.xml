@@ -49,7 +49,7 @@
         android:layout_width="44dp"
         android:layout_height="32dp"
         android:layout_marginBottom="132dp"
-        android:src="@drawable/shubaduck"
+        android:src="@drawable/shuba"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.828"
