@@ -89,7 +89,7 @@ class editItem : AppCompatActivity(), DatePickerDialog.OnDateSetListener {
         etLat = findViewById(R.id.et_lat)
         etLong = findViewById(R.id.et_long)
         layout_loading = findViewById(R.id.layout_loading)
-        if(vcategory == "Wisata"){
+        if(vcategory == "Tempat Wisata"){
             getWisata(vnama)
         }else if(vcategory == "Event"){
             getEvent(vnama)
