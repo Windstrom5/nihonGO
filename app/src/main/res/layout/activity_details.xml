@@ -108,6 +108,15 @@
         app:layout_constraintTop_toBottomOf="@+id/hargaTiket"
         app:layout_constraintVertical_bias="0.708" />
 
+    <pl.droidsonroids.gif.GifImageView
+        android:layout_width="391dp"
+        android:layout_height="194dp"
+        android:layout_marginBottom="104dp"
+        android:src="@drawable/lucyhack"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
     <include
         android:id="@+id/layout_loading"
         layout="@layout/layout_loading"
