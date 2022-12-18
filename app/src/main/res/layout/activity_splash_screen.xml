@@ -45,4 +45,14 @@
         app:lottie_loop="true"
         app:lottie_rawRes="@raw/fan" />
 
+    <pl.droidsonroids.gif.GifImageView
+        android:layout_width="44dp"
+        android:layout_height="32dp"
+        android:layout_marginBottom="132dp"
+        android:src="@drawable/shubaduck"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.828"
+        app:layout_constraintStart_toStartOf="parent" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>
