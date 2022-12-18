@@ -16,9 +16,7 @@ import com.android.volley.RequestQueue
 import com.android.volley.Response
 import com.android.volley.toolbox.StringRequest
 import com.android.volley.toolbox.Volley
-import com.example.tugasbesar.api.AkunApi
-import com.example.tugasbesar.api.EventApi
-import com.example.tugasbesar.api.tempatWisataApi
+import com.example.tugasbesar.api.*
 import com.example.tugasbesar.databinding.ActivityEditItemBinding
 import com.example.tugasbesar.models.Event
 import com.example.tugasbesar.models.TempatWisata
@@ -91,7 +89,16 @@ class editItem : AppCompatActivity(), DatePickerDialog.OnDateSetListener {
         etLat = findViewById(R.id.et_lat)
         etLong = findViewById(R.id.et_long)
         layout_loading = findViewById(R.id.layout_loading)
-        getItem(vnama)
+        if(vcategory == "Wisata"){
+            getWisata(vnama)
+        }else if(vcategory == "Event"){
+            getEvent(vnama)
+        }else if(vcategory == "Akomodasi"){
+            getAkomodasi(vnama)
+        }else{
+            getKuliner(vnama)
+        }
+
 //        categoryLayout = findViewById(R.id.jenis_wisata)
         edCategory = findViewById(R.id.ed_jenis)
         latitudeLayout = findViewById(R.id.layout_lat)
@@ -415,11 +422,113 @@ class editItem : AppCompatActivity(), DatePickerDialog.OnDateSetListener {
         startActivity(intent)
     }
 
-    private fun getItem(Name:String){
+    private fun getWisata(Name:String){
         setLoading(true)
         val StringRequest: StringRequest = object
             : StringRequest(
             Method.GET, tempatWisataApi.GET_BY_NAMA_URL + Name + "/" + "item",
+            Response.Listener { response->
+                val gson = Gson()
+                val jsonObject = JSONObject(response)
+                val jsonArray = jsonObject.getJSONArray("data")
+                for (i in 0 until jsonArray.length()) {
+                    val tempat= jsonArray.getJSONObject(i)
+                    binding.layoutNama.getEditText()!!.setText(tempat.getString("name"))
+                    binding.layoutAlamat.getEditText()!!.setText(tempat.getString("alamat"))
+                    binding.layoutHarga.getEditText()!!.setText(tempat.getString("price"))
+                    binding.layoutRating.getEditText()!!.setText(tempat.getString("rating"))
+                    binding.layoutLokasi.getEditText()!!.setText(tempat.getString("city"))
+                    binding.layoutLat.getEditText()!!.setText(tempat.getString("latitude"))
+                    binding.layoutLong.getEditText()!!.setText(tempat.getString("longtitude"))
+                    setLoading(false)
+                }
+            }, Response.ErrorListener { error->
+                setLoading(false)
+            }
+        ){
+            @Throws(AuthFailureError::class)
+            override fun getHeaders(): Map<String, String> {
+                val headers = HashMap<String,String>()
+                headers["Accept"] = "application/json"
+                return headers
+            }
+        }
+        queue!!.add(StringRequest)
+    }
+
+    private fun getEvent(Name:String){
+        setLoading(true)
+        val StringRequest: StringRequest = object
+            : StringRequest(
+            Method.GET, EventApi.GET_BY_NAMA_URL + Name + "/" + "item",
+            Response.Listener { response->
+                val gson = Gson()
+                val jsonObject = JSONObject(response)
+                val jsonArray = jsonObject.getJSONArray("data")
+                for (i in 0 until jsonArray.length()) {
+                    val tempat= jsonArray.getJSONObject(i)
+                    binding.layoutNama.getEditText()!!.setText(tempat.getString("name"))
+                    binding.layoutAlamat.getEditText()!!.setText(tempat.getString("alamat"))
+                    binding.layoutHarga.getEditText()!!.setText(tempat.getString("price"))
+                    binding.layoutRating.getEditText()!!.setText(tempat.getString("rating"))
+                    binding.layoutLokasi.getEditText()!!.setText(tempat.getString("city"))
+                    binding.layoutLat.getEditText()!!.setText(tempat.getString("latitude"))
+                    binding.layoutLong.getEditText()!!.setText(tempat.getString("longtitude"))
+                    setLoading(false)
+                }
+            }, Response.ErrorListener { error->
+                setLoading(false)
+            }
+        ){
+            @Throws(AuthFailureError::class)
+            override fun getHeaders(): Map<String, String> {
+                val headers = HashMap<String,String>()
+                headers["Accept"] = "application/json"
+                return headers
+            }
+        }
+        queue!!.add(StringRequest)
+    }
+
+    private fun getKuliner(Name:String){
+        setLoading(true)
+        val StringRequest: StringRequest = object
+            : StringRequest(
+            Method.GET, KulinerApi.GET_BY_NAMA_URL + Name + "/" + "item",
+            Response.Listener { response->
+                val gson = Gson()
+                val jsonObject = JSONObject(response)
+                val jsonArray = jsonObject.getJSONArray("data")
+                for (i in 0 until jsonArray.length()) {
+                    val tempat= jsonArray.getJSONObject(i)
+                    binding.layoutNama.getEditText()!!.setText(tempat.getString("name"))
+                    binding.layoutAlamat.getEditText()!!.setText(tempat.getString("alamat"))
+                    binding.layoutHarga.getEditText()!!.setText(tempat.getString("price"))
+                    binding.layoutRating.getEditText()!!.setText(tempat.getString("rating"))
+                    binding.layoutLokasi.getEditText()!!.setText(tempat.getString("city"))
+                    binding.layoutLat.getEditText()!!.setText(tempat.getString("latitude"))
+                    binding.layoutLong.getEditText()!!.setText(tempat.getString("longtitude"))
+                    setLoading(false)
+                }
+            }, Response.ErrorListener { error->
+                setLoading(false)
+            }
+        ){
+            @Throws(AuthFailureError::class)
+            override fun getHeaders(): Map<String, String> {
+                val headers = HashMap<String,String>()
+                headers["Accept"] = "application/json"
+                return headers
+            }
+        }
+        queue!!.add(StringRequest)
+    }
+
+    private fun getAkomodasi(Name:String){
+        setLoading(true)
+        val StringRequest: StringRequest = object
+            : StringRequest(
+            Method.GET, AkomodasiApi.GET_BY_NAMA_URL + Name + "/" + "item",
             Response.Listener { response->
                 val gson = Gson()
                 val jsonObject = JSONObject(response)
