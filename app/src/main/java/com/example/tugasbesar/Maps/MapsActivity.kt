@@ -16,6 +16,8 @@ import org.osmdroid.views.CustomZoomButtonsController
 import org.osmdroid.views.MapController
 import org.osmdroid.views.overlay.Marker
 import org.osmdroid.views.overlay.OverlayItem
+import org.osmdroid.views.overlay.compass.CompassOverlay
+import org.osmdroid.views.overlay.compass.InternalCompassOrientationProvider
 import java.io.IOException
 
 
@@ -46,6 +48,10 @@ class MapsActivity : AppCompatActivity() {
         mapView.controller.animateTo(geoPoint)
         mapView.setTileSource(TileSourceFactory.DEFAULT_TILE_SOURCE)
         mapView.zoomController.setVisibility(CustomZoomButtonsController.Visibility.NEVER)
+
+        val compas = CompassOverlay(this, InternalCompassOrientationProvider(this), mapView)
+        compas.enableCompass()
+        mapView.overlays.add(compas)
 
         mapController = mapView.controller as MapController
         mapController.setCenter(geoPoint)
