@@ -21,7 +21,7 @@ class ActionBottomDialogFragment : BottomSheetDialogFragment(), View.OnClickList
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         view.findViewById<View>(R.id.textView).setOnClickListener(this)
-        view.findViewById<View>(R.id.textView2).setOnClickListener(this)
+        view.findViewById<View>(R.id.forgetpassword).setOnClickListener(this)
     }
 
     override fun onAttach(context: Context) {

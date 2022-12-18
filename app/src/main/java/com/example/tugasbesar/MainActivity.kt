@@ -32,6 +32,7 @@ import com.example.tugasbesar.api.AkunApi
 import com.google.gson.Gson
 import com.android.volley.toolbox.Volley
 import com.android.volley.RequestQueue
+import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : AppCompatActivity() {
     private lateinit var register : TextView
@@ -40,6 +41,7 @@ class MainActivity : AppCompatActivity() {
     private lateinit var btnLogin : Button
     private lateinit var usernameInput : TextInputLayout
     private lateinit var passwordInput : TextInputLayout
+    private lateinit var forgetpass : TextView
     private lateinit var loading : LinearLayout
     private val myPreference = "myPref"
     private val userkey = "userKey"
@@ -76,6 +78,7 @@ class MainActivity : AppCompatActivity() {
         getSupportActionBar()?.hide();
         setTitle("User Login")
         setRegister()
+        forgetpass = binding.forgetpassword
         usernameInput = binding.userInput
         passwordInput = binding.passInput
         loading = findViewById(R.id.layout_loading)
@@ -86,6 +89,10 @@ class MainActivity : AppCompatActivity() {
         setTextOpen()
         etUsername = binding.user
         etPassword = binding.pass
+        forgetpass.setOnClickListener{
+            val intent = Intent(this,ForgetPassword::class.java)
+            startActivity(intent)
+        }
         btnLogin.setOnClickListener(View.OnClickListener{
             var checkLogin = false
             var check = false
