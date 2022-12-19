@@ -347,7 +347,7 @@ class editItem : AppCompatActivity(), DatePickerDialog.OnDateSetListener {
 
                 override fun getParams(): Map<String, String>? {
                     val params = java.util.HashMap<String, String>()
-                    params.put("namaEvent",etNama!!.getText().toString())
+                    params.put("nama",etNama!!.getText().toString())
                     params.put("alamat",etAlamat!!.getText().toString())
                     params.put("tgl",etRating!!.getText().toString())
                     params.put("price",etPrice!!.getText().toString())

@@ -69,12 +69,13 @@ class itemActivity : AppCompatActivity(),NavigationView.OnNavigationItemSelected
         }else{
             navEmail.setText("Welcome "+vuser)
         }
+        toolbar.setTitle(vcategory)
         navigationView.setNavigationItemSelectedListener(this)
-        setSupportActionBar(toolbar);
         toggle = ActionBarDrawerToggle(this,drawer,toolbar,
         R.string.navigation_drawer_open,R.string.navigation_drawer_close)
         drawer.addDrawerListener(toggle)
         toggle.syncState()
+        setSupportActionBar(toolbar);
         getSupportActionBar()!!.setDisplayHomeAsUpEnabled(true);
         queue = Volley.newRequestQueue(this)
         layoutLoading = findViewById(R.id.layout_loading)

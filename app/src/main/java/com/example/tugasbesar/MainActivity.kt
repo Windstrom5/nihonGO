@@ -77,9 +77,9 @@ class MainActivity : AppCompatActivity() {
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
         getSupportActionBar()?.hide();
-        val mediaPlayer = MediaPlayer.create(this@MainActivity,R.raw.bakamitai)
-        mediaPlayer.isLooping=true
-        mediaPlayer.start()
+//        val mediaPlayer = MediaPlayer.create(this@MainActivity,R.raw.bakamitai)
+//        mediaPlayer.isLooping=true
+//        mediaPlayer.start()
         setTitle("User Login")
         setRegister()
         forgetpass = binding.forgetpassword
@@ -94,6 +94,7 @@ class MainActivity : AppCompatActivity() {
         etUsername = binding.user
         etPassword = binding.pass
         forgetpass.setOnClickListener{
+//            mediaPlayer.stop()
             val intent = Intent(this,ForgetPassword::class.java)
             startActivity(intent)
         }
@@ -163,7 +164,7 @@ class MainActivity : AppCompatActivity() {
 //                    passworddb = ""
 //                }
 //            }
-            mediaPlayer.stop()
+//            mediaPlayer.stop()
             getAkun(user,pass)
 //            if (check == true){
 //                checkLogin=true
@@ -178,13 +179,13 @@ class MainActivity : AppCompatActivity() {
         })
         btnRegister = findViewById(R.id.registerText)
         btnRegister.setOnClickListener(){
-            mediaPlayer.stop()
+//            mediaPlayer.stop()
             val intent = Intent(this,RegisterView::class.java)
             startActivity(intent)
         }
         btnGuest = findViewById(R.id.textguest)
         btnGuest.setOnClickListener(){
-            mediaPlayer.stop()
+//            mediaPlayer.stop()
             val intent = Intent(this,kota::class.java)
             val mBundle = Bundle()
             mBundle.putString("username","guest")
@@ -280,11 +281,55 @@ class MainActivity : AppCompatActivity() {
 
     private fun getAkun(Username:String,Password:String){
         setLoading(true)
-        val StringRequest: StringRequest = object : StringRequest(Method.GET,AkunApi.GET_BY_USERNAME + Username + "/" + Password,
+        val StringRequest: StringRequest = object : StringRequest(Method.GET,AkunApi.GET_BY_USERNAME + Username + "/" + Password + "/" + "get",
             Response.Listener { response->
                 val gson = Gson()
-                val akun = gson.fromJson(response, Users::class.java)
-                Log.d("MainActivity","dbResponse: ${akun.username}")
+                val jsonObject = JSONObject(response)
+                val jsonArray = jsonObject.getJSONArray("data")
+                if(jsonArray.length()==0){
+                    usernameInput.setError("Akun belum Terdaftar")
+                }else{
+                    for (i in 0 until jsonArray.length()) {
+                        val akun = jsonArray.getJSONObject(i)
+                        val status = akun.getString("otp_status")
+                        if(status!= "done"){
+                            val intent = Intent(this,verificationActivity::class.java)
+                            val mBundle = Bundle()
+                            mBundle.putString("username",Username)
+                            mBundle.putString("password",Password)
+                            Log.d(akun.getString("email"),akun.getString("no_telp"))
+                            mBundle.putString("email",akun.getString("email"))
+                            mBundle.putString("notelp",akun.getString("no_telp"))
+                            mBundle.putString("tanggallahir",akun.getString("birth_date"))
+                            mBundle.putString("profilepic",akun.getString("photo_profile"))
+                            mBundle.putString("otp",akun.getString("otp_status"))
+                            intent.putExtra("profile",mBundle)
+                            startActivity(intent)
+                        }else{
+                            val userSave: String =
+                                usernameInput.getEditText()?.getText().toString().trim()
+                            val passSave: String =
+                                passwordInput.getEditText()?.getText().toString().trim()
+                            val editor: SharedPreferences.Editor =
+                                sharedPreferences!!.edit()
+                            editor.putString(userkey, userSave)
+                            editor.putString(passkey, passSave)
+                            editor.apply()
+                            Toast.makeText(
+                                this@MainActivity,
+                                "Berhasil Login",
+                                Toast.LENGTH_SHORT
+                            ).show()
+                            val intent = Intent(this,kota::class.java)
+                            val mBundle = Bundle()
+                            mBundle.putString("username",usernameInput.getEditText()?.getText().toString())
+                            mBundle.putString("password",passwordInput.getEditText()?.getText().toString())
+                            intent.putExtra("profile",mBundle)
+                            startActivity(intent)
+                        }
+                    }
+                }
+                setLoading(false)
 //                val usernameDatabase = akun.username
 //                val passwordDatabase = akun.password
 //                val emailDatabase = akun.email
@@ -300,38 +345,18 @@ class MainActivity : AppCompatActivity() {
 ////                    phonedb.toString(),tgldb.toString())
 //                Toast.makeText(this,"Data Berhasil Diambil!",Toast.LENGTH_SHORT).show()
 //                setLoading(false)
-                if(akun!=null){
-                    val userSave: String =
-                        usernameInput.getEditText()?.getText().toString().trim()
-                    val passSave: String =
-                        passwordInput.getEditText()?.getText().toString().trim()
-                    val editor: SharedPreferences.Editor =
-                        sharedPreferences!!.edit()
-                    editor.putString(userkey, userSave)
-                    editor.putString(passkey, passSave)
-                    editor.apply()
-                    Toast.makeText(
-                        this@MainActivity,
-                        "Berhasil Login",
-                        Toast.LENGTH_SHORT
-                    ).show()
-                    val intent = Intent(this,kota::class.java)
-                    val mBundle = Bundle()
-                    mBundle.putString("username",usernameInput.getEditText()?.getText().toString())
-                    mBundle.putString("password",passwordInput.getEditText()?.getText().toString())
-                    intent.putExtra("profile",mBundle)
-                    startActivity(intent)
-                    finish()
-
-                    setLoading(false)
-                }
+//                if(akun!=null){
+//
+//                    finish()
+//
+//                    setLoading(false)
+//                }
             }, Response.ErrorListener { error->
                 setLoading(false)
                 checkGet.postValue(false)
                 try{
                     val responseBody = String(error.networkResponse.data, StandardCharsets.UTF_8)
                     val errors = JSONObject(responseBody)
-                    usernameInput.setError("Akun belum Terdaftar")
                     Toast.makeText(
                         this@MainActivity,
                         "Akun Belum Terdaftar",

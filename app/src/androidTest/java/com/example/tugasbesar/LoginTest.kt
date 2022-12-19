@@ -4,6 +4,7 @@ package com.example.tugasbesar
 import android.view.View
 import android.view.ViewGroup
 import androidx.test.espresso.Espresso.onView
+import androidx.test.espresso.Espresso.pressBack
 import androidx.test.espresso.UiController
 import androidx.test.espresso.ViewAction
 import androidx.test.espresso.action.ViewActions.*
@@ -43,7 +44,7 @@ class LoginTest {
                         withId(android.R.id.content),
                         0
                     ),
-                    2
+                    3
                 ),
                 isDisplayed()
             )
@@ -51,7 +52,7 @@ class LoginTest {
         materialButton.perform(click())
         onView(isRoot()).perform(waitFor(3000))
 
-        val textInputEditText = onView(
+        val textInputEditText2 = onView(
             allOf(
                 withId(R.id.user),
                 childAtPosition(
@@ -64,7 +65,7 @@ class LoginTest {
                 isDisplayed()
             )
         )
-        textInputEditText.perform(replaceText("admin2"), closeSoftKeyboard())
+        textInputEditText2.perform(replaceText("admin2"), closeSoftKeyboard())
 
         val materialButton2 = onView(
             allOf(
@@ -74,7 +75,7 @@ class LoginTest {
                         withId(android.R.id.content),
                         0
                     ),
-                    2
+                    3
                 ),
                 isDisplayed()
             )
@@ -82,7 +83,7 @@ class LoginTest {
         materialButton2.perform(click())
         onView(isRoot()).perform(waitFor(3000))
 
-        val textInputEditText2 = onView(
+        val textInputEditText3 = onView(
             allOf(
                 withId(R.id.pass),
                 childAtPosition(
@@ -95,7 +96,8 @@ class LoginTest {
                 isDisplayed()
             )
         )
-        textInputEditText2.perform(replaceText("admin"), closeSoftKeyboard())
+        textInputEditText3.perform(replaceText("admin"), closeSoftKeyboard())
+
 
         val materialButton3 = onView(
             allOf(
@@ -105,7 +107,7 @@ class LoginTest {
                         withId(android.R.id.content),
                         0
                     ),
-                    2
+                    3
                 ),
                 isDisplayed()
             )
@@ -113,7 +115,7 @@ class LoginTest {
         materialButton3.perform(click())
         onView(isRoot()).perform(waitFor(3000))
 
-        val textInputEditText3 = onView(
+        val textInputEditText4 = onView(
             allOf(
                 withId(R.id.user), withText("admin2"),
                 childAtPosition(
@@ -126,7 +128,8 @@ class LoginTest {
                 isDisplayed()
             )
         )
-        textInputEditText3.perform(replaceText("admin"))
+        textInputEditText4.perform(replaceText("admin"))
+
 
         val materialButton4 = onView(
             allOf(
@@ -136,7 +139,7 @@ class LoginTest {
                         withId(android.R.id.content),
                         0
                     ),
-                    2
+                    3
                 ),
                 isDisplayed()
             )

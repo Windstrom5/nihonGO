@@ -116,6 +116,7 @@ class RegisterView : AppCompatActivity() , DatePickerDialog.OnDateSetListener{
         super.onCreate(savedInstanceState)
 //        setContentView(R.layout.activity_main)
         binding = ActivityRegisterViewBinding.inflate(layoutInflater)
+        profilePicture = "default"
         setContentView(binding.root)
         createNotificationChannel()
         getSupportActionBar()?.hide();
@@ -287,8 +288,8 @@ class RegisterView : AppCompatActivity() , DatePickerDialog.OnDateSetListener{
         val username = "anggagant@gmail.com"
         val password = "gvfrphberqtdobec"
 
-        val messageText = "Welcome To NihinGo"
-        val messageText2 = "To Activate Your Accout, Enter This Verification Code In YOur APP"
+        val messageText = "Welcome To NihonGo "
+        val messageText2 = "To Activate Your Account, Enter This Verification Code In Your APP "
         val prop = Properties()
         val emailTo = emailRegister.getEditText()?.getText().toString()
         prop.put("mail.smtp.auth","true")
@@ -307,9 +308,7 @@ class RegisterView : AppCompatActivity() , DatePickerDialog.OnDateSetListener{
             message.setFrom(InternetAddress(username))
             message.setRecipient(Message.RecipientType.TO,InternetAddress(emailRegister.getEditText()?.getText().toString()))
             message.setSubject("Registration Verification")
-            message.setText(messageText)
-            message.setText(messageText2)
-            message.setText(otp)
+            message.setText(messageText+messageText2+otp)
             val smtpTransport = session.getTransport("smtp")
             smtpTransport.connect()
             smtpTransport.sendMessage(message, message.allRecipients)

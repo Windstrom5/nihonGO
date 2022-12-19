@@ -269,7 +269,7 @@ class profile : AppCompatActivity() {
     private fun getAkun(Username:String,Password:String){
         setLoading(true)
         val StringRequest: StringRequest = object
-            : StringRequest(Method.GET, AkunApi.GET_BY_USERNAME + Username + "/" + Password,
+            : StringRequest(Method.GET, AkunApi.GET_BY_USERNAME + Username + "/" + Password + "/" + "get",
             Response.Listener { response->
                 val gson = Gson()
                 val jsonObject = JSONObject(response)

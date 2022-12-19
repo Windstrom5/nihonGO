@@ -2,6 +2,7 @@ package com.example.tugasbesar
 
 import android.content.Context
 import android.content.Intent
+import android.content.SharedPreferences
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.text.Editable
@@ -39,6 +40,10 @@ class verificationActivity : AppCompatActivity() {
     private lateinit var vtgl : String
     private lateinit var vprofile : String
     private lateinit var votp : String
+    var sharedPreferences: SharedPreferences? = null
+    private val myPreference = "myPref"
+    private val userkey = "userKey"
+    private val passkey = "passwordKey"
     private lateinit var mbunlde : Bundle
     private var queue: RequestQueue? = null
     private lateinit var binding:ActivityVerificationBinding
@@ -64,10 +69,11 @@ class verificationActivity : AppCompatActivity() {
 
             override fun onTextChanged(char: CharSequence, p1: Int, p2: Int, p3: Int) {
                 if(char.toString().length == 4){
+                    Log.d(vuser,vpassword)
                     getAkun(vuser,vpassword)
                     otpInput = char.toString()
                     if(otpInput != otpDb){
-                        Toast.makeText(this@verificationActivity,"WRONG OTP. PLS TRY AGAIN MTFCK",Toast.LENGTH_SHORT).show()
+                        Toast.makeText(this@verificationActivity,"WRONG OTP. PLS TRY AGAIN",Toast.LENGTH_SHORT).show()
                     }else{
                         verifiedAccount(vuser,vpassword,vemail,vphone,vtgl,vprofile)
                     }
@@ -98,8 +104,8 @@ class verificationActivity : AppCompatActivity() {
                 vemail = mbunlde.getString("email")!!
                 vphone= mbunlde.getString("notelp")!!
                 vtgl = mbunlde.getString("tanggallahir")!!
-                vprofile=mbunlde.getString("profilepic")!!
-                votp=mbunlde.getString("otp")!!
+                vprofile =mbunlde.getString("profilepic")!!
+                votp =mbunlde.getString("otp")!!
             }else{
 
             }
@@ -126,7 +132,14 @@ class verificationActivity : AppCompatActivity() {
                 val gson = Gson()
                 val akun = gson.fromJson(response, Users::class.java)
                 if(akun != null)
-                    Toast.makeText(this@verificationActivity,"Akun Verification Successfull", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(this@verificationActivity,"Account Verification Successfull", Toast.LENGTH_SHORT).show()
+                sharedPreferences = getSharedPreferences(myPreference,
+                    Context.MODE_PRIVATE)
+                val editor: SharedPreferences.Editor =
+                    sharedPreferences!!.edit()
+                editor.putString(userkey, username.trim())
+                editor.putString(passkey, pass.trim())
+                editor.apply()
                 val intent = Intent(this,MainActivity::class.java)
                 val mBundle = Bundle()
                 mBundle.putString("username",username)
@@ -167,6 +180,7 @@ class verificationActivity : AppCompatActivity() {
                 params.put("no_telp",phone)
                 params.put("birth_date",tgl)
                 params.put("photo_profile",profile)
+                params.put("otp_status","done")
                 return params
             }
 //            @Throws(AuthFailureError::class)
@@ -187,7 +201,7 @@ class verificationActivity : AppCompatActivity() {
         setLoading(true)
         val StringRequest: StringRequest = object
             : StringRequest(
-            Method.GET, AkunApi.GET_BY_USERNAME + Username + "/" + Password,
+            Method.GET, AkunApi.GET_BY_USERNAME + Username + "/" + Password + "/" + "get",
             Response.Listener { response->
                 val gson = Gson()
                 val jsonObject = JSONObject(response)
