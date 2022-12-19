@@ -5,6 +5,7 @@ import android.content.Intent
 import android.content.SharedPreferences
 import android.graphics.Color
 import android.media.MediaPlayer
+import android.os.BatteryManager
 import android.os.Bundle
 import android.util.Log
 import android.view.View
@@ -93,6 +94,9 @@ class MainActivity : AppCompatActivity() {
         setTextOpen()
         etUsername = binding.user
         etPassword = binding.pass
+        val bm = applicationContext.getSystemService(BATTERY_SERVICE) as BatteryManager
+        val batLevel:Int = bm.getIntProperty(BatteryManager.BATTERY_PROPERTY_CAPACITY)
+        Toast.makeText(applicationContext,"Battery is $batLevel%",Toast.LENGTH_LONG).show()
         forgetpass.setOnClickListener{
 //            mediaPlayer.stop()
             val intent = Intent(this,ForgetPassword::class.java)
