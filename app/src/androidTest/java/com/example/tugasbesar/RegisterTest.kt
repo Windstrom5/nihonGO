@@ -130,7 +130,6 @@ class RegisterTest {
         )
         textInputEditText4.perform(replaceText("admin"), closeSoftKeyboard())
 
-        pressBack()
 
         val materialButton3 = onView(
             allOf(
@@ -163,8 +162,6 @@ class RegisterTest {
         )
         textInputEditText5.perform(replaceText("123"), closeSoftKeyboard())
 
-        pressBack()
-
         val materialButton4 = onView(
             allOf(
                 withId(R.id.regisButton), withText("Register Now"),
@@ -195,8 +192,6 @@ class RegisterTest {
             )
         )
         textInputEditText6.perform(replaceText("345"), closeSoftKeyboard())
-
-        pressBack()
 
         val materialButton5 = onView(
             allOf(
@@ -309,35 +304,20 @@ class RegisterTest {
         materialButton8.perform(click())
             onView(isRoot()).perform(waitFor(3000))
 
-        val checkableImageButton = onView(
+        val textInputEditText20 = onView(
             allOf(
-                withId(com.google.android.material.R.id.text_input_start_icon),
+                withId(R.id.tgl),
                 childAtPosition(
                     childAtPosition(
-                        withClassName(`is`("android.widget.FrameLayout")),
-                        1
+                        withId(R.id.tglRegis),
+                        0
                     ),
                     0
                 ),
                 isDisplayed()
             )
         )
-        checkableImageButton.perform(click())
-
-        val materialButton9 = onView(
-            allOf(
-                withId(android.R.id.button1), withText("OK"),
-                childAtPosition(
-                    childAtPosition(
-                        withClassName(`is`("android.widget.ScrollView")),
-                        0
-                    ),
-                    3
-                )
-            )
-        )
-        materialButton9.perform(scrollTo(), click())
-            onView(isRoot()).perform(waitFor(3000))
+        textInputEditText20.perform(replaceText("17, Dec, 2022"))
 
         val materialButton10 = onView(
             allOf(
